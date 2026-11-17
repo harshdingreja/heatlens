@@ -120,7 +120,7 @@ function DayDetails({ day }) {
       </p>
       <dl className="mt-1.5 hidden space-y-0.5 text-xs text-white/75 sm:block">
         <div className="flex justify-between gap-2">
-          <dt>WBGT (shade)</dt>
+          <dt>WBGT (est.)</dt>
           <dd className="tabular text-white">{fmtTemp(day.wbgt_c)}</dd>
         </div>
         <div className="flex justify-between gap-2">

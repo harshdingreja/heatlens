@@ -1,0 +1,18 @@
+# Render "Blueprint": tells Render how to build and run the API.
+# Docs checked 18 Nov 2026: https://render.com/docs/blueprint-spec
+# Python version comes from the .python-version file in the repo root (3.13).
+services:
+  - type: web
+    name: heatshield-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-api.txt && pip install .
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: GROQ_API_KEY        # secrets: Render asks you for these once, they never go in git
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS     # your Vercel URL, e.g. https://heatshield.vercel.app
+        sync: false
