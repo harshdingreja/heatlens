@@ -60,6 +60,28 @@ python scripts/make_results.py
 
 ---
 
+## 1b. Deploy (free): what YOU need to click
+
+The code is already on GitHub (public repo `heatshield`) with all config files (`render.yaml`, `web/vercel.json`).
+
+**Step 1: API on Render (~10 min)**
+1. Go to https://render.com and click **Get Started**. Sign up with **GitHub** (you, not Claude).
+2. Click **New +** → **Blueprint** → pick the `heatshield` repo → **Connect**. Render reads `render.yaml` by itself.
+3. It asks for 3 values. Paste your `GROQ_API_KEY` and `GEMINI_API_KEY` (or leave them empty; templates will be used). Leave `ALLOWED_ORIGINS` empty: any `*.vercel.app` site is already allowed.
+4. Click **Apply** and wait for the build (5–10 min). Copy the URL, e.g. `https://heatshield-api.onrender.com`.
+5. Open `<that URL>/health`. You should see `"status": "ok"`.
+
+**Step 2: Dashboard on Vercel (~5 min)**
+1. Go to https://vercel.com and sign up with **GitHub**.
+2. **Add New…** → **Project** → import `heatshield`.
+3. Set **Root Directory** to `web` (click Edit). The framework is detected as Vite.
+4. Under **Environment Variables** add `VITE_API_URL` = your Render URL (no trailing `/`).
+5. Click **Deploy**. Copy the `https://….vercel.app` link into the top of `README.md` as the live demo link.
+
+**Before presenting:** Render's free server sleeps after ~15 minutes idle, and the first request then takes about a minute. Open the dashboard 2 minutes before you present so it's awake.
+
+---
+
 ## 2. Two-minute talk script
 
 > **(Problem, 20 s)** Heat warnings in India mostly look at temperature. But Mumbai is humid. At 34 °C and 70 % humidity, sweat can't evaporate, and the body feels about 47 °C. This is SIH 2026 problem SIH26083 from the Ministry of Earth Sciences: an early warning based on how heat *feels*, not just the thermometer.
