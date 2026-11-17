@@ -1,0 +1,24 @@
+{
+  "_note": "SAMPLE DATA for UI development only. The real API writes these with an LLM.",
+  "en": {
+    "lang": "en",
+    "text": "Sample advisory. Heat stress is high on 19 November (heat index 41.3 °C, Danger). Do outdoor work before 11 am or after 4 pm. Drink water every 20 minutes even if you are not thirsty. Check on elderly neighbours and people living alone, especially in wards K/E, L and M/E.",
+    "provider": "template",
+    "model": null,
+    "inputs_used": { "date": "2026-11-19", "alert_level": "danger", "heat_index_c": 41.3, "top_wards": ["K/E", "L", "M/E"] }
+  },
+  "mr": {
+    "lang": "mr",
+    "text": "नमुना सूचना. १९ नोव्हेंबर रोजी उष्णतेचा ताण जास्त आहे (उष्णता निर्देशांक 41.3 °C, धोका). बाहेरची कामे सकाळी 11 पूर्वी किंवा दुपारी 4 नंतर करा. तहान लागली नसली तरी दर 20 मिनिटांनी पाणी प्या. वृद्ध शेजारी आणि एकटे राहणाऱ्या लोकांची चौकशी करा, विशेषतः K/E, L आणि M/E वॉर्डमध्ये.",
+    "provider": "template",
+    "model": null,
+    "inputs_used": { "date": "2026-11-19", "alert_level": "danger", "heat_index_c": 41.3, "top_wards": ["K/E", "L", "M/E"] }
+  },
+  "hi": {
+    "lang": "hi",
+    "text": "नमूना सलाह. 19 नवंबर को गर्मी का तनाव अधिक है (हीट इंडेक्स 41.3 °C, खतरा). बाहर का काम सुबह 11 बजे से पहले या शाम 4 बजे के बाद करें. प्यास न लगे तब भी हर 20 मिनट में पानी पिएं. बुज़ुर्ग पड़ोसियों और अकेले रहने वाले लोगों का हाल पूछें, खासकर K/E, L और M/E वार्ड में.",
+    "provider": "template",
+    "model": null,
+    "inputs_used": { "date": "2026-11-19", "alert_level": "danger", "heat_index_c": 41.3, "top_wards": ["K/E", "L", "M/E"] }
+  }
+}

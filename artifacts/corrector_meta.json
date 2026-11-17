@@ -1,0 +1,46 @@
+{
+  "primary_raw_model": "icon_global",
+  "final_method": "linear_plus_lightgbm",
+  "features": [
+    "lead_days",
+    "doy_sin",
+    "doy_cos",
+    "normal_hi",
+    "obs_hi_last",
+    "obs_hi_7d",
+    "recent_bias_7d",
+    "ens_hi_mean",
+    "ens_hi_std",
+    "gfs_seamless_hi_max",
+    "gfs_seamless_tmax",
+    "gfs_seamless_rh_at_tmax",
+    "gfs_seamless_wind_mean",
+    "gfs_seamless_sw_max",
+    "icon_global_hi_max",
+    "icon_global_tmax",
+    "icon_global_rh_at_tmax",
+    "icon_global_wind_mean",
+    "icon_global_sw_max",
+    "ecmwf_ifs025_hi_max",
+    "ecmwf_ifs025_tmax",
+    "ecmwf_ifs025_rh_at_tmax",
+    "ecmwf_ifs025_wind_mean",
+    "ecmwf_ifs025_sw_max",
+    "jma_gsm_hi_max",
+    "jma_gsm_tmax",
+    "jma_gsm_rh_at_tmax",
+    "jma_gsm_wind_mean"
+  ],
+  "models": [
+    "gfs_seamless",
+    "icon_global",
+    "ecmwf_ifs025",
+    "jma_gsm"
+  ],
+  "train_period": [
+    "2024-01-24",
+    "2025-12-31"
+  ],
+  "target": "observed daily max heat index (\u00b0C) at Santacruz, GHCNh",
+  "prediction": "raw_hi + predicted residual"
+}

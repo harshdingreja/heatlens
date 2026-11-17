@@ -1,0 +1,16 @@
+{
+  "_note": "SAMPLE DATA for UI development only. Not a real estimate.",
+  "disclaimer": "Evidence-based estimate, not a clinical prediction.",
+  "citation": "Impact of heatwaves on all-cause mortality in India: A comprehensive multi-city study. Environment International 184 (2024) 108461.",
+  "baseline_daily_deaths": 250.0,
+  "baseline_source": "Sample value. The real API cites the official Mumbai registered-deaths source.",
+  "heatwave_definition": "Sample: 2 or more consecutive days above the 97th percentile of daily mean temperature.",
+  "days": [
+    { "date": "2026-11-18", "heatwave": false, "relative_risk": null, "rr_ci": null, "extra_deaths": 0.0, "extra_deaths_ci": [0.0, 0.0] },
+    { "date": "2026-11-19", "heatwave": true, "relative_risk": 1.147, "rr_ci": [1.103, 1.193], "extra_deaths": 36.8, "extra_deaths_ci": [25.8, 48.3] },
+    { "date": "2026-11-20", "heatwave": true, "relative_risk": 1.147, "rr_ci": [1.103, 1.193], "extra_deaths": 36.8, "extra_deaths_ci": [25.8, 48.3] },
+    { "date": "2026-11-21", "heatwave": false, "relative_risk": null, "rr_ci": null, "extra_deaths": 0.0, "extra_deaths_ci": [0.0, 0.0] },
+    { "date": "2026-11-22", "heatwave": false, "relative_risk": null, "rr_ci": null, "extra_deaths": 0.0, "extra_deaths_ci": [0.0, 0.0] }
+  ],
+  "state_model_check": { "summary": "Sample text: the state-level Poisson model is used only as a sanity check on this estimate." }
+}

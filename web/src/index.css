@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/*
+  Design tokens. The page is deliberately cool and calm (haze grey + deep
+  Arabian-Sea blue) so that the heat colours are the only warm things on screen.
+  Tailwind v4 turns each --color-* below into classes like bg-ink, text-heat-red.
+*/
+@theme {
+  --font-sans: "Mukta", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-deva: "Noto Sans Devanagari", "Mukta", sans-serif;
+
+  --color-haze: #e8edef;      /* page background: Mumbai's hazy pre-monsoon sky */
+  --color-surface: #ffffff;   /* panels */
+  --color-ink: #0e2a3b;       /* main text: deep sea */
+  --color-ink-soft: #4a6070;  /* secondary text */
+  --color-line: #c9d4da;      /* borders and dividers */
+  --color-sea: #1d5e86;       /* links, buttons, focus */
+
+  /* NOAA alert colours (green / yellow / orange / red) */
+  --color-heat-green: #3e8e5e;
+  --color-heat-yellow: #e3b023;
+  --color-heat-orange: #e06c1f;
+  --color-heat-red: #b8232e;
+
+  /* Ward risk ramp for the map */
+  --color-risk-low: #f4e4bd;
+  --color-risk-moderate: #efb565;
+  --color-risk-high: #dc6a2a;
+  --color-risk-very-high: #9e1f2a;
+}
+
+html {
+  background: var(--color-haze);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+/* Marathi and Hindi text uses Noto Sans Devanagari with a little more line height */
+:lang(mr),
+:lang(hi) {
+  font-family: var(--font-deva);
+  line-height: 1.75;
+}
+
+/* Numbers line up in columns */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--color-sea);
+  outline-offset: 2px;
+}
+
+/* Leaflet: keep the map under sticky UI and match our font */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #dfe6e9;
+  z-index: 0;
+}
+/* Grey, slightly faded base map: streets for orientation, colour reserved for risk */
+.leaflet-tile-pane {
+  filter: grayscale(1) contrast(0.85) brightness(1.08);
+}
+.leaflet-tooltip.ward-tooltip {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-ink);
+  border-color: var(--color-line);
+  box-shadow: none;
+}
+
+/* The one orchestrated motion: the heat ribbon fills rise on load */
+@keyframes rise {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.ribbon-fill {
+  transform-origin: bottom;
+  animation: rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-fill {
+    animation: none;
+  }
+}

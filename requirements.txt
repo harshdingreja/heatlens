@@ -1,0 +1,19 @@
+# Exact versions installed and tested on Python 3.13 (17 Nov 2026).
+# Install with:  pip install -r requirements.txt && pip install -e .
+
+# Data handling
+pandas==3.1.1
+numpy==2.5.5
+pyarrow==26.0.1          # lets pandas read/write .parquet files
+
+# Downloading data
+requests==2.34.2         # HTTP calls to Open-Meteo
+meteostat==2.2.3         # weather-station observations
+certifi==2026.10.23      # up-to-date HTTPS certificates (fixes SSL errors on macOS)
+
+# Plots + notebooks
+matplotlib==3.11.2
+jupyterlab==4.6.6
+ipykernel==7.4.0
+nbconvert==7.17.2
+nbformat==5.11.1
