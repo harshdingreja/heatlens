@@ -86,7 +86,9 @@ def live_forecast_daily(a: Artifacts) -> pd.DataFrame:
         part.columns = ["time"] + WEATHER_VARS
         part["model"] = m
         parts.append(part)
-    hourly = pd.concat(parts).dropna(subset=["temperature_2m", "relative_humidity_2m"])
+    # ignore_index: each model part starts at row 0; duplicate row labels would make
+    # the "hottest hour" lookup return one row per model instead of one.
+    hourly = pd.concat(parts, ignore_index=True).dropna(subset=["temperature_2m", "relative_humidity_2m"])
     daily = daily_max_with_rh(hourly, ["model"], t="temperature_2m", rh="relative_humidity_2m")
     extra = hourly.assign(date=hourly["time"].dt.normalize()).groupby(["model", "date"]).agg(
         n_hours=("time", "size"), wind_mean=("wind_speed_10m", "mean"), sw_max=("shortwave_radiation", "max"))
