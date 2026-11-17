@@ -76,3 +76,9 @@ Response:
 {"lang": "mr", "text": "…", "provider": "groq", "model": "…", "inputs_used": {"date": "…", "alert_level": "…", "heat_index_c": 39.1, "top_wards": ["…"]}}
 ```
 `provider` is `groq`, `gemini`, or `template` (used when no API key works; the response says so).
+
+## GET /model
+Everything the "Model performance" page shows, read from saved results in `artifacts/` (nothing is computed live):
+`corrector` (test metrics per lead and method, alert precision/recall/F1, confusion matrices, SHAP top features, 2026 backtest rows),
+`anomalies` (2026 series with z-score and IsolationForest flags, agreement stats), `wards` (k-means scan, PCA weights, MCAP correlations),
+`health` (Layer 1 effect + CI, Layer 2 Poisson/Negative Binomial table).

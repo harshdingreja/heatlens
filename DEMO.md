@@ -140,7 +140,7 @@ RMSE squares the misses first, so big misses count more.
 | `models/state_health.py` | Layer 2: Poisson regression of state heat deaths on heat-stress days. |
 | `llm/advisory.py` | Groq → Gemini → template. Strict prompt and a validator that rejects any number not in the inputs. |
 | `service.py` | Live pipeline for the API, with a 30-minute cache. |
-| `api/main.py` | FastAPI: `/health`, `/forecast`, `/wards`, `/risk`, `/advisory`. Pydantic schemas, CORS. |
+| `api/main.py` | FastAPI: `/health`, `/forecast`, `/wards`, `/risk`, `/model`, `/advisory`. Pydantic schemas, CORS. |
 | `web/` | React + Vite + Tailwind dashboard, react-leaflet map, recharts chart. |
 
 ---
