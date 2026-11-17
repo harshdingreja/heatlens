@@ -1,0 +1,951 @@
+{
+ "definition": "Daily mean temperature above Mumbai's 97th percentile for at least 2 consecutive days",
+ "p97_tmean_c": 31.66,
+ "effect": {
+  "pct_increase": 3.4,
+  "ci": [
+   0.8,
+   6.1
+  ]
+ },
+ "baseline_daily_deaths": 255.49,
+ "note": "Extra deaths are an evidence-based estimate (paper relative risk x MCGM baseline), not counted deaths.",
+ "episodes": [
+  {
+   "start": "2021-03-25",
+   "end": "2021-03-27",
+   "days": 3,
+   "max_tmean_c": 32.9,
+   "max_tmax_c": 41.0,
+   "max_heat_index_c": 39.3,
+   "extra_deaths_est": 26,
+   "extra_deaths_ci": [
+    6,
+    47
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2021-05-15",
+   "end": "2021-05-16",
+   "days": 2,
+   "max_tmean_c": 33.0,
+   "max_tmax_c": 37.2,
+   "max_heat_index_c": 45.3,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2022-03-14",
+   "end": "2022-03-17",
+   "days": 4,
+   "max_tmean_c": 32.4,
+   "max_tmax_c": 39.2,
+   "max_heat_index_c": 39.4,
+   "extra_deaths_est": 35,
+   "extra_deaths_ci": [
+    8,
+    62
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2022-04-21",
+   "end": "2022-04-23",
+   "days": 3,
+   "max_tmean_c": 33.2,
+   "max_tmax_c": 38.6,
+   "max_heat_index_c": 45.6,
+   "extra_deaths_est": 26,
+   "extra_deaths_ci": [
+    6,
+    47
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2022-04-27",
+   "end": "2022-04-28",
+   "days": 2,
+   "max_tmean_c": 32.7,
+   "max_tmax_c": 37.0,
+   "max_heat_index_c": 46.0,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2023-04-18",
+   "end": "2023-04-19",
+   "days": 2,
+   "max_tmean_c": 33.3,
+   "max_tmax_c": 39.0,
+   "max_heat_index_c": 43.0,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2023-06-03",
+   "end": "2023-06-04",
+   "days": 2,
+   "max_tmean_c": 31.9,
+   "max_tmax_c": 34.5,
+   "max_heat_index_c": 44.8,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2023-06-07",
+   "end": "2023-06-11",
+   "days": 5,
+   "max_tmean_c": 32.9,
+   "max_tmax_c": 38.2,
+   "max_heat_index_c": 44.6,
+   "extra_deaths_est": 43,
+   "extra_deaths_ci": [
+    10,
+    78
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2024-04-15",
+   "end": "2024-04-16",
+   "days": 2,
+   "max_tmean_c": 34.2,
+   "max_tmax_c": 38.0,
+   "max_heat_index_c": 45.9,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2024-04-27",
+   "end": "2024-04-30",
+   "days": 4,
+   "max_tmean_c": 34.3,
+   "max_tmax_c": 39.0,
+   "max_heat_index_c": 46.9,
+   "extra_deaths_est": 35,
+   "extra_deaths_ci": [
+    8,
+    62
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2024-05-15",
+   "end": "2024-05-24",
+   "days": 10,
+   "max_tmean_c": 32.4,
+   "max_tmax_c": 37.0,
+   "max_heat_index_c": 49.4,
+   "extra_deaths_est": 87,
+   "extra_deaths_ci": [
+    20,
+    156
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2024-05-30",
+   "end": "2024-06-08",
+   "days": 10,
+   "max_tmean_c": 32.4,
+   "max_tmax_c": 36.0,
+   "max_heat_index_c": 46.6,
+   "extra_deaths_est": 87,
+   "extra_deaths_ci": [
+    20,
+    156
+   ],
+   "in_test_period": false
+  },
+  {
+   "start": "2026-03-04",
+   "end": "2026-03-05",
+   "days": 2,
+   "max_tmean_c": 31.7,
+   "max_tmax_c": 38.0,
+   "max_heat_index_c": 37.6,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 5.5,
+     "mae_heatshield": 0.2,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    },
+    "3": {
+     "mae_raw": 5.04,
+     "mae_heatshield": 0.39,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    },
+    "5": {
+     "mae_raw": 5.53,
+     "mae_heatshield": 0.64,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-03-04",
+     "observed": 37.63,
+     "raw": 31.54,
+     "corrected": 37.64
+    },
+    {
+     "date": "2026-03-05",
+     "observed": 36.99,
+     "raw": 32.08,
+     "corrected": 37.38
+    }
+   ]
+  },
+  {
+   "start": "2026-03-09",
+   "end": "2026-03-10",
+   "days": 2,
+   "max_tmean_c": 32.3,
+   "max_tmax_c": 39.0,
+   "max_heat_index_c": 38.8,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 6.29,
+     "mae_heatshield": 0.98,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    },
+    "3": {
+     "mae_raw": 6.18,
+     "mae_heatshield": 0.63,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    },
+    "5": {
+     "mae_raw": 7.19,
+     "mae_heatshield": 1.42,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-03-09",
+     "observed": 38.8,
+     "raw": 32.62,
+     "corrected": 38.22
+    },
+    {
+     "date": "2026-03-10",
+     "observed": 38.83,
+     "raw": 32.44,
+     "corrected": 37.45
+    }
+   ]
+  },
+  {
+   "start": "2026-04-23",
+   "end": "2026-04-25",
+   "days": 3,
+   "max_tmean_c": 32.3,
+   "max_tmax_c": 36.0,
+   "max_heat_index_c": 45.1,
+   "extra_deaths_est": 26,
+   "extra_deaths_ci": [
+    6,
+    47
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 7.01,
+     "mae_heatshield": 0.85,
+     "danger_days": 3,
+     "caught_raw": 0,
+     "caught_heatshield": 3
+    },
+    "3": {
+     "mae_raw": 7.78,
+     "mae_heatshield": 0.53,
+     "danger_days": 3,
+     "caught_raw": 0,
+     "caught_heatshield": 3
+    },
+    "5": {
+     "mae_raw": 7.3,
+     "mae_heatshield": 1.5,
+     "danger_days": 3,
+     "caught_raw": 0,
+     "caught_heatshield": 3
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-04-23",
+     "observed": 43.19,
+     "raw": 36.17,
+     "corrected": 41.97
+    },
+    {
+     "date": "2026-04-24",
+     "observed": 43.47,
+     "raw": 37.71,
+     "corrected": 44.42
+    },
+    {
+     "date": "2026-04-25",
+     "observed": 45.05,
+     "raw": 36.79,
+     "corrected": 45.43
+    }
+   ]
+  },
+  {
+   "start": "2026-05-08",
+   "end": "2026-05-12",
+   "days": 5,
+   "max_tmean_c": 32.5,
+   "max_tmax_c": 36.0,
+   "max_heat_index_c": 46.5,
+   "extra_deaths_est": 43,
+   "extra_deaths_ci": [
+    10,
+    78
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 6.39,
+     "mae_heatshield": 1.33,
+     "danger_days": 5,
+     "caught_raw": 1,
+     "caught_heatshield": 5
+    },
+    "3": {
+     "mae_raw": 5.51,
+     "mae_heatshield": 1.72,
+     "danger_days": 5,
+     "caught_raw": 2,
+     "caught_heatshield": 5
+    },
+    "5": {
+     "mae_raw": 5.95,
+     "mae_heatshield": 1.34,
+     "danger_days": 5,
+     "caught_raw": 1,
+     "caught_heatshield": 5
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-05-08",
+     "observed": 43.47,
+     "raw": 37.03,
+     "corrected": 43.73
+    },
+    {
+     "date": "2026-05-09",
+     "observed": 46.54,
+     "raw": 37.61,
+     "corrected": 44.06
+    },
+    {
+     "date": "2026-05-10",
+     "observed": 45.05,
+     "raw": 38.29,
+     "corrected": 44.8
+    },
+    {
+     "date": "2026-05-11",
+     "observed": 46.02,
+     "raw": 39.5,
+     "corrected": 45.46
+    },
+    {
+     "date": "2026-05-12",
+     "observed": 42.21,
+     "raw": 38.91,
+     "corrected": 45.33
+    }
+   ]
+  },
+  {
+   "start": "2026-05-22",
+   "end": "2026-06-02",
+   "days": 12,
+   "max_tmean_c": 32.4,
+   "max_tmax_c": 36.0,
+   "max_heat_index_c": 45.3,
+   "extra_deaths_est": 104,
+   "extra_deaths_ci": [
+    25,
+    187
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 1.47,
+     "mae_heatshield": 1.06,
+     "danger_days": 12,
+     "caught_raw": 12,
+     "caught_heatshield": 12
+    },
+    "3": {
+     "mae_raw": 2.05,
+     "mae_heatshield": 1.19,
+     "danger_days": 12,
+     "caught_raw": 11,
+     "caught_heatshield": 12
+    },
+    "5": {
+     "mae_raw": 2.65,
+     "mae_heatshield": 1.04,
+     "danger_days": 12,
+     "caught_raw": 9,
+     "caught_heatshield": 12
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-05-22",
+     "observed": 43.47,
+     "raw": 41.22,
+     "corrected": 44.02
+    },
+    {
+     "date": "2026-05-23",
+     "observed": 43.47,
+     "raw": 41.49,
+     "corrected": 44.37
+    },
+    {
+     "date": "2026-05-24",
+     "observed": 43.9,
+     "raw": 42.17,
+     "corrected": 44.38
+    },
+    {
+     "date": "2026-05-25",
+     "observed": 45.31,
+     "raw": 43.18,
+     "corrected": 45.21
+    },
+    {
+     "date": "2026-05-26",
+     "observed": 43.47,
+     "raw": 41.74,
+     "corrected": 44.36
+    },
+    {
+     "date": "2026-05-27",
+     "observed": 43.19,
+     "raw": 40.96,
+     "corrected": 44.09
+    },
+    {
+     "date": "2026-05-28",
+     "observed": 43.19,
+     "raw": 42.32,
+     "corrected": 43.88
+    },
+    {
+     "date": "2026-05-29",
+     "observed": 41.76,
+     "raw": 40.56,
+     "corrected": 43.56
+    },
+    {
+     "date": "2026-05-30",
+     "observed": 43.19,
+     "raw": 42.45,
+     "corrected": 44.81
+    },
+    {
+     "date": "2026-05-31",
+     "observed": 42.21,
+     "raw": 42.17,
+     "corrected": 44.17
+    },
+    {
+     "date": "2026-06-01",
+     "observed": 41.76,
+     "raw": 42.02,
+     "corrected": 44.15
+    },
+    {
+     "date": "2026-06-02",
+     "observed": 43.14,
+     "raw": 40.7,
+     "corrected": 43.54
+    }
+   ]
+  },
+  {
+   "start": "2026-06-04",
+   "end": "2026-06-19",
+   "days": 16,
+   "max_tmean_c": 32.6,
+   "max_tmax_c": 35.0,
+   "max_heat_index_c": 45.3,
+   "extra_deaths_est": 139,
+   "extra_deaths_ci": [
+    33,
+    249
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 2.15,
+     "mae_heatshield": 1.4,
+     "danger_days": 16,
+     "caught_raw": 14,
+     "caught_heatshield": 16
+    },
+    "3": {
+     "mae_raw": 1.95,
+     "mae_heatshield": 1.35,
+     "danger_days": 16,
+     "caught_raw": 14,
+     "caught_heatshield": 16
+    },
+    "5": {
+     "mae_raw": 1.77,
+     "mae_heatshield": 1.62,
+     "danger_days": 16,
+     "caught_raw": 15,
+     "caught_heatshield": 16
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-06-04",
+     "observed": 45.31,
+     "raw": 41.58,
+     "corrected": 43.88
+    },
+    {
+     "date": "2026-06-05",
+     "observed": 45.05,
+     "raw": 42.69,
+     "corrected": 45.55
+    },
+    {
+     "date": "2026-06-06",
+     "observed": 45.05,
+     "raw": 42.46,
+     "corrected": 45.96
+    },
+    {
+     "date": "2026-06-07",
+     "observed": 45.05,
+     "raw": 42.62,
+     "corrected": 45.54
+    },
+    {
+     "date": "2026-06-08",
+     "observed": 43.9,
+     "raw": 40.46,
+     "corrected": 44.64
+    },
+    {
+     "date": "2026-06-09",
+     "observed": 43.47,
+     "raw": 40.65,
+     "corrected": 44.53
+    },
+    {
+     "date": "2026-06-10",
+     "observed": 43.47,
+     "raw": 41.86,
+     "corrected": 45.28
+    },
+    {
+     "date": "2026-06-11",
+     "observed": 41.76,
+     "raw": 42.46,
+     "corrected": 44.86
+    },
+    {
+     "date": "2026-06-12",
+     "observed": 43.47,
+     "raw": 42.6,
+     "corrected": 45.71
+    },
+    {
+     "date": "2026-06-13",
+     "observed": 43.47,
+     "raw": 40.94,
+     "corrected": 44.65
+    },
+    {
+     "date": "2026-06-14",
+     "observed": 41.76,
+     "raw": 39.82,
+     "corrected": 43.63
+    },
+    {
+     "date": "2026-06-15",
+     "observed": 41.76,
+     "raw": 40.57,
+     "corrected": 43.3
+    },
+    {
+     "date": "2026-06-16",
+     "observed": 41.76,
+     "raw": 40.56,
+     "corrected": 43.47
+    },
+    {
+     "date": "2026-06-17",
+     "observed": 43.19,
+     "raw": 39.69,
+     "corrected": 42.26
+    },
+    {
+     "date": "2026-06-18",
+     "observed": 40.63,
+     "raw": 39.26,
+     "corrected": 42.16
+    },
+    {
+     "date": "2026-06-19",
+     "observed": 40.56,
+     "raw": 38.47,
+     "corrected": 41.99
+    }
+   ]
+  },
+  {
+   "start": "2026-10-02",
+   "end": "2026-10-03",
+   "days": 2,
+   "max_tmean_c": 32.7,
+   "max_tmax_c": 37.0,
+   "max_heat_index_c": 41.8,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 0.47,
+     "mae_heatshield": 1.61,
+     "danger_days": 1,
+     "caught_raw": 1,
+     "caught_heatshield": 1
+    },
+    "3": {
+     "mae_raw": 0.91,
+     "mae_heatshield": 2.14,
+     "danger_days": 1,
+     "caught_raw": 1,
+     "caught_heatshield": 1
+    },
+    "5": {
+     "mae_raw": 0.58,
+     "mae_heatshield": 2.87,
+     "danger_days": 1,
+     "caught_raw": 1,
+     "caught_heatshield": 1
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-10-02",
+     "observed": 41.83,
+     "raw": 42.65,
+     "corrected": 43.24
+    },
+    {
+     "date": "2026-10-03",
+     "observed": 39.16,
+     "raw": 39.03,
+     "corrected": 40.97
+    }
+   ]
+  },
+  {
+   "start": "2026-10-08",
+   "end": "2026-10-17",
+   "days": 10,
+   "max_tmean_c": 33.5,
+   "max_tmax_c": 38.0,
+   "max_heat_index_c": 43.9,
+   "extra_deaths_est": 87,
+   "extra_deaths_ci": [
+    20,
+    156
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 1.67,
+     "mae_heatshield": 1.32,
+     "danger_days": 7,
+     "caught_raw": 5,
+     "caught_heatshield": 7
+    },
+    "3": {
+     "mae_raw": 1.05,
+     "mae_heatshield": 1.63,
+     "danger_days": 7,
+     "caught_raw": 7,
+     "caught_heatshield": 7
+    },
+    "5": {
+     "mae_raw": 1.08,
+     "mae_heatshield": 1.62,
+     "danger_days": 7,
+     "caught_raw": 4,
+     "caught_heatshield": 7
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-10-08",
+     "observed": 41.21,
+     "raw": 43.3,
+     "corrected": 42.67
+    },
+    {
+     "date": "2026-10-09",
+     "observed": 40.06,
+     "raw": 42.56,
+     "corrected": 42.48
+    },
+    {
+     "date": "2026-10-10",
+     "observed": 40.68,
+     "raw": 40.21,
+     "corrected": 42.05
+    },
+    {
+     "date": "2026-10-11",
+     "observed": 39.79,
+     "raw": 40.6,
+     "corrected": 41.06
+    },
+    {
+     "date": "2026-10-12",
+     "observed": 40.06,
+     "raw": 39.34,
+     "corrected": 40.71
+    },
+    {
+     "date": "2026-10-13",
+     "observed": 41.21,
+     "raw": 39.81,
+     "corrected": 40.25
+    },
+    {
+     "date": "2026-10-14",
+     "observed": 39.11,
+     "raw": 38.85,
+     "corrected": 39.94
+    },
+    {
+     "date": "2026-10-15",
+     "observed": 39.11,
+     "raw": 38.38,
+     "corrected": 39.49
+    },
+    {
+     "date": "2026-10-16",
+     "observed": 39.17,
+     "raw": 41.85,
+     "corrected": 41.22
+    },
+    {
+     "date": "2026-10-17",
+     "observed": 43.9,
+     "raw": 38.86,
+     "corrected": 42.07
+    }
+   ]
+  },
+  {
+   "start": "2026-10-19",
+   "end": "2026-10-27",
+   "days": 9,
+   "max_tmean_c": 32.6,
+   "max_tmax_c": 37.0,
+   "max_heat_index_c": 43.5,
+   "extra_deaths_est": 78,
+   "extra_deaths_ci": [
+    18,
+    140
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 1.25,
+     "mae_heatshield": 0.92,
+     "danger_days": 6,
+     "caught_raw": 4,
+     "caught_heatshield": 6
+    },
+    "3": {
+     "mae_raw": 0.98,
+     "mae_heatshield": 1.13,
+     "danger_days": 6,
+     "caught_raw": 5,
+     "caught_heatshield": 6
+    },
+    "5": {
+     "mae_raw": 1.05,
+     "mae_heatshield": 1.27,
+     "danger_days": 6,
+     "caught_raw": 6,
+     "caught_heatshield": 6
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-10-19",
+     "observed": 43.19,
+     "raw": 40.43,
+     "corrected": 42.68
+    },
+    {
+     "date": "2026-10-20",
+     "observed": 43.47,
+     "raw": 41.35,
+     "corrected": 42.6
+    },
+    {
+     "date": "2026-10-21",
+     "observed": 40.62,
+     "raw": 39.91,
+     "corrected": 41.59
+    },
+    {
+     "date": "2026-10-22",
+     "observed": 39.86,
+     "raw": 39.55,
+     "corrected": 41.0
+    },
+    {
+     "date": "2026-10-23",
+     "observed": 39.86,
+     "raw": 39.04,
+     "corrected": 41.11
+    },
+    {
+     "date": "2026-10-24",
+     "observed": 41.76,
+     "raw": 39.26,
+     "corrected": 42.11
+    },
+    {
+     "date": "2026-10-25",
+     "observed": 38.8,
+     "raw": 38.16,
+     "corrected": 40.54
+    },
+    {
+     "date": "2026-10-26",
+     "observed": 37.83,
+     "raw": 36.63,
+     "corrected": 38.48
+    },
+    {
+     "date": "2026-10-27",
+     "observed": 36.21,
+     "raw": 36.4,
+     "corrected": 36.97
+    }
+   ]
+  },
+  {
+   "start": "2026-11-06",
+   "end": "2026-11-07",
+   "days": 2,
+   "max_tmean_c": 31.9,
+   "max_tmax_c": 37.0,
+   "max_heat_index_c": 37.0,
+   "extra_deaths_est": 17,
+   "extra_deaths_ci": [
+    4,
+    31
+   ],
+   "in_test_period": true,
+   "forecast_skill": {
+    "1": {
+     "mae_raw": 0.52,
+     "mae_heatshield": 1.22,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    },
+    "3": {
+     "mae_raw": 0.29,
+     "mae_heatshield": 2.07,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    },
+    "5": {
+     "mae_raw": 0.63,
+     "mae_heatshield": 2.87,
+     "danger_days": 0,
+     "caught_raw": 0,
+     "caught_heatshield": 0
+    }
+   },
+   "daily_lead1": [
+    {
+     "date": "2026-11-06",
+     "observed": 36.95,
+     "raw": 36.12,
+     "corrected": 37.91
+    },
+    {
+     "date": "2026-11-07",
+     "observed": 35.2,
+     "raw": 35.41,
+     "corrected": 36.69
+    }
+   ]
+  }
+ ]
+}

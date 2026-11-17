@@ -190,6 +190,9 @@ def model_report_cached() -> dict:
             "mcap": {k: val for k, val in v["mcap_crosscheck"].items() if isinstance(val, dict) and "spearman_rho" in val},
             "satellite": v["satellite"],
         }
+    history = load("heatwave_history.json")
+    if history:
+        report["heatwave_history"] = history
     if st and mort:
         d = mort["main_definition"]
         rr = next(r for r in mort["paper"]["rr_tables"]["mumbai"]
