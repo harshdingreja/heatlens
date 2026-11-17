@@ -114,18 +114,28 @@ def zonal_mean(raster: xr.DataArray, wards: gpd.GeoDataFrame) -> np.ndarray:
     return np.array(means)
 
 
-def ward_satellite_indicators(wards: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
-    """Add lst_summer_c and ndvi_summer columns to the ward table (recomputes composites)."""
-    lst, ndvi, n_days = build_composites(wards)
+def load_composites(wards: gpd.GeoDataFrame, refresh: bool = False) -> tuple[xr.DataArray, xr.DataArray]:
+    """Re-use the saved GeoTIFFs if they exist (the download takes minutes), else build them."""
+    if refresh or not (LST_TIF.exists() and NDVI_TIF.exists()):
+        lst, ndvi, _ = build_composites(wards)
+        return lst, ndvi
+    # open_rasterio gives a (band, y, x) array; squeeze("band") keeps (y, x)
+    lst = rioxarray.open_rasterio(LST_TIF, masked=True).squeeze("band", drop=True)
+    ndvi = rioxarray.open_rasterio(NDVI_TIF, masked=True).squeeze("band", drop=True)
+    return lst, ndvi
+
+
+def ward_satellite_indicators(wards: gpd.GeoDataFrame, refresh: bool = False) -> gpd.GeoDataFrame:
+    """Add lst_summer_c and ndvi_summer columns to the ward table."""
+    lst, ndvi = load_composites(wards, refresh)
     out = wards.copy()
     out["lst_summer_c"] = zonal_mean(lst, wards)
     out["ndvi_summer"] = zonal_mean(ndvi, wards)
-    out.attrs["n_landsat_days"] = int(n_days)
     return out
 
 
 if __name__ == "__main__":
     from heatshield.ingest.wards import load_ward_boundaries
 
-    result = ward_satellite_indicators(load_ward_boundaries())
+    result = ward_satellite_indicators(load_ward_boundaries(), refresh=True)
     print(result[["ward_id", "lst_summer_c", "ndvi_summer"]].round(3).to_string(index=False))
