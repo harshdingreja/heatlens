@@ -3,12 +3,17 @@
 If you want to change a location, a date range or a folder, change it here and
 every script picks it up. No "magic numbers" scattered across files.
 """
+import os
 from datetime import date
 from pathlib import Path
 
 # ---- Folders --------------------------------------------------------------
-# This file lives at src/heatshield/config.py, so 3 levels up is the project root.
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+# This file lives at src/heatshield/config.py, so 3 levels up is the project root,
+# but only when the code runs from the repo (pip install -e .). If the package was
+# copied into site-packages, fall back to the folder the server was started from.
+_repo_root = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(os.getenv("HEATSHIELD_ROOT") or
+                    (_repo_root if (_repo_root / "pyproject.toml").exists() else Path.cwd()))
 DATA_RAW = PROJECT_ROOT / "data" / "raw"              # exactly what we downloaded
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"  # cleaned / derived tables
 ARTIFACTS = PROJECT_ROOT / "artifacts"                 # small trained models + results (committed, the API needs them)

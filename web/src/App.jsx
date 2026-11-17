@@ -23,7 +23,7 @@ export default function App() {
     <>
       {USE_MOCK && (
         <div role="note" className="bg-heat-yellow px-4 py-2 text-center text-sm font-bold text-ink">
-          SAMPLE DATA (not real). This page is using built-in sample values, not the HeatShield API.
+          SAMPLE DATA: a saved snapshot of the HeatShield API from 18 Nov 2026, not live.
         </div>
       )}
 
