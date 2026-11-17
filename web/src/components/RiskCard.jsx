@@ -54,7 +54,7 @@ export default function RiskCard({ risk }) {
         </tbody>
       </table>
 
-      <dl className="space-y-2 text-sm">
+      <dl className="space-y-2 text-sm [overflow-wrap:anywhere]">
         <div>
           <dt className="font-semibold">Heatwave definition</dt>
           <dd className="text-ink-soft">{risk.heatwave_definition}</dd>

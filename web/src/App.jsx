@@ -40,7 +40,7 @@ export default function App() {
           >
             {wards.data ? (
               <div className="grid gap-5 lg:grid-cols-3">
-                <div className="lg:col-span-2">
+                <div className="min-w-0 lg:col-span-2">
                   <WardMap wards={wards.data} selectedId={selectedWard} onSelect={setSelectedWard} />
                 </div>
                 <WardDetails wards={wards.data} selectedId={selectedWard} onSelect={setSelectedWard} />
@@ -51,7 +51,7 @@ export default function App() {
           </Panel>
 
           <div className="grid gap-5 sm:gap-6 lg:grid-cols-5">
-            <Panel id="chart" title="Raw forecast vs HeatShield correction" className="lg:col-span-3" aside="Daily maximum heat index, °C">
+            <Panel id="chart" title="Raw forecast vs HeatShield correction" className="min-w-0 lg:col-span-3" aside="Daily maximum heat index, °C">
               {forecast.data ? (
                 <>
                   <ForecastChart days={forecast.data.days} />
@@ -65,7 +65,7 @@ export default function App() {
               )}
             </Panel>
 
-            <Panel id="risk" title="Estimated extra deaths" className="lg:col-span-2">
+            <Panel id="risk" title="Estimated extra deaths" className="min-w-0 lg:col-span-2">
               {risk.data ? <RiskCard risk={risk.data} /> : <Status {...risk} onRetry={risk.reload} what="the death-risk estimate" />}
             </Panel>
           </div>
