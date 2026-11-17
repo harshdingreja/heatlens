@@ -24,7 +24,8 @@ export default function WardDetails({ wards, selectedId, onSelect }) {
                 <span className="h-4 w-4 shrink-0 rounded-sm border border-ink/20" style={{ background: riskHex(p.risk_level) }} aria-hidden="true" />
                 <span className="flex-1">
                   <span className="font-semibold">{p.ward_id}</span>
-                  {p.ward_name && <span className="text-ink-soft"> {p.ward_name}</span>}
+                  {/* ward_name may already start with the code ("C (Kalbadevi)"), so don't repeat it */}
+                  {p.ward_name && <span className="text-ink-soft"> {p.ward_name.startsWith(p.ward_id) ? p.ward_name.slice(p.ward_id.length).trim() : p.ward_name}</span>}
                 </span>
                 <span className="text-sm text-ink-soft">{riskLabel(p.risk_level)}</span>
               </button>

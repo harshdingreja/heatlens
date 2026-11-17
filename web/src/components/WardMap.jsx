@@ -25,7 +25,7 @@ export default function WardMap({ wards, selectedId, onSelect }) {
   // Runs once per ward when the layer is created: hover label + click handler.
   const onEachFeature = (feature, layer) => {
     const p = feature.properties
-    layer.bindTooltip(p.ward_name ? `${p.ward_id}: ${p.ward_name}` : p.ward_id, { sticky: true, className: 'ward-tooltip' })
+    layer.bindTooltip(p.ward_name || p.ward_id, { sticky: true, className: 'ward-tooltip' })
     layer.on('click', () => onSelect(p.ward_id))
   }
 

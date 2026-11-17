@@ -65,9 +65,14 @@ def get_forecast(days: int = 5) -> dict:
     return bundle
 
 
-@lru_cache(maxsize=1)
 def load_wards() -> dict | None:
-    return json.loads(WARDS_FILE.read_text()) if WARDS_FILE.exists() else None
+    """Ward GeoJSON, re-read only when the file changes (its modification time is the cache key)."""
+    return _read_wards(WARDS_FILE.stat().st_mtime) if WARDS_FILE.exists() else None
+
+
+@lru_cache(maxsize=2)
+def _read_wards(mtime: float) -> dict:
+    return json.loads(WARDS_FILE.read_text())
 
 
 def risk_module():
