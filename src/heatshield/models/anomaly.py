@@ -93,6 +93,9 @@ def main() -> None:
     joblib.dump(forest, ARTIFACTS / "isolation_forest.joblib")
     (ARTIFACTS / "anomaly_results.json").write_text(json.dumps(results, indent=2, default=str))
     days.to_parquet(DATA_PROCESSED / "obs_anomalies.parquet", index=False)
+    # Small 2026 series for the dashboard's anomaly chart (the API can't read data/).
+    test[["date", "hi_max", "normal_hi", "z", "is_anomaly", "if_anomaly"]].round(2).to_csv(
+        ARTIFACTS / "anomalies_2026.csv", index=False)
 
     fig, ax = plt.subplots(figsize=(10, 3.6))
     ax.plot(test["date"], test["hi_max"], color="black", lw=1, label="Observed daily max heat index")

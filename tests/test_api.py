@@ -81,3 +81,13 @@ def test_advisory_all_languages_without_keys(client, monkeypatch, lang):
 
 def test_advisory_rejects_unknown_language(client):
     assert client.post("/advisory", json={"lang": "fr"}).status_code == 422
+
+
+def test_model_report(client):
+    r = client.get("/model")
+    assert r.status_code == 200
+    body = r.json()
+    c = body["corrector"]
+    assert c["final_method"] and len(c["backtest"]) == c["n_test_rows"]
+    assert {"A_raw_forecast", "lightgbm"} <= {m["method"] for m in c["metrics"]}
+    assert len(c["confusion"]["raw"]) == 5 and body["anomalies"]["series"]

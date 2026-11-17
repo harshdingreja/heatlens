@@ -144,6 +144,78 @@ def risk():
     return result
 
 
+@lru_cache(maxsize=1)
+def model_report_cached() -> dict:
+    """Everything the 'Model performance' page shows, read from saved results only."""
+    def load(name):
+        p = ARTIFACTS / name
+        return json.loads(p.read_text()) if p.exists() else None
+
+    c = load("corrector_metrics.json")["santacruz"]
+    back = pd.read_csv(ARTIFACTS / "backtest_2026_santacruz.csv")
+    back = back.rename(columns={"target": "observed", "raw_hi": "raw"})[
+        ["date", "lead_days", "observed", "raw", "corrected"]]
+    an = load("anomaly_results.json")
+    an_series = pd.read_csv(ARTIFACTS / "anomalies_2026.csv")
+    v = load("vulnerability_summary.json")
+    st = load("state_health_results.json")
+    mort = load("mortality_config.json")
+
+    report = {
+        "corrector": {
+            "station": c["station"], "primary_raw_model": c["primary_raw_model"],
+            "final_method": c["final_method"], "train_period": c["train_period"], "test_period": c["test_period"],
+            "n_train_rows": c["n_train_rows"], "n_test_rows": c["n_test_rows"],
+            "raw_model_train_mae": c["raw_model_train_mae_all_leads"],
+            "validation_mae": {k: val["mean_mae"] for k, val in c["validation_mae"].items()},
+            "metrics": c["metrics"], "alerts": c["alerts_danger_or_worse"],
+            "confusion": {"labels": c["confusion_labels"], "raw": c["confusion_matrix_raw"],
+                          "corrected": c["confusion_matrix_final"]},
+            "shap_top": [{"feature": k, "value": val} for k, val in list(c["shap_mean_abs_lightgbm"].items())[:12]],
+            "backtest": back.to_dict(orient="records"),
+        },
+        "anomalies": {"summary": {k: val for k, val in an["test_2026"].items() if k != "z_anomaly_dates"},
+                      "z_threshold": an["z_threshold"], "per_year": an["all_years_z_anomalies_per_year"],
+                      "series": an_series.to_dict(orient="records")},
+    }
+    if v:
+        report["wards"] = {
+            "n_wards": v["n_wards"], "chosen_k": v["kmeans"]["chosen_k"],
+            "silhouette": v["kmeans"]["chosen_k_silhouette"], "k_scan": v["kmeans"]["scan"],
+            "cluster_sizes": v["kmeans"].get("cluster_sizes"),
+            "pca_weights": v["hvi"]["pca"]["weights"],
+            "explained_variance_ratio": v["hvi"]["pca"]["explained_variance_ratio"],
+            "spearman_equal_vs_pca": v["hvi"]["spearman_equal_vs_pca"]["rho"],
+            "mcap_reference": v["mcap_crosscheck"]["reference"],
+            "mcap": {k: val for k, val in v["mcap_crosscheck"].items() if isinstance(val, dict) and "spearman_rho" in val},
+            "satellite": v["satellite"],
+        }
+    if st and mort:
+        d = mort["main_definition"]
+        rr = next(r for r in mort["paper"]["rr_tables"]["mumbai"]
+                  if r["percentile"] == d["percentile"] and r["consecutive_days"] == d["consecutive_days"])
+        report["health"] = {
+            "layer1": {"definition": d["text"], "pct_increase": rr["pct_increase"],
+                       "ci": [rr["ci_low"], rr["ci_high"]], "baseline_daily_deaths": mort["baseline"]["daily_deaths"],
+                       "citation": mort["citation"]},
+            "layer2": {"summary": st["summary"], "n_rows": st["data"]["n_rows"],
+                       "models": {k: {"irr_per_10_days": m["rate_ratio_per_10_days"]["irr"],
+                                      "ci": m["rate_ratio_per_10_days"]["ci"],
+                                      "dispersion": m.get("pearson_dispersion"), "aic": m.get("aic")}
+                                  for k, m in st["models"].items()}},
+        }
+    return report
+
+
+@app.get("/model")
+def model_report():
+    """Model performance: test-set metrics, backtest, SHAP, anomalies, clustering, health models."""
+    try:
+        return model_report_cached()
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=503, detail=f"Results not generated yet: {exc}") from exc
+
+
 @app.post("/advisory", response_model=AdvisoryResponse)
 def advisory(req: AdvisoryRequest):
     from heatshield.llm.advisory import generate_advisory
