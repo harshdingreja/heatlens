@@ -16,6 +16,7 @@ meteostat==2.2.3         # weather-station observations (GHCNh provider)
 certifi==2026.10.23      # HTTPS certificates (fixes SSL errors on macOS)
 openpyxl==3.1.5          # read official Excel tables (census)
 pymupdf==2.1             # read tables/figures from PDF reports (MCAP)
+pypdf==7.1.0             # read Parliament-answer PDFs (Layer 2 data)
 
 # Machine learning + statistics
 scikit-learn==1.9.1

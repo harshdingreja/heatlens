@@ -29,7 +29,9 @@ Heat warnings usually look only at temperature. In humid Mumbai, **34 °C at 70 
 
 **Ward vulnerability:** 24 wards; HVI from Landsat summer LST + NDVI (55 scenes, 2023–25) + Census 2011 density, slum share and worker share. Equal vs PCA weights give ρ = 0.994. K-means k = 4 (silhouette 0.305). Most vulnerable: C, L, G/N, H/E, K/E. Our HVI vs MCAP's ward heat data: Spearman ρ = 0.926.
 
-**Health layers:** see RESULTS.md §4 (Layer 1 extra-deaths estimate with 95 % CI; Layer 2 state-level Poisson model).
+**Layer 1, extra deaths (evidence-based estimate, not a clinical prediction):** the Env. Int. 2024 study includes Mumbai: +3.4 % deaths (95 % CI 0.8–6.1) when daily mean temperature exceeds Mumbai's 97th percentile for ≥ 2 days. With MCGM's 93,255 deaths in 2023 (255.5/day), that is **≈ 8.7 extra deaths per heatwave day (CI 2.0–15.6)**.
+
+**Layer 2, state model:** NCRB heat-death counts (213 state-years, 2017–22) vs ERA5 danger days at state capitals. Poisson is heavily overdispersed (37.5), so Negative Binomial: **+5.8 % reported heat deaths per 10 extra danger days (CI 1.1–10.8 %)**, a sanity check that agrees in direction with Layer 1.
 
 ## How it works
 
@@ -77,7 +79,8 @@ Env. Int. 2024 relative risks ─► extra deaths/day ± 95 % CI
 - **Anomaly rate.** The z-score uses ERA5's day-to-day spread, which is smaller than the station's, so more days are flagged than a textbook 2σ rate would suggest.
 - **Ward HVI:** Census 2011 is old, `worker_share` is a weak exposure proxy, and density is gross (forest/mangrove wards look less dense). Our HVI agrees with MCAP's heat data (ρ 0.93) but **not** with MCAP's housing-vulnerability order (ρ −0.34, not significant), because ours is driven by island-city density and surface heat.
 - **Layer 1** applies multi-city relative risks to Mumbai: an evidence-based estimate, **not a clinical prediction**.
-- **Layer 2:** official Indian heat-death counts are known undercounts and the dataset is small, so it is a sanity check only.
+- **Layer 2:** official Indian heat-death counts are known undercounts and the dataset is small (pseudo-R² 0.011), so it is a sanity check only. data.gov.in downloads need a captcha/API key, so the same NCRB tables were taken from official Parliament answers (PIB); one capital per state is a crude exposure.
+- **Not built (stretch):** UTCI. The Telegram alert bot exists but needs your bot token.
 
 ## Run it
 

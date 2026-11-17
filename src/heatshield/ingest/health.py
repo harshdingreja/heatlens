@@ -100,6 +100,9 @@ POPULATION_NAME_MAP = {
     "A & N Islands": "Andaman and Nicobar Islands",
     "D&N Haveli and Daman&Diu": "Dadra and Nagar Haveli and Daman and Diu",
     "Delhi UT": "Delhi",
+    "Jammu & Kashmir": "Jammu and Kashmir (union territory)",  # Census 2011 figure excluding Ladakh
+    "Puducherry": "Puducherry (union territory)",
+    "Punjab": "Punjab, India",
 }
 
 
@@ -211,7 +214,9 @@ def write_transcribed_tables() -> None:
 def download_state_population() -> pd.DataFrame:
     """Census 2011 population per state/UT (column '2011 Census Population' of the
     Wikipedia list, which cites the Census). Used as the Poisson offset."""
-    wikitext = requests.get(POPULATION_WIKITEXT_URL, timeout=60).text
+    # Wikimedia's robot policy asks scripts to say what they are in the User-Agent.
+    headers = {"User-Agent": "HeatShield-student-project/0.1 (python-requests; research use)"}
+    wikitext = requests.get(POPULATION_WIKITEXT_URL, headers=headers, timeout=60).text
     (HEALTH_DIR / "wiki_states_population.wikitext").write_text(wikitext)
     rows = []
     for block in wikitext.split("\n|-")[1:]:

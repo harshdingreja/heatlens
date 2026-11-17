@@ -94,40 +94,26 @@ Same pipeline, final model linear_regression: MAE 3.51 °C (raw icon_global) →
 
 ## 4. Health layers
 
-### Layer 1: paper-based extra deaths
+### Layer 1: paper-based extra deaths (evidence-based estimate, not a clinical prediction)
 
-```json
-{
- "citation": "de Bont J, Nori-Sarma A, Stafoggia M, et al. Impact of heatwaves on all-cause mortality in India: A comprehensive multi-city study. Environment International 184 (2024) 108461. doi:10.1016/j.envint.2024.108461 (Mumbai-specific estimates: Supplementary Table S1)",
- "main_definition": {
-  "percentile": 97,
-  "consecutive_days": 2,
-  "text": "Daily mean temperature above Mumbai's 97th percentile for at least 2 consecutive days"
- },
- "baseline": {
-  "annual_deaths": 93255,
-  "year": 2023,
-  "daily_deaths": 255.49,
-  "source": "MCGM (BMC) Key Statistics, 'Total deaths in year 2023' = 93,255 for Greater Mumbai (https://mcgm.gov.in/irj/portal/anonymous/qlCivicDemographics, read 17 Nov 2026); / 365 days",
-  "cross_check": "Paper Table 1 gives 251 deaths/day for Mumbai in 2009-2015."
- },
- "thresholds": {
-  "space": "station (Santacruz 43003, GHCNh hourly, daily mean of days with >= 18 readings)",
-  "period": "2021-01-01 to 2025-12-31",
-  "n_days": 1803,
-  "tmean_c": {
-   "p95": 31.33,
-   "p97": 31.66,
-   "p99": 32.32
-  },
-  "reference_era5_same_percentiles_2009_2015": {
-   "p95": 29.93,
-   "p97": 30.25,
-   "p99": 30.61
-  },
-  "reference_paper_implied_p97_c": 31.16,
-  "note": "Paper Table 1: Mumbai heatwaves averaged 31.5 °C, 1.1 % above its 97th percentile, so the paper's P97 was about 31.2 °C. ERA5 at the single grid cell nearest Santacruz gives a lower value; the station gives a higher one. Percentiles are relative, so we stay consistent by using station thresholds with station-space temperatures."
- }
-}
-```
+- Source: de Bont J, Nori-Sarma A, Stafoggia M, et al. Impact of heatwaves on all-cause mortality in India: A comprehensive multi-city study. Environment International 184 (2024) 108461. doi:10.1016/j.envint.2024.108461 (Mumbai-specific estimates: Supplementary Table S1)
+- Cities: Ahmedabad, Bangalore, Chennai, Delhi, Hyderabad, Kolkata, Mumbai, Pune, Shimla, Varanasi. Mumbai included: True.
+- Definition: Daily mean temperature above Mumbai's 97th percentile for at least 2 consecutive days. Mumbai effect: +3.4 % deaths (95 % CI 0.8–6.1).
+- Baseline: 93,255 deaths in 2023 → 255.49 per day. MCGM (BMC) Key Statistics, 'Total deaths in year 2023' = 93,255 for Greater Mumbai (https://mcgm.gov.in/irj/portal/anonymous/qlCivicDemographics, read 17 Nov 2026); / 365 days
+- → Extra deaths on a heatwave day ≈ 8.7 (95 % CI 2.0–15.6).
+- Mumbai P97 of daily mean temperature (station, 2021-01-01 to 2025-12-31): 31.66 °C.
+- History check: 12 episodes in 2021-01-01 to 2025-12-31 (complete station days) (2.4/yr; paper: 3.6/yr).
+
+### Layer 2: state-level count model
+
+State check (NCRB heat/sun-stroke deaths 2017-2022, 213 state-years): Poisson rate ratio per +10 'Danger' heat-index days = 1.013 (95% CI 1.008-1.018), but the data are strongly overdispersed (Pearson dispersion 37.53); the Negative Binomial model gives 1.058 (1.011-1.108). Sanity check: the paper attributes ~48 deaths/yr to heatwaves in Mumbai (3.69 per million), ~4.3x the per-capita rate of certified heat/sun-stroke deaths in Maharashtra (0.85 per million). That gap is expected (all-cause excess vs certified heatstroke, plus undercounting), so Layer 2 does not contradict Layer 1; it confirms that hotter state-years report more heat deaths.
+
+| Model | Rate ratio per +10 Danger days (95 % CI) | Fit |
+|---|---|---|
+| poisson_danger | 1.016 (1.011–1.021) | dispersion 40.77, AIC 6834.9 |
+| poisson_danger_year | 1.013 (1.008–1.018) | dispersion 37.53, AIC 6106.9 |
+| poisson_caution_year | 1.033 (1.028–1.038) | dispersion 37.38, AIC 5957.9 |
+| negbin_danger_year | 1.058 (1.011–1.108) | pseudo-R² 0.011, AIC 1168.9 |
+
+Caveats: Official heat deaths are known undercounts; reporting completeness differs between states. One capital per state is a crude exposure measure for a whole state. Population is fixed at Census 2011 (no newer official census); year effects absorb national trends. Small sample (~200 rows): use as a sanity check, not as a predictor.
 

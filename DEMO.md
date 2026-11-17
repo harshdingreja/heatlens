@@ -172,7 +172,7 @@ NOAA GHCNh station observations (real measurements only), ECMWF ERA5 reanalysis,
 Five indicators per ward: summer land-surface temperature, NDVI (lower = more vulnerable), population density, slum share and worker share. Each is scaled 0–1 and averaged (equal weights); PCA weights gave nearly the same ranking. Then k-means grouped the wards; k was chosen with the elbow and silhouette methods.
 
 **9. Can your death estimate be trusted?**
-It's labelled "evidence-based estimate, not a clinical prediction". It applies a peer-reviewed multi-city Indian relative risk to Mumbai's baseline deaths and shows the 95 % confidence interval. It is not a Mumbai-specific model, and that's listed as a limitation.
+It's labelled "evidence-based estimate, not a clinical prediction". The peer-reviewed study (Env. Int. 2024, 10 cities) includes Mumbai, so I use Mumbai's own effect: +3.4 % deaths (95 % CI 0.8–6.1) when daily mean temperature stays above Mumbai's 97th percentile for 2+ days. With MCGM's 255.5 deaths/day (2023), that's about 8.7 extra deaths per heatwave day (CI 2.0–15.6). The state-level model (Layer 2) is only a sanity check: hotter state-years report more heat deaths (Negative Binomial, +5.8 % per 10 danger days). I used Negative Binomial instead of Poisson because the counts were 37× more variable than Poisson assumes.
 
 **10. How do you stop the LLM from inventing numbers?**
 Three layers. The prompt says to use only the given numbers. A validator extracts every number from the reply (including Devanagari digits) and rejects it if any number wasn't in the inputs. If the reply is rejected, the system falls back to Gemini, then to a hand-written template.

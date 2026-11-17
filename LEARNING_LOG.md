@@ -24,3 +24,8 @@
 - FastAPI + Pydantic: the response schema is enforced, and NaN becomes `null` (JSON has no NaN). CORS lets the browser call the API.
 - LLM safety: a validator rejects any number not given in the inputs (Devanagari digits included), with fallback Groq → Gemini → template.
 - Pickle gotcha: a class saved from a script run as `__main__` can't be loaded elsewhere, so always save via the real module path.
+
+## Phase 5: Health layers
+- Read the source: the paper *does* include Mumbai, so we use Mumbai's own effect (+3.4 %) rather than the 10-city pooled +14.7 %, which is shown only as an upper scenario.
+- Count data → Poisson; but the variance was 37× the mean (overdispersion), so Negative Binomial gives honest confidence intervals.
+- When a portal is blocked (data.gov.in captcha), take the same official table from its primary source (Parliament answers) and say so.

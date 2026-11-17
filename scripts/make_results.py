@@ -107,12 +107,28 @@ def wards_section(v: dict) -> list[str]:
 def health_section(mort: dict | None, state: dict | None) -> list[str]:
     out = ["## 4. Health layers", ""]
     if mort:
-        out += ["### Layer 1: paper-based extra deaths", "", "```json", json.dumps(
-            {k: mort[k] for k in ("citation", "main_definition", "baseline", "thresholds") if k in mort},
-            indent=1, ensure_ascii=False)[:3000], "```", ""]
+        d, b, t, h = mort["main_definition"], mort["baseline"], mort["thresholds"], mort["history_check"]
+        rr = next(r for r in mort["paper"]["rr_tables"]["mumbai"]
+                  if r["percentile"] == d["percentile"] and r["consecutive_days"] == d["consecutive_days"])
+        base = b["daily_deaths"]
+        out += ["### Layer 1: paper-based extra deaths (evidence-based estimate, not a clinical prediction)", "",
+                f"- Source: {mort['citation']}",
+                f"- Cities: {', '.join(mort['paper']['cities'])}. Mumbai included: {mort['paper']['mumbai_included']}.",
+                f"- Definition: {d['text']}. Mumbai effect: +{rr['pct_increase']} % deaths (95 % CI {rr['ci_low']}–{rr['ci_high']}).",
+                f"- Baseline: {b['annual_deaths']:,} deaths in {b['year']} → {base} per day. {b['source']}",
+                f"- → Extra deaths on a heatwave day ≈ {base * rr['pct_increase'] / 100:.1f} "
+                f"(95 % CI {base * rr['ci_low'] / 100:.1f}–{base * rr['ci_high'] / 100:.1f}).",
+                f"- Mumbai P97 of daily mean temperature (station, {t['period']}): {t['tmean_c']['p97']} °C.",
+                f"- History check: {h['heatwave_episodes_main_definition']} episodes in {h['years']} "
+                f"({h['episodes_per_year']}/yr; paper: {h['paper_mumbai_episodes_per_year']}/yr).", ""]
     if state:
-        out += ["### Layer 2: state-level Poisson model", "", state.get("summary", ""), "", "```json",
-                json.dumps({k: v for k, v in state.items() if k != "summary"}, indent=1, ensure_ascii=False)[:3000], "```", ""]
+        out += ["### Layer 2: state-level count model", "", state["summary"], "",
+                "| Model | Rate ratio per +10 Danger days (95 % CI) | Fit |", "|---|---|---|"]
+        for name, m in state["models"].items():
+            r = m["rate_ratio_per_10_days"]
+            fit = f"dispersion {m['pearson_dispersion']}" if "pearson_dispersion" in m else f"pseudo-R² {m.get('mcfadden_pseudo_r2')}"
+            out.append(f"| {name} | {r['irr']} ({r['ci'][0]}–{r['ci'][1]}) | {fit}, AIC {m.get('aic')} |")
+        out += ["", "Caveats: " + " ".join(state["caveats"]), ""]
     return out
 
 

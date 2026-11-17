@@ -1,0 +1,121 @@
+{
+  "summary": "State check (NCRB heat/sun-stroke deaths 2017-2022, 213 state-years): Poisson rate ratio per +10 'Danger' heat-index days = 1.013 (95% CI 1.008-1.018), but the data are strongly overdispersed (Pearson dispersion 37.53); the Negative Binomial model gives 1.058 (1.011-1.108). Sanity check: the paper attributes ~48 deaths/yr to heatwaves in Mumbai (3.69 per million), ~4.3x the per-capita rate of certified heat/sun-stroke deaths in Maharashtra (0.85 per million). That gap is expected (all-cause excess vs certified heatstroke, plus undercounting), so Layer 2 does not contradict Layer 1; it confirms that hotter state-years report more heat deaths.",
+  "data": {
+    "n_rows": 213,
+    "n_states": 36,
+    "years": [
+      2017,
+      2022
+    ],
+    "total_deaths": 4925,
+    "share_of_rows_with_zero_deaths": 0.521,
+    "outcome_source": "NCRB ADSI heat/sun-stroke deaths via Parliament answers (PIB 2023 annexure; PIB Release 2158403, 20 Aug 2025)",
+    "exposure_source": "ERA5 hourly T + RH at each state/UT capital (Open-Meteo archive, models=era5), NOAA heat index",
+    "population_source": "Census 2011 (Wikipedia 'List of states and union territories of India by population', 2011 Census column)"
+  },
+  "models": {
+    "poisson_danger": {
+      "formula": "deaths ~ danger_days  (offset = log Census-2011 population)",
+      "n_rows": 213,
+      "rate_ratio_per_10_days": {
+        "per": 10,
+        "irr": 1.016,
+        "ci": [
+          1.011,
+          1.021
+        ],
+        "coef": 0.00163,
+        "se": 0.00025,
+        "p_value": 4.31e-11
+      },
+      "pearson_dispersion": 40.77,
+      "deviance_pseudo_r2": 0.007,
+      "aic": 6834.9
+    },
+    "poisson_danger_year": {
+      "formula": "deaths ~ danger_days + C(year)  (offset = log Census-2011 population)",
+      "n_rows": 213,
+      "rate_ratio_per_10_days": {
+        "per": 10,
+        "irr": 1.013,
+        "ci": [
+          1.008,
+          1.018
+        ],
+        "coef": 0.00125,
+        "se": 0.00025,
+        "p_value": 4.12e-07
+      },
+      "pearson_dispersion": 37.53,
+      "deviance_pseudo_r2": 0.123,
+      "aic": 6106.9
+    },
+    "poisson_caution_year": {
+      "formula": "deaths ~ extreme_caution_days + C(year)  (offset = log Census-2011 population)",
+      "n_rows": 213,
+      "rate_ratio_per_10_days": {
+        "per": 10,
+        "irr": 1.033,
+        "ci": [
+          1.028,
+          1.038
+        ],
+        "coef": 0.00322,
+        "se": 0.00025,
+        "p_value": 2.18e-37
+      },
+      "pearson_dispersion": 37.38,
+      "deviance_pseudo_r2": 0.146,
+      "aic": 5957.9
+    },
+    "negbin_danger_year": {
+      "formula": "deaths ~ danger_days + C(year)  (offset = log population), NB2",
+      "n_rows": 213,
+      "rate_ratio_per_10_days": {
+        "per": 10,
+        "irr": 1.058,
+        "ci": [
+          1.011,
+          1.108
+        ],
+        "coef": 0.00564,
+        "se": 0.00233,
+        "p_value": 0.0157
+      },
+      "alpha": 3.026,
+      "mcfadden_pseudo_r2": 0.011,
+      "aic": 1168.9
+    }
+  },
+  "layer1_sanity_check": {
+    "maharashtra_ncrb_heatstroke_deaths_per_year_2017_2022_mean": 95.3,
+    "maharashtra_ncrb_by_year": {
+      "2017": 102,
+      "2018": 128,
+      "2019": 159,
+      "2020": 56,
+      "2021": 37,
+      "2022": 90
+    },
+    "maharashtra_population_2011": 112374333,
+    "paper_mumbai_attributable_deaths_per_year": {
+      "value": 48,
+      "ci": [
+        12,
+        84
+      ],
+      "source": "paper Supplementary Table S3"
+    },
+    "mumbai_population_mcgm_2023": 13014390,
+    "paper_mumbai_per_million_per_year": 3.69,
+    "ncrb_maharashtra_per_million_per_year": 0.85,
+    "per_capita_ratio_paper_vs_ncrb": 4.3,
+    "note": "Not like-for-like: the paper counts ALL-CAUSE excess deaths during heatwaves (incl. heart and lung deaths, 2009-2015); NCRB counts deaths certified as heat/sun-stroke (2017-2022). Populations are from different years (MCGM 2023 estimate vs Census 2011)."
+  },
+  "caveats": [
+    "Official heat deaths are known undercounts; reporting completeness differs between states.",
+    "One capital per state is a crude exposure measure for a whole state.",
+    "Population is fixed at Census 2011 (no newer official census); year effects absorb national trends.",
+    "Small sample (~200 rows): use as a sanity check, not as a predictor."
+  ]
+}

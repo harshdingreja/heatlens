@@ -1,0 +1,353 @@
+{
+  "disclaimer": "Evidence-based estimate, not a clinical prediction.",
+  "citation": "de Bont J, Nori-Sarma A, Stafoggia M, et al. Impact of heatwaves on all-cause mortality in India: A comprehensive multi-city study. Environment International 184 (2024) 108461. doi:10.1016/j.envint.2024.108461 (Mumbai-specific estimates: Supplementary Table S1)",
+  "paper": {
+    "doi": "10.1016/j.envint.2024.108461",
+    "open_access": "https://europepmc.org/article/PMC/PMC11790314",
+    "cities": [
+      "Ahmedabad",
+      "Bangalore",
+      "Chennai",
+      "Delhi",
+      "Hyderabad",
+      "Kolkata",
+      "Mumbai",
+      "Pune",
+      "Shimla",
+      "Varanasi"
+    ],
+    "mumbai_included": true,
+    "mumbai_period": "2009 - Nov 2015 (paper Table 1)",
+    "mumbai_mean_daily_deaths_in_paper": 251,
+    "exposure_metric": "daily mean temperature (ECMWF/ERA5 0.25 deg, averaged over the city)",
+    "heatwave_rule": "daily mean temperature above the city's annual percentile for N consecutive days",
+    "rr_tables": {
+      "mumbai": [
+        {
+          "percentile": 95,
+          "consecutive_days": 1,
+          "pct_increase": 5.1,
+          "ci_low": 3.2,
+          "ci_high": 7.0,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 95,
+          "consecutive_days": 2,
+          "pct_increase": 3.8,
+          "ci_low": 1.6,
+          "ci_high": 5.9,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 95,
+          "consecutive_days": 3,
+          "pct_increase": 3.2,
+          "ci_low": 0.8,
+          "ci_high": 5.6,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 95,
+          "consecutive_days": 5,
+          "pct_increase": 1.4,
+          "ci_low": -1.4,
+          "ci_high": 4.3,
+          "ci_excludes_zero": false
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 1,
+          "pct_increase": 5.2,
+          "ci_low": 3.0,
+          "ci_high": 7.4,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 2,
+          "pct_increase": 3.4,
+          "ci_low": 0.8,
+          "ci_high": 6.1,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 3,
+          "pct_increase": 4.0,
+          "ci_low": 0.9,
+          "ci_high": 7.2,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 5,
+          "pct_increase": 5.0,
+          "ci_low": 0.3,
+          "ci_high": 10.0,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 1,
+          "pct_increase": 3.1,
+          "ci_low": -0.2,
+          "ci_high": 6.6,
+          "ci_excludes_zero": false
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 2,
+          "pct_increase": 4.7,
+          "ci_low": -0.3,
+          "ci_high": 10.1,
+          "ci_excludes_zero": false
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 3,
+          "pct_increase": 9.8,
+          "ci_low": 1.0,
+          "ci_high": 19.3,
+          "ci_excludes_zero": true
+        }
+      ],
+      "pooled_10_cities": [
+        {
+          "percentile": 95,
+          "consecutive_days": 1,
+          "pct_increase": 10.5,
+          "ci_low": 7.4,
+          "ci_high": 13.6,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 95,
+          "consecutive_days": 2,
+          "pct_increase": 12.7,
+          "ci_low": 8.9,
+          "ci_high": 16.6,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 95,
+          "consecutive_days": 3,
+          "pct_increase": 14.4,
+          "ci_low": 9.9,
+          "ci_high": 19.2,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 95,
+          "consecutive_days": 5,
+          "pct_increase": 15.5,
+          "ci_low": 9.7,
+          "ci_high": 21.5,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 1,
+          "pct_increase": 12.2,
+          "ci_low": 8.5,
+          "ci_high": 15.9,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 2,
+          "pct_increase": 14.7,
+          "ci_low": 10.3,
+          "ci_high": 19.3,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 3,
+          "pct_increase": 17.8,
+          "ci_low": 12.1,
+          "ci_high": 23.8,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 97,
+          "consecutive_days": 5,
+          "pct_increase": 19.4,
+          "ci_low": 11.5,
+          "ci_high": 27.9,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 1,
+          "pct_increase": 14.7,
+          "ci_low": 9.5,
+          "ci_high": 20.1,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 2,
+          "pct_increase": 19.5,
+          "ci_low": 11.3,
+          "ci_high": 28.4,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 3,
+          "pct_increase": 22.7,
+          "ci_low": 13.3,
+          "ci_high": 32.8,
+          "ci_excludes_zero": true
+        },
+        {
+          "percentile": 99,
+          "consecutive_days": 5,
+          "pct_increase": 33.3,
+          "ci_low": 18.6,
+          "ci_high": 49.8,
+          "ci_excludes_zero": true
+        }
+      ]
+    },
+    "mumbai_attributable_deaths_per_year_main_def": {
+      "value": 48,
+      "ci": [
+        12,
+        84
+      ],
+      "source": "paper Supplementary Table S3"
+    }
+  },
+  "main_definition": {
+    "percentile": 97,
+    "consecutive_days": 2,
+    "text": "Daily mean temperature above Mumbai's 97th percentile for at least 2 consecutive days"
+  },
+  "baseline": {
+    "annual_deaths": 93255,
+    "year": 2023,
+    "daily_deaths": 255.49,
+    "source": "MCGM (BMC) Key Statistics, 'Total deaths in year 2023' = 93,255 for Greater Mumbai (https://mcgm.gov.in/irj/portal/anonymous/qlCivicDemographics, read 17 Nov 2026); / 365 days",
+    "cross_check": "Paper Table 1 gives 251 deaths/day for Mumbai in 2009-2015."
+  },
+  "thresholds": {
+    "space": "station (Santacruz 43003, GHCNh hourly, daily mean of days with >= 18 readings)",
+    "period": "2021-01-01 to 2025-12-31",
+    "n_days": 1803,
+    "tmean_c": {
+      "p95": 31.33,
+      "p97": 31.66,
+      "p99": 32.32
+    },
+    "reference_era5_same_percentiles_2009_2015": {
+      "p95": 29.93,
+      "p97": 30.25,
+      "p99": 30.61
+    },
+    "reference_paper_implied_p97_c": 31.16,
+    "note": "Paper Table 1: Mumbai heatwaves averaged 31.5 \u00b0C, 1.1 % above its 97th percentile, so the paper's P97 was about 31.2 \u00b0C. ERA5 at the single grid cell nearest Santacruz gives a lower value; the station gives a higher one. Percentiles are relative, so we stay consistent by using station thresholds with station-space temperatures."
+  },
+  "forecast_bias_removed": {
+    "what": "mean(model daily-mean temperature - station daily mean), per lead day",
+    "period": "2024-01-24 to 2025-12-31",
+    "models": {
+      "ecmwf_ifs025": {
+        "1": {
+          "bias_c": -1.07,
+          "n_days": 677
+        },
+        "2": {
+          "bias_c": -1.104,
+          "n_days": 676
+        },
+        "3": {
+          "bias_c": -1.17,
+          "n_days": 675
+        },
+        "4": {
+          "bias_c": -1.15,
+          "n_days": 674
+        },
+        "5": {
+          "bias_c": -1.157,
+          "n_days": 673
+        }
+      },
+      "gfs_seamless": {
+        "1": {
+          "bias_c": 0.748,
+          "n_days": 689
+        },
+        "2": {
+          "bias_c": 0.647,
+          "n_days": 689
+        },
+        "3": {
+          "bias_c": 0.579,
+          "n_days": 689
+        },
+        "4": {
+          "bias_c": 0.616,
+          "n_days": 689
+        },
+        "5": {
+          "bias_c": 0.609,
+          "n_days": 689
+        }
+      },
+      "icon_global": {
+        "1": {
+          "bias_c": -0.685,
+          "n_days": 689
+        },
+        "2": {
+          "bias_c": -0.679,
+          "n_days": 689
+        },
+        "3": {
+          "bias_c": -0.685,
+          "n_days": 689
+        },
+        "4": {
+          "bias_c": -0.687,
+          "n_days": 689
+        },
+        "5": {
+          "bias_c": -0.731,
+          "n_days": 689
+        }
+      },
+      "jma_gsm": {
+        "1": {
+          "bias_c": -0.984,
+          "n_days": 689
+        },
+        "2": {
+          "bias_c": -1.011,
+          "n_days": 689
+        },
+        "3": {
+          "bias_c": -1.051,
+          "n_days": 689
+        },
+        "4": {
+          "bias_c": -1.054,
+          "n_days": 689
+        },
+        "5": {
+          "bias_c": -1.053,
+          "n_days": 689
+        }
+      }
+    }
+  },
+  "history_check": {
+    "years": "2021-01-01 to 2025-12-31 (complete station days)",
+    "heatwave_days_main_definition": 49,
+    "heatwave_episodes_main_definition": 12,
+    "episodes_per_year": 2.4,
+    "paper_mumbai_episodes_per_year": 3.6
+  }
+}
