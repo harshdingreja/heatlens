@@ -93,7 +93,7 @@ export default function WardRiskSection({ wards, days }) {
           )}
         </div>
         <p className="mt-2 text-xs text-ink-soft">
-          {use3d ? 'Height = heat vulnerability index (HVI). Colour = risk for the chosen day. Drag to pan; right-drag or two fingers to tilt and rotate. ' : ''}
+          {use3d ? 'Colour = risk for the chosen day. Hover a ward for its numbers; scroll or pinch to zoom. ' : ''}
           Risk = city hazard (NOAA level ÷ 4) × ward HVI. Low below 0.15, moderate below 0.30, high below 0.50, very high above.
         </p>
       </div>

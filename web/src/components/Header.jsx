@@ -1,12 +1,13 @@
 import { fmtLongDate } from '../lib/heat'
+import Logo from './Logo'
 
-// Top of the page: name, what it is, and how fresh the data is.
+// Top of the page: name, what it is, and how fresh the data is (in plain words).
 export default function Header({ forecast }) {
   return (
     <header className="flex flex-col gap-4 pt-6 pb-6 sm:flex-row sm:items-end sm:justify-between sm:pt-8">
       <div>
         <div className="flex items-center gap-3">
-          <Thermometer />
+          <Logo size={40} />
           <h1 className="text-3xl font-extrabold leading-none tracking-tight sm:text-4xl">HeatLens</h1>
           <span className="rounded border border-ink/30 px-2 py-0.5 text-xs font-semibold text-ink-soft" title="Smart India Hackathon 2026 problem statement">
             SIH26083
@@ -18,23 +19,19 @@ export default function Header({ forecast }) {
       </div>
 
       {forecast && (
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:text-right">
-          <dt className="text-ink-soft">Forecast issued</dt>
-          <dd className="font-semibold tabular">{fmtLongDate(forecast.issued)}</dd>
-          <dt className="text-ink-soft">Station data up to</dt>
-          <dd className="font-semibold tabular">{fmtLongDate(forecast.obs_latest_date)}</dd>
-        </dl>
+        <div className="text-sm sm:text-right">
+          <p>
+            <span className="text-ink-soft">Forecast updated </span>
+            <strong className="tabular">{fmtLongDate(forecast.issued)}</strong>
+          </p>
+          {forecast.obs_latest_date && (
+            <p className="mt-0.5 text-ink-soft" title="Weather-station readings are published by NOAA a few days after they are taken">
+              Latest weather-station reading: <span className="font-semibold text-ink tabular">{fmtLongDate(forecast.obs_latest_date)}</span>
+              <span className="block text-xs">station data arrives a few days late</span>
+            </p>
+          )}
+        </div>
       )}
     </header>
-  )
-}
-
-function Thermometer() {
-  return (
-    <svg width="28" height="40" viewBox="0 0 28 40" aria-hidden="true" className="shrink-0">
-      <rect x="9" y="2" width="10" height="26" rx="5" fill="none" stroke="#0e2a3b" strokeWidth="2.5" />
-      <rect x="12" y="12" width="4" height="16" fill="#e06c1f" />
-      <circle cx="14" cy="31" r="7" fill="#e06c1f" stroke="#0e2a3b" strokeWidth="2.5" />
-    </svg>
   )
 }

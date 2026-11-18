@@ -8,10 +8,11 @@ import { RISK_LEVELS, riskLabel } from '../lib/heat'
 setWorkerUrl(workerUrl)
 
 // Free basemap, no API key (OpenFreeMap, OpenStreetMap data). Attribution comes with the style.
-const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
+const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty' // detailed street map: water, parks, roads, places
 const RISK_COLOR = ['match', ['get', 'risk_level'], ...RISK_LEVELS.flatMap((r) => [r.key, r.hex]), '#d5dde1']
 
-// 3D map: each ward is extruded; height ∝ heat vulnerability (HVI), colour = risk level for the chosen day.
+// Ward map: each ward is shaded by its risk level for the chosen day, semi-transparent so the real
+// city (streets, parks, water, place names) shows through. Flat, north-up view fitted to Mumbai.
 export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
   const box = useRef(null)
   const mapRef = useRef(null)
@@ -30,9 +31,11 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
         style: STYLE_URL,
         center: [72.86, 19.08],
         zoom: 10.2,
-        pitch: 52,
-        bearing: -18,
-        maxPitch: 70,
+        pitch: 0,
+        bearing: 0,
+        maxPitch: 0,          // keep it flat: easier to read than a tilted 3D view
+        dragRotate: false,
+        minZoom: 9,
         cooperativeGestures: window.innerWidth < 768, // phones: two fingers to move the map, one to scroll the page
       })
     } catch (err) {
@@ -40,7 +43,8 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
       return
     }
     mapRef.current = map
-    map.addControl(new NavigationControl({ visualizePitch: true }), 'top-right')
+    map.addControl(new NavigationControl({ showCompass: false }), 'top-right')
+    map.touchZoomRotate.disableRotation()
     const popup = new Popup({ closeButton: false, closeOnClick: false, offset: 8 })
     let hoverId = null
 
@@ -52,23 +56,33 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
     map.on('load', () => {
       readyRef.current = true
       map.addSource('wards', { type: 'geojson', data: latest.current.wards, promoteId: 'ward_id' })
+      // Put the ward layers under the basemap's labels so street and place names stay readable
+      const firstLabel = map.getStyle().layers.find((l) => l.type === 'symbol')?.id
       map.addLayer({
         id: 'wards-3d',
-        type: 'fill-extrusion',
+        type: 'fill',
         source: 'wards',
         paint: {
-          'fill-extrusion-color': [
-            'case',
-            ['boolean', ['feature-state', 'selected'], false],
-            '#1d5e86',
-            ['boolean', ['feature-state', 'hover'], false],
-            '#ffcf70',
-            RISK_COLOR,
-          ],
-          'fill-extrusion-height': ['+', 150, ['*', ['coalesce', ['get', 'hvi'], 0], 3200]],
-          'fill-extrusion-base': 0,
-          'fill-extrusion-opacity': 0.88,
+          'fill-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#1d5e86', RISK_COLOR],
+          'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.8, ['boolean', ['feature-state', 'selected'], false], 0.7, 0.55],
         },
+      }, firstLabel)
+      map.addLayer({
+        id: 'wards-outline',
+        type: 'line',
+        source: 'wards',
+        paint: {
+          'line-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#0e2a3b', '#ffffff'],
+          'line-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, ['boolean', ['feature-state', 'hover'], false], 2.5, 1.2],
+        },
+      }, firstLabel)
+      // Ward codes (A, F/N, K/E ...) on top
+      map.addLayer({
+        id: 'wards-labels',
+        type: 'symbol',
+        source: 'wards',
+        layout: { 'text-field': ['get', 'ward_id'], 'text-size': 12, 'text-font': ['Noto Sans Bold'], 'text-allow-overlap': false },
+        paint: { 'text-color': '#0e2a3b', 'text-halo-color': '#ffffff', 'text-halo-width': 1.6 },
       })
       fitToWards(map, latest.current.wards)
       setSelected(map, null, latest.current.selectedId)
@@ -123,7 +137,7 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
     prevSel.current = selectedId
   }, [selectedId])
 
-  return <div ref={box} className="h-[380px] w-full sm:h-[520px]" aria-label="3D map of Mumbai wards, height shows heat vulnerability, colour shows risk" role="region" />
+  return <div ref={box} className="h-[440px] w-full sm:h-[600px]" aria-label="Map of Mumbai wards, colour shows heat risk" role="region" />
 }
 
 function setSelected(map, prev, next) {
@@ -140,5 +154,5 @@ function fitToWards(map, wards) {
     } else c.forEach(visit)
   }
   wards.features.forEach((f) => visit(f.geometry.coordinates))
-  map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 30, pitch: 52, bearing: -18, duration: 0 })
+  map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 20, duration: 0 })
 }

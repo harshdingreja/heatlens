@@ -1,65 +1,90 @@
 import { useEffect, useRef, useState } from 'react'
+import Logo from './Logo'
 
-const NAV = [
-  { id: 'ward-risk', label: 'Map' },
-  { id: 'forecast', label: 'Forecast' },
-  { id: 'health', label: 'Health' },
-  { id: 'performance', label: 'Evaluation' },
-  { id: 'history', label: 'Record' },
-  { id: 'tools', label: 'Tools' },
-  { id: 'advisory-section', label: 'Advisory' },
-  { id: 'method', label: 'Method' },
-]
+// Top bar: logo + where you are, and a single Menu button that lists every section.
+export default function NavBar({ sections, active, onGo }) {
+  const [open, setOpen] = useState(false)
+  const boxRef = useRef(null)
+  const i = sections.findIndex((s) => s.id === active)
+  const [hidden, setHidden] = useState(false)
 
-// Sticky top navigation. Highlights the section currently on screen.
-export default function NavBar() {
-  const [active, setActive] = useState(NAV[0].id)
-  const listRef = useRef(null)
-
-  // On phones the link row scrolls sideways: keep the active link visible.
+  // Hide the bar while scrolling down (so it never covers charts), show it again on scroll up
   useEffect(() => {
-    const list = listRef.current
-    const link = list?.querySelector(`[href="#${active}"]`)
-    if (list && link) list.scrollTo({ left: link.offsetLeft - 16, behavior: 'smooth' })
-  }, [active])
-
-  useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') return
-    const io = new IntersectionObserver(
-      (entries) => {
-        const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
-        if (hit) setActive(hit.target.id)
-      },
-      { rootMargin: '-80px 0px -60% 0px' }, // "active" = the section near the top of the screen
-    )
-    NAV.forEach((n) => {
-      const el = document.getElementById(n.id)
-      if (el) io.observe(el)
-    })
-    return () => io.disconnect()
+    let last = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      if (Math.abs(y - last) < 6) return
+      setHidden(y > last && y > 80)
+      last = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close the menu whenever the section changes (menu click, Next button, browser Back)
+  useEffect(() => setOpen(false), [active])
+
+  // Close the menu on outside click or Escape
+  useEffect(() => {
+    if (!open) return
+    const onClick = (e) => !boxRef.current?.contains(e.target) && setOpen(false)
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('mousedown', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
   return (
-    <nav aria-label="Sections" className="sticky top-0 z-30 border-b border-line bg-haze/95 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <a href="#top" className="hidden shrink-0 py-3 font-extrabold sm:block">
-          HeatLens
-        </a>
-        <ul ref={listRef} className="relative -mx-1 flex min-w-0 flex-1 gap-1 overflow-x-auto py-1.5 [scrollbar-width:none] sm:justify-end">
-          {NAV.map((n) => (
-            <li key={n.id} className="shrink-0">
-              <a
-                href={`#${n.id}`}
-                aria-current={active === n.id ? 'true' : undefined}
-                className={`block rounded-sm px-2.5 py-1.5 text-sm font-semibold whitespace-nowrap ${
-                  active === n.id ? 'bg-ink text-white' : 'text-ink-soft hover:bg-white hover:text-ink'
-                }`}
-              >
-                {n.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <nav aria-label="Sections" className={`sticky top-0 z-[1000] border-b border-line bg-haze/95 backdrop-blur-sm transition-transform duration-300 ${hidden && !open ? '-translate-y-full' : ''}`}>
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2 sm:px-6">
+        <button type="button" onClick={() => onGo(sections[0].id)} className="flex min-w-0 items-center gap-2">
+          <Logo size={24} />
+          <span className="font-extrabold">HeatLens</span>
+          <span className="hidden truncate text-sm text-ink-soft sm:inline">
+            · {String(i + 1).padStart(2, '0')} {sections[i]?.title}
+          </span>
+        </button>
+
+        <div ref={boxRef} className="relative">
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-haspopup="true"
+            onClick={() => setOpen((o) => !o)}
+            className="flex items-center gap-2 rounded-md border border-line bg-white px-3 py-1.5 text-sm font-semibold hover:border-sea"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+            Menu
+          </button>
+
+          {open && (
+            <ul className="absolute right-0 mt-2 w-64 overflow-hidden rounded-md border border-line bg-white py-1 shadow-lg">
+              {sections.map((s, k) => (
+                <li key={s.id}>
+                  <button
+                    type="button"
+                    aria-current={s.id === active ? 'page' : undefined}
+                    onClick={() => {
+                      setOpen(false)
+                      onGo(s.id)
+                    }}
+                    className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm ${
+                      s.id === active ? 'bg-ink font-bold text-white' : 'hover:bg-haze'
+                    }`}
+                  >
+                    <span className={`w-6 tabular ${s.id === active ? 'text-white/70' : 'text-ink-soft'}`}>{String(k + 1).padStart(2, '0')}</span>
+                    {s.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </nav>
   )
