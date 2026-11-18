@@ -60,7 +60,7 @@ def flag(df: pd.DataFrame, forest: IsolationForest) -> pd.DataFrame:
 
 def main() -> None:
     obs, _, clim, offs = load_tables()
-    o = obs[(obs["station"] == "santacruz") & obs["valid"]][["date", "hi_max"]]
+    o = obs[(obs["station"] == "santacruz") & obs["valid"]][["date", "hi_max", "tmax", "rh_at_tmax"]]
     days = add_departures(o, "santacruz", clim, offs)
 
     train = days[days["date"] < "2026-01-01"].dropna(subset=IF_FEATURES)
@@ -96,6 +96,9 @@ def main() -> None:
     # Small 2026 series for the dashboard's anomaly chart (the API can't read data/).
     test[["date", "hi_max", "normal_hi", "z", "is_anomaly", "if_anomaly"]].round(2).to_csv(
         ARTIFACTS / "anomalies_2026.csv", index=False)
+    # Full 2021-2026 daily history for the dashboard's heat calendar.
+    cal = days[["date", "hi_max", "tmax", "rh_at_tmax", "normal_hi", "z", "is_anomaly", "if_anomaly"]].round(2)
+    cal.assign(date=cal["date"].dt.date.astype(str)).to_csv(ARTIFACTS / "heat_calendar_santacruz.csv", index=False)
 
     fig, ax = plt.subplots(figsize=(10, 3.6))
     ax.plot(test["date"], test["hi_max"], color="black", lw=1, label="Observed daily max heat index")

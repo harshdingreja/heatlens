@@ -190,6 +190,9 @@ def model_report_cached() -> dict:
             "mcap": {k: val for k, val in v["mcap_crosscheck"].items() if isinstance(val, dict) and "spearman_rho" in val},
             "satellite": v["satellite"],
         }
+    cal_file = ARTIFACTS / "heat_calendar_santacruz.csv"
+    if cal_file.exists():   # every valid observed day 2021-2026, for the heat calendar
+        report["heat_calendar"] = pd.read_csv(cal_file).to_dict(orient="records")
     history = load("heatwave_history.json")
     if history:
         report["heatwave_history"] = history
