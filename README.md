@@ -1,6 +1,6 @@
 # HeatLens
 
-**A closer look at Mumbai's heat: forecasts, ward vulnerability and health impact.**
+**Forecasting how hot Mumbai will feel, and which wards it will hit hardest.**
 
 **Smart India Hackathon 2026 · Problem SIH26083 · "Extreme Heatwave Early Warning and Human Thermal Stress Index"** (Ministry of Earth Sciences / NCMRWF)
 

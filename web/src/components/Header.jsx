@@ -14,7 +14,7 @@ export default function Header({ forecast }) {
           </span>
         </div>
         <p className="mt-2 max-w-xl text-base text-ink-soft sm:text-lg">
-          A closer look at Mumbai's heat: forecasts, ward vulnerability and health impact.
+          Forecasting how hot Mumbai will feel, and which wards it will hit hardest.
         </p>
       </div>
 
