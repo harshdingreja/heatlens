@@ -97,5 +97,5 @@ export default function AnomalyTimeline({ anomalies: a }) {
 // Hollow ring marker so the two detectors can overlap visibly
 function Ring({ cx, cy }) {
   if (cx == null || cy == null) return null
-  return <circle cx={cx} cy={cy} r={6} fill="none" stroke="#1d5e86" strokeWidth={2} />
+  return <circle cx={cx} cy={cy} r={6} fill="none" stroke="#b4441b" strokeWidth={2} />
 }

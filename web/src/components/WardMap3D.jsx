@@ -63,7 +63,7 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
         type: 'fill',
         source: 'wards',
         paint: {
-          'fill-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#1d5e86', RISK_COLOR],
+          'fill-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#b4441b', RISK_COLOR],
           'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.8, ['boolean', ['feature-state', 'selected'], false], 0.7, 0.55],
         },
       }, firstLabel)
@@ -72,7 +72,7 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
         type: 'line',
         source: 'wards',
         paint: {
-          'line-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#0e2a3b', '#ffffff'],
+          'line-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#23150f', '#ffffff'],
           'line-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, ['boolean', ['feature-state', 'hover'], false], 2.5, 1.2],
         },
       }, firstLabel)
@@ -82,7 +82,7 @@ export default function WardMap3D({ wards, selectedId, onSelect, onFail }) {
         type: 'symbol',
         source: 'wards',
         layout: { 'text-field': ['get', 'ward_id'], 'text-size': 12, 'text-font': ['Noto Sans Bold'], 'text-allow-overlap': false },
-        paint: { 'text-color': '#0e2a3b', 'text-halo-color': '#ffffff', 'text-halo-width': 1.6 },
+        paint: { 'text-color': '#23150f', 'text-halo-color': '#ffffff', 'text-halo-width': 1.6 },
       })
       fitToWards(map, latest.current.wards)
       setSelected(map, null, latest.current.selectedId)

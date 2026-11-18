@@ -59,7 +59,7 @@ export default function WardDetails({ wards, selectedId, onSelect }) {
           className="mt-1 rounded-sm px-2 py-0.5 text-sm font-semibold"
           style={{
             background: riskHex(selected.risk_level),
-            color: ['high', 'very_high'].includes(selected.risk_level) ? '#fff' : '#0e2a3b',
+            color: ['high', 'very_high'].includes(selected.risk_level) ? '#fff' : '#23150f',
           }}
         >
           {riskLabel(selected.risk_level)} risk

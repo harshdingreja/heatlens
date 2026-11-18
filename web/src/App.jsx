@@ -6,6 +6,7 @@ import AdvisoryPanel from './components/AdvisoryPanel'
 import Footer from './components/Footer'
 import ForecastChart from './components/ForecastChart'
 import Header from './components/Header'
+import FeelsLikeHero from './components/FeelsLikeHero'
 import HeroGauge from './components/HeroGauge'
 import HeatCalculator from './components/HeatCalculator'
 import HeatCalendar from './components/HeatCalendar'
@@ -179,6 +180,7 @@ export default function App() {
       <div id="top" className="mx-auto max-w-6xl px-4 sm:px-6">
         <Header forecast={forecast.data} />
       </div>
+      {i === 0 && <FeelsLikeHero forecast={forecast.data} />}
 
       <main className="min-w-0">
         <Section n={i + 1} total={SECTIONS.length} id={active} title={SECTIONS[i].title} intro={content[active].intro}>

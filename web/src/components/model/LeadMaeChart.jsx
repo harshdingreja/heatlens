@@ -129,7 +129,7 @@ function Dumbbell({ corrector: c, methods }) {
           <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full bg-sea" /> HeatLens</span>
         </p>
         <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold">
-          <input type="checkbox" checked={others} onChange={(e) => setOthers(e.target.checked)} className="h-4 w-4 accent-[#1d5e86]" />
+          <input type="checkbox" checked={others} onChange={(e) => setOthers(e.target.checked)} className="h-4 w-4 accent-[#b4441b]" />
           Show other methods
         </label>
       </div>
@@ -150,7 +150,7 @@ function Dumbbell({ corrector: c, methods }) {
             return (
               <g key={r.lead} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onFocus={() => setHover(i)} onBlur={() => setHover(null)} tabIndex={0} className="outline-none">
                 <rect x={0} y={y - ROW / 2 + 2} width={W} height={ROW - 4} fill={hover === i ? '#e8edef' : 'transparent'} rx="4" />
-                <text x={8} y={y} fontSize="13" fontWeight="700" fill="#0e2a3b" dominantBaseline="middle">{r.lead} day{r.lead > 1 ? 's' : ''}</text>
+                <text x={8} y={y} fontSize="13" fontWeight="700" fill="#23150f" dominantBaseline="middle">{r.lead} day{r.lead > 1 ? 's' : ''}</text>
                 {others &&
                   extra.map((m) =>
                     Number.isFinite(r.vals[m.key]) ? (
@@ -159,11 +159,11 @@ function Dumbbell({ corrector: c, methods }) {
                       </g>
                     ) : null,
                   )}
-                <line x1={x(raw)} x2={x(now) + 7} y1={y} y2={y} stroke="#1d5e86" strokeOpacity="0.35" strokeWidth="6" strokeLinecap="round" />
+                <line x1={x(raw)} x2={x(now) + 7} y1={y} y2={y} stroke="#b4441b" strokeOpacity="0.35" strokeWidth="6" strokeLinecap="round" />
                 <circle cx={x(raw)} cy={y} r="8" fill="#8a9ba6" />
-                <circle cx={x(now)} cy={y} r="9" fill="#1d5e86" stroke="#fff" strokeWidth="2" />
+                <circle cx={x(now)} cy={y} r="9" fill="#b4441b" stroke="#fff" strokeWidth="2" />
                 <text x={x(raw) + 12} y={y - 13} fontSize="11" fill="#4a6070" style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(raw)}</text>
-                <text x={x(now)} y={y + 22} fontSize="12" fontWeight="700" fill="#1d5e86" textAnchor="middle" style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(fin)}</text>
+                <text x={x(now)} y={y + 22} fontSize="12" fontWeight="700" fill="#b4441b" textAnchor="middle" style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(fin)}</text>
               </g>
             )
           })}

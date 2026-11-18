@@ -107,7 +107,7 @@ function YearRow({ year, byDate, episodeOf, onHover, onLeave, onEpisode }) {
 
   return (
     <svg width={LEFT + weeks * STEP} height={TOP + 7 * STEP} role="img" aria-label={`Heat index calendar ${year}`}>
-      <text x="0" y={TOP + 3.5 * STEP} fontSize="12" fontWeight="700" fill="#0e2a3b" dominantBaseline="middle">
+      <text x="0" y={TOP + 3.5 * STEP} fontSize="12" fontWeight="700" fill="#23150f" dominantBaseline="middle">
         {year}
       </text>
       {monthLabels.map((m) => (
@@ -127,8 +127,8 @@ function YearRow({ year, byDate, episodeOf, onHover, onLeave, onEpisode }) {
             tabIndex={c.ep ? 0 : -1}
             onKeyDown={c.ep && onEpisode ? (e) => e.key === 'Enter' && onEpisode(c.ep.start) : undefined}
           >
-            <rect x={c.x} y={c.y} width={CELL} height={CELL} rx="2" fill={colorFor(c.day.hi_max)} stroke={c.ep ? '#0e2a3b' : 'none'} strokeWidth={c.ep ? 1.6 : 0} />
-            {c.day.is_anomaly && <circle cx={c.x + CELL / 2} cy={c.y + CELL / 2} r="2" fill="#0e2a3b" />}
+            <rect x={c.x} y={c.y} width={CELL} height={CELL} rx="2" fill={colorFor(c.day.hi_max)} stroke={c.ep ? '#23150f' : 'none'} strokeWidth={c.ep ? 1.6 : 0} />
+            {c.day.is_anomaly && <circle cx={c.x + CELL / 2} cy={c.y + CELL / 2} r="2" fill="#23150f" />}
           </g>
         ) : (
           <rect key={c.iso} x={c.x} y={c.y} width={CELL} height={CELL} rx="2" fill="none" stroke="#dbe3e7" strokeWidth="0.6" />
@@ -180,13 +180,13 @@ function Legend() {
       <span className="flex items-center gap-1 text-xs">
         <svg width="12" height="12" aria-hidden="true">
           <rect x="0.5" y="0.5" width="11" height="11" rx="2" fill="#f9a854" />
-          <circle cx="6" cy="6" r="2" fill="#0e2a3b" />
+          <circle cx="6" cy="6" r="2" fill="#23150f" />
         </svg>
         unusual
       </span>
       <span className="flex items-center gap-1 text-xs">
         <svg width="12" height="12" aria-hidden="true">
-          <rect x="0.8" y="0.8" width="10.4" height="10.4" rx="2" fill="#f9a854" stroke="#0e2a3b" strokeWidth="1.6" />
+          <rect x="0.8" y="0.8" width="10.4" height="10.4" rx="2" fill="#f9a854" stroke="#23150f" strokeWidth="1.6" />
         </svg>
         heatwave
       </span>

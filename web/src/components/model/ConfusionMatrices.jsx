@@ -57,7 +57,7 @@ function Row({ label, row, i, max }) {
           <div
             key={j}
             className={`flex h-11 items-center justify-center rounded-[2px] ${i === j ? 'ring-2 ring-inset ring-ink' : ''}`}
-            style={{ background: v === 0 ? '#f2f5f6' : `rgba(29, 94, 134, ${a})`, color: a > 0.5 ? '#fff' : '#0e2a3b' }}
+            style={{ background: v === 0 ? '#f2f5f6' : `rgba(29, 94, 134, ${a})`, color: a > 0.5 ? '#fff' : '#23150f' }}
             title={`Observed ${label}, forecast column ${j + 1}: ${v}`}
           >
             {v === 0 ? <span className="text-ink-soft/50">0</span> : v}

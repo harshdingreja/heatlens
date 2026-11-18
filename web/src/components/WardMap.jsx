@@ -15,7 +15,7 @@ export default function WardMap({ wards, selectedId, onSelect, bare = false }) {
       return {
         fillColor: riskHex(feature.properties.risk_level),
         fillOpacity: 0.82,
-        color: selected ? '#0e2a3b' : '#ffffff',
+        color: selected ? '#23150f' : '#ffffff',
         weight: selected ? 3 : 1.2,
       }
     },

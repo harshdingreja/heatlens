@@ -38,7 +38,7 @@ export default function HeroGauge({ state }) {
     <section
       aria-labelledby="hero-title"
       className="relative overflow-hidden rounded-lg text-white"
-      style={{ background: 'radial-gradient(120% 90% at 50% 115%, #7a2a14 0%, #3b2030 32%, #0e2a3b 70%)' }}
+      style={{ background: 'radial-gradient(120% 90% at 50% 115%, #7a2a14 0%, #3b2030 32%, #23150f 70%)' }}
     >
       <div className="relative px-4 pt-5 pb-4 sm:px-8 sm:pt-7">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -130,7 +130,7 @@ function Gauge({ day }) {
         {/* needle */}
         <g transform={`rotate(${angleOf(needle)} ${cx} ${cy})`}>
           <path d={`M ${cx - 5} ${cy} L ${cx} ${cy - R + 20} L ${cx + 5} ${cy} Z`} fill={color} />
-          <circle cx={cx} cy={cy} r="9" fill="#0e2a3b" stroke={color} strokeWidth="3" />
+          <circle cx={cx} cy={cy} r="9" fill="#23150f" stroke={color} strokeWidth="3" />
         </g>
         <text x={cx} y={cy + 46} fill="#fff" fontSize="46" fontWeight="800" textAnchor="middle" style={{ fontVariantNumeric: 'tabular-nums' }}>
           {shown.toFixed(1)}°

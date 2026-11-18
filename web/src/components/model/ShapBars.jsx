@@ -22,11 +22,11 @@ export default function ShapBars({ corrector: c }) {
             <span className="group flex min-w-0 items-center gap-2" title={`${f.feature}: mean |SHAP| ${fmt(f.value, 3)} °C`}>
               <span
                 className="relative h-0.5 transition-[width] duration-1000 ease-out"
-                style={{ width: seen ? `calc(${(f.value / max) * 100}% - 3.5rem)` : '0%', background: i < 3 ? '#1d5e86' : '#7fa6c0', transitionDelay: `${i * 60}ms` }}
+                style={{ width: seen ? `calc(${(f.value / max) * 100}% - 3.5rem)` : '0%', background: i < 3 ? '#b4441b' : '#7fa6c0', transitionDelay: `${i * 60}ms` }}
               >
                 <span
                   className="absolute top-1/2 -right-2 h-4 w-4 -translate-y-1/2 rounded-full border-2 border-white shadow transition-transform group-hover:scale-125"
-                  style={{ background: i < 3 ? '#1d5e86' : '#7fa6c0' }}
+                  style={{ background: i < 3 ? '#b4441b' : '#7fa6c0' }}
                 />
               </span>
               <span className="ml-2 shrink-0 text-xs text-ink-soft tabular">{fmt(f.value, 3)}</span>

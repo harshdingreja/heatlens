@@ -113,7 +113,7 @@ function Silhouette({ level }) {
         <g style={{ transition: 'opacity 400ms' }} opacity={level.level === 0 ? 0 : 0.75}>
           <Body fill={level.color} filter="url(#aura)" />
         </g>
-        <Body fill="url(#body-heat)" stroke="#0e2a3b" />
+        <Body fill="url(#body-heat)" stroke="#23150f" />
         {/* heat waves above the head at Danger and above */}
         {level.level >= 3 &&
           [40, 60, 80].map((x, i) => (

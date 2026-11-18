@@ -29,13 +29,13 @@ export function dateRange(a, b) {
 }
 
 export const CHART = {
-  ink: '#0e2a3b',
-  soft: '#4a6070',
-  line: '#c9d4da',
-  sea: '#1d5e86',
+  ink: '#23150f',
+  soft: '#6b5a50',
+  line: '#e6dbcd',
+  sea: '#b4441b',
   grey: '#8a9ba6',
-  danger: '#e06c1f',
+  danger: '#b8232e',
   red: '#b8232e',
-  tick: { fontSize: 12, fill: '#4a6070' },
-  tooltip: { borderRadius: 4, borderColor: '#c9d4da', fontFamily: 'Mukta, sans-serif', fontSize: 13 },
+  tick: { fontSize: 12, fill: '#6b5a50' },
+  tooltip: { borderRadius: 4, borderColor: '#e6dbcd', fontFamily: 'Mukta, sans-serif', fontSize: 13 },
 }

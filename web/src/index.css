@@ -9,12 +9,12 @@
   --font-sans: "Mukta", "Noto Sans Devanagari", system-ui, sans-serif;
   --font-deva: "Noto Sans Devanagari", "Mukta", sans-serif;
 
-  --color-haze: #e8edef;      /* page background: Mumbai's hazy pre-monsoon sky */
+  --color-haze: #f6f1ea;      /* page background: warm sand */
   --color-surface: #ffffff;   /* panels */
-  --color-ink: #0e2a3b;       /* main text: deep sea */
-  --color-ink-soft: #4a6070;  /* secondary text */
-  --color-line: #c9d4da;      /* borders and dividers */
-  --color-sea: #1d5e86;       /* links, buttons, focus */
+  --color-ink: #23150f;       /* main text: dark roast brown-black */
+  --color-ink-soft: #6b5a50;  /* secondary text */
+  --color-line: #e6dbcd;      /* borders and dividers */
+  --color-sea: #b4441b;       /* accent: ember (buttons, links, focus) */
 
   /* NOAA alert colours (green / yellow / orange / red) */
   --color-heat-green: #3e8e5e;
