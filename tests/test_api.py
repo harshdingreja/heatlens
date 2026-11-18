@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import api.main as main
-from heatshield.models.alerts import imd_alert, noaa_alert
+from heatlens.models.alerts import imd_alert, noaa_alert
 
 
 def fake_bundle(days=5):
@@ -71,7 +71,7 @@ def test_risk(client):
 def test_advisory_all_languages_without_keys(client, monkeypatch, lang):
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
     monkeypatch.delenv("GEMINI_API_KEY", raising=False)
-    import heatshield.llm.advisory as adv
+    import heatlens.llm.advisory as adv
     monkeypatch.setattr(adv, "load_dotenv", lambda *a, **k: None, raising=False)
     r = client.post("/advisory", json={"lang": lang})
     assert r.status_code == 200

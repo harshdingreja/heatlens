@@ -1,7 +1,7 @@
-"""Push a HeatShield alert to a Telegram chat (stretch goal).
+"""Push a HeatLens alert to a Telegram chat (stretch goal).
 
 What it does:
-1. GET  /forecast?days=5 from the HeatShield API and find the worst day.
+1. GET  /forecast?days=5 from the HeatLens API and find the worst day.
 2. If that day's alert is at or above a threshold (default: Extreme Caution),
    POST /advisory for that day in the chosen language.
 3. Send the 5-day outlook + advisory with the Telegram Bot API `sendMessage`
@@ -12,9 +12,9 @@ Setup: create a bot with @BotFather, put TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID
 in .env. Run it once a day, e.g. with cron.
 
 Usage (from the project root, with the API running):
-    python -m heatshield.bot.telegram_bot --dry-run          # print only, sends nothing
-    python -m heatshield.bot.telegram_bot --lang mr          # send if alert >= extreme_caution
-    python -m heatshield.bot.telegram_bot --threshold danger --force
+    python -m heatlens.bot.telegram_bot --dry-run          # print only, sends nothing
+    python -m heatlens.bot.telegram_bot --lang mr          # send if alert >= extreme_caution
+    python -m heatlens.bot.telegram_bot --threshold danger --force
 """
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ import sys
 import requests
 from dotenv import load_dotenv
 
-from heatshield.config import PROJECT_ROOT
+from heatlens.config import PROJECT_ROOT
 
 load_dotenv(PROJECT_ROOT / ".env", override=False)
 
@@ -49,7 +49,7 @@ def worst_day(forecast: dict) -> dict:
 
 
 def format_message(forecast: dict, advisory: dict | None) -> str:
-    lines = ["HeatShield Mumbai: heat outlook"]
+    lines = ["HeatLens Mumbai: heat outlook"]
     for day in forecast["days"]:
         alert = day.get("alert") or {}
         hi = day.get("heat_index_corrected_c")
@@ -104,8 +104,8 @@ def run(api_url: str, lang: str, threshold: str, dry_run: bool, force: bool) -> 
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Send a HeatShield heat alert to Telegram.")
-    parser.add_argument("--api-url", default=os.getenv("HEATSHIELD_API_URL", "http://localhost:8000"))
+    parser = argparse.ArgumentParser(description="Send a HeatLens heat alert to Telegram.")
+    parser.add_argument("--api-url", default=os.getenv("HEATLENS_API_URL", "http://localhost:8000"))
     parser.add_argument("--lang", choices=["en", "mr", "hi"], default="en")
     parser.add_argument("--threshold", choices=ALERT_ORDER, default="extreme_caution")
     parser.add_argument("--dry-run", action="store_true", help="print the message instead of sending")

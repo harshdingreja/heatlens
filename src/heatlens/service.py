@@ -19,14 +19,14 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from heatshield.config import ARTIFACTS, MAX_LEAD_DAYS, TIMEZONE, WEATHER_VARS
-from heatshield.features.daily import AFTERNOON, MIN_OBS, calendar_day, daily_max_with_rh
-from heatshield.features.heat_indices import heat_index_c
-from heatshield.ingest.weather import FORECAST_URL, PREVIOUS_RUNS_URL, get_json, hourly_frame
-from heatshield.models.alerts import imd_alert, noaa_alert
-from heatshield.models.anomaly import IF_FEATURES, Z_THRESHOLD
-from heatshield.models.corrector import StackedCorrector  # noqa: F401  (needed to unpickle the model)
-from heatshield.models.corrector import station_normal
+from heatlens.config import ARTIFACTS, MAX_LEAD_DAYS, TIMEZONE, WEATHER_VARS
+from heatlens.features.daily import AFTERNOON, MIN_OBS, calendar_day, daily_max_with_rh
+from heatlens.features.heat_indices import heat_index_c
+from heatlens.ingest.weather import FORECAST_URL, PREVIOUS_RUNS_URL, get_json, hourly_frame
+from heatlens.models.alerts import imd_alert, noaa_alert
+from heatlens.models.anomaly import IF_FEATURES, Z_THRESHOLD
+from heatlens.models.corrector import StackedCorrector  # noqa: F401  (needed to unpickle the model)
+from heatlens.models.corrector import station_normal
 
 CACHE_SECONDS = 30 * 60
 _cache: dict[str, tuple[float, object]] = {}
@@ -98,7 +98,7 @@ def live_forecast_daily(a: Artifacts) -> pd.DataFrame:
 
 def recent_obs_daily(a: Artifacts, days: int = 21) -> pd.DataFrame:
     """Last few weeks of station observations as daily max heat index (GHCNh only)."""
-    from heatshield.ingest.stations import PARAMETERS, PROVIDER, ms   # imports Meteostat (+SSL fix)
+    from heatlens.ingest.stations import PARAMETERS, PROVIDER, ms   # imports Meteostat (+SSL fix)
     end = today_ist()
     df = ms.hourly(a.station.station_id, (end - timedelta(days=days)).date(), end.date(),
                    timezone=TIMEZONE, parameters=PARAMETERS, providers=[PROVIDER]).fetch()

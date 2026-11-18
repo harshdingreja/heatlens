@@ -21,7 +21,7 @@ export default function Footer() {
         ))}
       </dl>
       <p className="mt-6 max-w-[75ch]">
-        HeatShield is a student project for Smart India Hackathon 2026 (problem statement SIH26083). Its estimates support planning;
+        HeatLens is a student project for Smart India Hackathon 2026 (problem statement SIH26083). Its estimates support planning;
         they are not official IMD warnings or medical advice.{' '}
         {REPO_URL ? (
           <a className="font-semibold text-sea underline" href={`${REPO_URL.replace(/\/$/, '')}#limitations`}>

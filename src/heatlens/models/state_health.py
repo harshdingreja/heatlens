@@ -26,7 +26,7 @@ Honest caveats: ~200 rows, official heat deaths are known undercounts, and
 reporting differs a lot between states. This layer is a sanity check on
 Layer 1, not a predictor.
 
-Run:   python -m heatshield.models.state_health
+Run:   python -m heatlens.models.state_health
 """
 from __future__ import annotations
 
@@ -38,8 +38,8 @@ import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
-from heatshield.config import ARTIFACTS, DATA_RAW, FIGURES
-from heatshield.ingest.health import POPULATION_NAME_MAP
+from heatlens.config import ARTIFACTS, DATA_RAW, FIGURES
+from heatlens.ingest.health import POPULATION_NAME_MAP
 
 HEALTH_DIR = DATA_RAW / "health"
 RESULTS_PATH = ARTIFACTS / "state_health_results.json"

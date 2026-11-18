@@ -29,7 +29,7 @@ import time
 import requests
 from dotenv import load_dotenv
 
-from heatshield.config import PROJECT_ROOT
+from heatlens.config import PROJECT_ROOT
 
 # Read GROQ_API_KEY / GEMINI_API_KEY from the project's .env file (gitignored).
 # override=False: a key already set in the real environment (e.g. on Render) wins.
@@ -259,7 +259,7 @@ LEVEL_NAMES = {
 }
 
 HEADER = {
-    "en": "HeatShield advisory for Mumbai, {date}: {level}.",
+    "en": "HeatLens advisory for Mumbai, {date}: {level}.",
     "mr": "मुंबईसाठी हीटशील्ड सूचना, {date}: {level}.",
     "hi": "मुंबई के लिए हीटशील्ड सलाह, {date}: {level}।",
 }
@@ -436,7 +436,7 @@ def generate_advisory(
 
 
 if __name__ == "__main__":
-    # Quick manual check:  python -m heatshield.llm.advisory
+    # Quick manual check:  python -m heatlens.llm.advisory
     for code in LANGUAGES:
         result = generate_advisory(code, "2026-11-18", "extreme_caution", "Extreme Caution", 39.1, ["K/E", "L", "M/E"])
         print(f"--- {code} via {result['provider']} ({result['model']})\n{result['text']}\n{result['debug']}\n")

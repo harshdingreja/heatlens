@@ -57,7 +57,7 @@ export default function ForecastChart({ days }) {
           <Legend wrapperStyle={{ fontSize: 13 }} />
           <Line name="Normal for the date" dataKey="normal" stroke="#8a9ba6" strokeDasharray="2 3" strokeWidth={1.5} dot={false} />
           <Line name="Raw model forecast" dataKey="raw" stroke="#4a6070" strokeDasharray="6 4" strokeWidth={2} dot={{ r: 3 }} />
-          <Line name="Corrected (HeatShield)" dataKey="corrected" stroke="#1d5e86" strokeWidth={3} dot={{ r: 4 }} />
+          <Line name="Corrected (HeatLens)" dataKey="corrected" stroke="#1d5e86" strokeWidth={3} dot={{ r: 4 }} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

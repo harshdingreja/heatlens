@@ -12,7 +12,7 @@ Method 2 (machine learning): IsolationForest
     persistent heat (several warm days in a row) that a single-day z-score can
     miss. We only keep its outliers on the HOT side (departure > 0).
 
-Run:  python -m heatshield.models.anomaly
+Run:  python -m heatlens.models.anomaly
 """
 from __future__ import annotations
 
@@ -25,8 +25,8 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.metrics import cohen_kappa_score
 
-from heatshield.config import ARTIFACTS, DATA_PROCESSED, FIGURES
-from heatshield.models.corrector import load_tables, station_normal
+from heatlens.config import ARTIFACTS, DATA_PROCESSED, FIGURES
+from heatlens.models.corrector import load_tables, station_normal
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402

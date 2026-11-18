@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from heatshield.features.heat_indices import heat_index_c, wbgt_bom_c
-from heatshield.models.alerts import imd_alert, noaa_alert, noaa_level
-from heatshield.models.corrector import mae, rmse, time_split
+from heatlens.features.heat_indices import heat_index_c, wbgt_bom_c
+from heatlens.models.alerts import imd_alert, noaa_alert, noaa_level
+from heatlens.models.corrector import mae, rmse, time_split
 
 
 def f_to_c(f):

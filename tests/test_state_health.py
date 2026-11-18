@@ -3,10 +3,10 @@ import json
 
 import pytest
 
-from heatshield.models.state_health import RESULTS_PATH
+from heatlens.models.state_health import RESULTS_PATH
 
 
-@pytest.mark.skipif(not RESULTS_PATH.exists(), reason="run `python -m heatshield.models.state_health` first")
+@pytest.mark.skipif(not RESULTS_PATH.exists(), reason="run `python -m heatlens.models.state_health` first")
 def test_results_file_has_expected_keys():
     res = json.loads(RESULTS_PATH.read_text())
     assert isinstance(res["summary"], str) and len(res["summary"]) > 50

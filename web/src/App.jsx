@@ -49,7 +49,7 @@ export default function App() {
     <>
       {USE_MOCK && (
         <div role="note" className="bg-heat-yellow px-4 py-2 text-center text-sm font-bold text-ink">
-          SAMPLE DATA: a saved snapshot of the HeatShield API from 18 Nov 2026, not live.
+          SAMPLE DATA: a saved snapshot of the HeatLens API from 18 Nov 2026, not live.
         </div>
       )}
       <NavBar />

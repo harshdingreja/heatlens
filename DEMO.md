@@ -1,4 +1,4 @@
-# HeatShield: demo guide
+# HeatLens: demo guide
 
 Everything you need to run, present and defend the project.
 
@@ -37,19 +37,19 @@ cd ~/heatshield && source .venv/bin/activate && python -m pytest -q
 ### Rebuild everything from scratch (optional, ~15 min, needs internet)
 
 ```bash
-python -m heatshield.ingest.stations
+python -m heatlens.ingest.stations
 ```
 
 ```bash
-python -m heatshield.ingest.weather
+python -m heatlens.ingest.weather
 ```
 
 ```bash
-python -m heatshield.features.daily && python -m heatshield.models.corrector && python -m heatshield.models.anomaly
+python -m heatlens.features.daily && python -m heatlens.models.corrector && python -m heatlens.models.anomaly
 ```
 
 ```bash
-python -m heatshield.models.vulnerability
+python -m heatlens.models.vulnerability
 ```
 
 ```bash
@@ -62,18 +62,18 @@ python scripts/make_results.py
 
 ## 1b. Deploy (free): what YOU need to click
 
-The code is already on GitHub (public repo `heatshield`) with all config files (`render.yaml`, `web/vercel.json`).
+The code is already on GitHub (public repo `heatlens`) with all config files (`render.yaml`, `web/vercel.json`).
 
 **Step 1: API on Render (~10 min)**
 1. Go to https://render.com and click **Get Started**. Sign up with **GitHub**.
-2. Click **New +** → **Blueprint** → pick the `heatshield` repo → **Connect**. Render reads `render.yaml` by itself.
+2. Click **New +** → **Blueprint** → pick the `heatlens` repo → **Connect**. Render reads `render.yaml` by itself.
 3. It asks for 3 values. Paste your `GROQ_API_KEY` and `GEMINI_API_KEY` (or leave them empty; templates will be used). Leave `ALLOWED_ORIGINS` empty: any `*.vercel.app` site is already allowed.
-4. Click **Apply** and wait for the build (5–10 min). Copy the URL, e.g. `https://heatshield-api.onrender.com`.
+4. Click **Apply** and wait for the build (5–10 min). Copy the URL, e.g. `https://heatlens-api.onrender.com`.
 5. Open `<that URL>/health`. You should see `"status": "ok"`.
 
 **Step 2: Dashboard on Vercel (~5 min)**
 1. Go to https://vercel.com and sign up with **GitHub**.
-2. **Add New…** → **Project** → import `heatshield`.
+2. **Add New…** → **Project** → import `heatlens`.
 3. Set **Root Directory** to `web` (click Edit). The framework is detected as Vite.
 4. Under **Environment Variables** add `VITE_API_URL` = your Render URL (no trailing `/`).
 5. Click **Deploy**. Copy the `https://….vercel.app` link into the top of `README.md` as the live demo link.
@@ -86,7 +86,7 @@ The code is already on GitHub (public repo `heatshield`) with all config files (
 
 > **(Problem, 20 s)** Heat warnings in India mostly look at temperature. But Mumbai is humid. At 34 °C and 70 % humidity, sweat can't evaporate, and the body feels about 47 °C. This is SIH 2026 problem SIH26083 from the Ministry of Earth Sciences: an early warning based on how heat *feels*, not just the thermometer.
 >
-> **(What it does, 30 s)** HeatShield computes the NOAA Heat Index and an approximate WBGT for Mumbai. It forecasts them 1 to 5 days ahead and turns them into green/yellow/orange/red alerts, with the IMD bands too. It flags days that are abnormally hot *for that date*, maps which of the 24 BMC wards are most vulnerable, estimates extra deaths from a published Indian study, and writes advice in English, Marathi and Hindi.
+> **(What it does, 30 s)** HeatLens computes the NOAA Heat Index and an approximate WBGT for Mumbai. It forecasts them 1 to 5 days ahead and turns them into green/yellow/orange/red alerts, with the IMD bands too. It flags days that are abnormally hot *for that date*, maps which of the 24 BMC wards are most vulnerable, estimates extra deaths from a published Indian study, and writes advice in English, Marathi and Hindi.
 >
 > **(The ML, 40 s)** The key finding: every global weather model forecasts Mumbai about 3 °C too cool in heat-index terms. So I trained a corrector on 2024–2025 and tested it on all of 2026, data it never saw. It cuts the average error from 3.75 °C to 1.45 °C, 61 % lower. More importantly, the raw forecast missed more than half of the dangerous days; the corrected one catches 92 %. I tried LightGBM, but plain linear regression beat it, because trees can't extrapolate a drifting bias. The final model is linear regression plus a small LightGBM on its leftover error, chosen by validation inside 2025, never by peeking at the test set.
 >
@@ -98,7 +98,7 @@ The code is already on GitHub (public repo `heatshield`) with all config files (
 
 ## 3. The three functions you "own" (marked `# HARSH: explain this`)
 
-### `heat_index_c(temp_c, rh_pct)`: `src/heatshield/features/heat_indices.py`
+### `heat_index_c(temp_c, rh_pct)`: `src/heatlens/features/heat_indices.py`
 1. `T = c_to_f(temp_c)`: NOAA's formula is defined in °F, so convert first.
 2. `RH = np.asarray(...)`: make it an array so the same code works for one number or a whole column.
 3. `simple = 0.5 * (T + 61 + (T - 68) * 1.2 + RH * 0.094)`: Steadman's simple formula, good when it isn't hot.
@@ -109,7 +109,7 @@ The code is already on GitHub (public repo `heatshield`) with all config files (
 8. Convert back to °C. NaN in gives NaN out (we never invent a value).
 **Check:** 96 °F at 65 % gives 121 °F, the same as NOAA's chart (tested in `tests/test_core.py`).
 
-### `time_split(df)`: `src/heatshield/models/corrector.py`
+### `time_split(df)`: `src/heatlens/models/corrector.py`
 1. Sort by date.
 2. `train` = 24 Jan 2024 → 31 Dec 2025 (24 Jan is when all forecast archives are complete).
 3. `test` = 1 Jan 2026 → latest.

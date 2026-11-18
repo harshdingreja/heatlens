@@ -1,4 +1,4 @@
-"""HeatShield REST API (FastAPI).
+"""HeatLens REST API (FastAPI).
 
 Run locally:   .venv/bin/uvicorn api.main:app --reload --port 8000
 Interactive docs: http://localhost:8000/docs
@@ -23,12 +23,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.schemas import (AdvisoryRequest, AdvisoryResponse, ForecastResponse, HealthResponse,
                          RiskResponse)
-from heatshield import service
-from heatshield.config import ARTIFACTS, TIMEZONE
-from heatshield.models.alerts import NOAA_BANDS
+from heatlens import service
+from heatlens.config import ARTIFACTS, TIMEZONE
+from heatlens.models.alerts import NOAA_BANDS
 
 VERSION = "0.1.0"
-app = FastAPI(title="HeatShield API", version=VERSION,
+app = FastAPI(title="HeatLens API", version=VERSION,
               description="Mumbai heat-stress early warning (SIH 2026, PS SIH26083)")
 
 # CORS: browsers block a page on one address (the dashboard) from calling an API on
@@ -78,7 +78,7 @@ def _read_wards(mtime: float) -> dict:
 def risk_module():
     """Layer 1 is optional at import time, so the rest of the API still works without it."""
     try:
-        from heatshield.models import mortality_risk
+        from heatlens.models import mortality_risk
         return mortality_risk
     except Exception:
         return None
@@ -224,7 +224,7 @@ def model_report():
 
 @app.post("/advisory", response_model=AdvisoryResponse)
 def advisory(req: AdvisoryRequest):
-    from heatshield.llm.advisory import generate_advisory
+    from heatlens.llm.advisory import generate_advisory
     bundle = get_forecast(5)
     day = next((d for d in bundle["days"] if d["date"] == req.date), bundle["days"][0])
     alert_key = req.alert_level or (day["alert"]["key"] if day["alert"] else "green")

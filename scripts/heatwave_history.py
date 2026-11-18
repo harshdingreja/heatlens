@@ -13,7 +13,7 @@ import json
 
 import pandas as pd
 
-from heatshield.config import ARTIFACTS, DATA_PROCESSED
+from heatlens.config import ARTIFACTS, DATA_PROCESSED
 
 DANGER = 39.4
 
@@ -51,10 +51,10 @@ def main() -> None:
                 danger = x["target"] >= DANGER
                 skill[str(lead)] = {
                     "mae_raw": round(float((x["raw_hi"] - x["target"]).abs().mean()), 2),
-                    "mae_heatshield": round(float((x["corrected"] - x["target"]).abs().mean()), 2),
+                    "mae_heatlens": round(float((x["corrected"] - x["target"]).abs().mean()), 2),
                     "danger_days": int(danger.sum()),
                     "caught_raw": int((danger & (x["raw_hi"] >= DANGER)).sum()),
-                    "caught_heatshield": int((danger & (x["corrected"] >= DANGER)).sum())}
+                    "caught_heatlens": int((danger & (x["corrected"] >= DANGER)).sum())}
             ep["forecast_skill"] = skill
             ep["daily_lead1"] = w[w["lead_days"] == 1][["date", "target", "raw_hi", "corrected"]].rename(
                 columns={"target": "observed", "raw_hi": "raw"}).assign(

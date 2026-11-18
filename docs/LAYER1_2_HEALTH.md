@@ -2,7 +2,7 @@
 
 Code: `ingest/health.py` (data), `models/mortality_risk.py` (Layer 1), `models/state_health.py` (Layer 2).
 Outputs: `artifacts/mortality_config.json`, `artifacts/state_health_results.json`, `docs/figures/health_*.png`.
-Rebuild: `python -m heatshield.ingest.health && python -m heatshield.models.mortality_risk && python -m heatshield.models.state_health`
+Rebuild: `python -m heatlens.ingest.health && python -m heatlens.models.mortality_risk && python -m heatlens.models.state_health`
 
 ## Layer 1: extra deaths during a heatwave (evidence-based estimate, not a clinical prediction)
 

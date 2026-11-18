@@ -1,6 +1,6 @@
 import { Panel } from './Panel'
 
-// How HeatShield works, as a pipeline, plus where each ML capability lives in the code.
+// How HeatLens works, as a pipeline, plus where each ML capability lives in the code.
 const STAGES = [
   {
     title: 'Data',
@@ -50,7 +50,7 @@ export default function MethodSection() {
         </ol>
       </Panel>
 
-      <Panel id="capabilities" title="Eight ML capabilities, and where they live" aside="Paths under src/heatshield/">
+      <Panel id="capabilities" title="Eight ML capabilities, and where they live" aside="Paths under src/heatlens/">
         <dl className="grid min-w-0 gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {CAPABILITIES.map(([name, what, file]) => (
             <div key={name} className="min-w-0 bg-surface p-3">

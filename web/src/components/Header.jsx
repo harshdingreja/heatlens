@@ -7,13 +7,13 @@ export default function Header({ forecast }) {
       <div>
         <div className="flex items-center gap-3">
           <Thermometer />
-          <h1 className="text-3xl font-extrabold leading-none tracking-tight sm:text-4xl">HeatShield</h1>
+          <h1 className="text-3xl font-extrabold leading-none tracking-tight sm:text-4xl">HeatLens</h1>
           <span className="rounded border border-ink/30 px-2 py-0.5 text-xs font-semibold text-ink-soft" title="Smart India Hackathon 2026 problem statement">
             SIH26083
           </span>
         </div>
         <p className="mt-2 max-w-xl text-base text-ink-soft sm:text-lg">
-          Mumbai heat-stress early warning: how hot it will <em className="not-italic font-semibold text-ink">feel</em> over the next 5 days, and which wards are most at risk.
+          A closer look at Mumbai's heat: forecasts, ward vulnerability and health impact.
         </p>
       </div>
 

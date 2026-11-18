@@ -23,7 +23,7 @@ Method
 NDVI = (NIR - Red) / (NIR + Red): about 0 for concrete, 0.6+ for dense trees.
 We use Landsat for NDVI too, so both layers share the same pixels and masks.
 
-Run from the project root:   python -m heatshield.ingest.satellite
+Run from the project root:   python -m heatlens.ingest.satellite
 """
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ import rasterio.features
 import rioxarray  # noqa: F401  (adds the .rio accessor used to save GeoTIFFs)
 import xarray as xr
 
-from heatshield.config import DATA_PROCESSED
+from heatlens.config import DATA_PROCESSED
 
 STAC_URL = "https://planetarycomputer.microsoft.com/api/stac/v1"
 YEARS = (2023, 2024, 2025)
@@ -135,7 +135,7 @@ def ward_satellite_indicators(wards: gpd.GeoDataFrame, refresh: bool = False) ->
 
 
 if __name__ == "__main__":
-    from heatshield.ingest.wards import load_ward_boundaries
+    from heatlens.ingest.wards import load_ward_boundaries
 
     result = ward_satellite_indicators(load_ward_boundaries(), refresh=True)
     print(result[["ward_id", "lst_summer_c", "ndvi_summer"]].round(3).to_string(index=False))

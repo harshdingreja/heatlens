@@ -59,13 +59,13 @@ export default function KpiTiles({ corrector: c }) {
 
       {/* The honest part: precision gets worse */}
       <p className="mt-4 max-w-[80ch] border-l-4 border-heat-yellow bg-heat-yellow/10 px-3 py-2 text-sm">
-        <strong>The trade-off:</strong> precision drops from {pctOf(ar.precision)} to {pctOf(af.precision)}. HeatShield issues{' '}
+        <strong>The trade-off:</strong> precision drops from {pctOf(ar.precision)} to {pctOf(af.precision)}. HeatLens issues{' '}
         {af.predicted_danger_days} Danger alerts where the raw forecast issued {ar.predicted_danger_days}, so it raises more false alarms (
         {af.falseAlarms} vs {ar.falseAlarms}). In exchange it misses far fewer dangerous days ({af.missed} vs {ar.missed} of {observed}), because
         the raw model runs about {fmt(Math.abs(raw.bias), 1)} °C too cool. For a heat warning, a missed dangerous day costs more than a false alarm.
       </p>
       <p className="mt-2 text-xs text-ink-soft">
-        Strikethrough = raw {rawName} forecast; blue = HeatShield. Trained on {dateRange(c.train_period[0], c.train_period[1])} (
+        Strikethrough = raw {rawName} forecast; blue = HeatLens. Trained on {dateRange(c.train_period[0], c.train_period[1])} (
         {c.n_train_rows.toLocaleString('en-IN')} rows); tested on 2026 only, never shuffled.
       </p>
     </div>

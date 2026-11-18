@@ -1,10 +1,12 @@
-# 🌡️ HeatShield: Mumbai heat-stress early warning
+# HeatLens
+
+**A closer look at Mumbai's heat: forecasts, ward vulnerability and health impact.**
 
 **Smart India Hackathon 2026 · Problem SIH26083 · "Extreme Heatwave Early Warning and Human Thermal Stress Index"** (Ministry of Earth Sciences / NCMRWF)
 
 **Live demo:** _add after deploying (see DEMO.md → Deploy)_ · **API docs:** `/docs` on the API URL
 
-Heat warnings usually look only at temperature. In humid Mumbai, **34 °C at 70 % humidity feels like ~47 °C**. HeatShield forecasts how hot it will *feel* (heat index and WBGT) 1–5 days ahead, corrects the weather models' errors with ML, turns the result into alerts, flags abnormally hot days, maps the most vulnerable of Mumbai's 24 BMC wards, estimates the extra-deaths risk from published Indian research, and writes advisories in **English, मराठी and हिंदी**.
+Heat warnings usually look only at temperature. In humid Mumbai, **34 °C at 70 % humidity feels like ~47 °C**. HeatLens forecasts how hot it will *feel* (heat index and WBGT) 1–5 days ahead, corrects the weather models' errors with ML, turns the result into alerts, flags abnormally hot days, maps the most vulnerable of Mumbai's 24 BMC wards, estimates the extra-deaths risk from published Indian research, and writes advisories in **English, मराठी and हिंदी**.
 
 ![Python 3.13](https://img.shields.io/badge/python-3.13-blue) ![FastAPI](https://img.shields.io/badge/API-FastAPI-009688) ![React](https://img.shields.io/badge/frontend-React%2019%20%2B%20Vite-61dafb) ![LightGBM](https://img.shields.io/badge/ML-scikit--learn%20%7C%20LightGBM%20%7C%20SHAP-orange) ![tests](https://img.shields.io/badge/tests-pytest-green)
 
@@ -72,7 +74,7 @@ Heat warnings usually look only at temperature. In humid Mumbai, **34 °C at 70 
 | Ward layers (LST, NDVI, HVI, clusters) | SHAP: what drives the correction |
 |---|---|
 | ![Ward maps](docs/figures/layer3_maps.png) | ![SHAP](docs/figures/shap_summary.png) |
-| **Confusion matrix: raw forecast** | **Confusion matrix: HeatShield** |
+| **Confusion matrix: raw forecast** | **Confusion matrix: HeatLens** |
 | ![Raw](docs/figures/confusion_raw.png) | ![Corrected](docs/figures/confusion_corrected.png) |
 | **2026 anomalies (z-score + IsolationForest)** | **Choosing k for k-means** |
 | ![Anomalies](docs/figures/anomalies_2026.png) | ![k selection](docs/figures/layer3_k_selection.png) |
@@ -159,4 +161,4 @@ cd web && npm install && npm run dev
 
 ## Repo map
 
-`src/heatshield/` (ingest · features · models · llm · bot · service) · `api/` FastAPI · `web/` React · `notebooks/` EDA · `tests/` pytest · `artifacts/` trained models + results · `docs/` spec, API contract, per-layer notes, figures.
+`src/heatlens/` (ingest · features · models · llm · bot · service) · `api/` FastAPI · `web/` React · `notebooks/` EDA · `tests/` pytest · `artifacts/` trained models + results · `docs/` spec, API contract, per-layer notes, figures.

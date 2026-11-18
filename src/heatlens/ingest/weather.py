@@ -14,7 +14,7 @@ Caching: history files are saved one per year. A finished past year never
 changes, so we skip it if the file exists. The current year is always
 re-downloaded because new days keep arriving.
 
-Run from the project root:   python -m heatshield.ingest.weather
+Run from the project root:   python -m heatlens.ingest.weather
 """
 from __future__ import annotations
 
@@ -25,10 +25,10 @@ from pathlib import Path
 import pandas as pd
 import requests
 
-from heatshield.config import (
+from heatlens.config import (
     DATA_RAW, ERA5_START, FORECAST_MODELS, MAX_LEAD_DAYS, TIMEZONE, WEATHER_VARS,
 )
-from heatshield.ingest.stations import load_stations
+from heatlens.ingest.stations import load_stations
 
 ARCHIVE_URL = "https://archive-api.open-meteo.com/v1/archive"
 PREVIOUS_RUNS_URL = "https://previous-runs-api.open-meteo.com/v1/forecast"

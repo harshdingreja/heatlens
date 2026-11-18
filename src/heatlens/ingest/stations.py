@@ -12,7 +12,7 @@ hours. Ground truth must be real measurements, so we ask for one provider
 only: GHCNh (NOAA's Global Historical Climatology Network - hourly, the
 official replacement for the ISD archive, which stopped in Aug 2025).
 
-Run from the project root:   python -m heatshield.ingest.stations
+Run from the project root:   python -m heatlens.ingest.stations
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ os.environ.setdefault("SSL_CERT_FILE", certifi.where())
 import meteostat as ms  # noqa: E402  (import after the SSL fix above)
 import pandas as pd  # noqa: E402
 
-from heatshield.config import DATA_RAW, MUMBAI_CENTER, OBS_START, STATION_NAMES, TIMEZONE  # noqa: E402
+from heatlens.config import DATA_RAW, MUMBAI_CENTER, OBS_START, STATION_NAMES, TIMEZONE  # noqa: E402
 
 STATIONS_FILE = DATA_RAW / "stations.csv"
 OBS_FILE = DATA_RAW / "obs_hourly.parquet"

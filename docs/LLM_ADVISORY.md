@@ -1,6 +1,6 @@
 # LLM advisories (EN / मराठी / हिंदी)
 
-Code: `src/heatshield/llm/advisory.py` · Tests: `tests/test_advisory.py` (31 tests, no network)
+Code: `src/heatlens/llm/advisory.py` · Tests: `tests/test_advisory.py` (31 tests, no network)
 
 ## Providers (docs checked 17 Nov 2026)
 | Order | Provider | Endpoint | Auth | Default model (env override) |
@@ -33,18 +33,18 @@ each provider was skipped, errored or rejected.
 
 ## Usage
 ```python
-from heatshield.llm.advisory import generate_advisory
+from heatlens.llm.advisory import generate_advisory
 r = generate_advisory("mr", "2026-11-18", "extreme_caution", "Extreme Caution", 39.1, ["K/E", "L"])
 r["text"], r["provider"]   # provider is "groq" | "gemini" | "template"
 ```
-Quick manual check: `python -m heatshield.llm.advisory` (prints all 3 languages).
+Quick manual check: `python -m heatlens.llm.advisory` (prints all 3 languages).
 
-## Telegram bot (stretch): `src/heatshield/bot/telegram_bot.py`
+## Telegram bot (stretch): `src/heatlens/bot/telegram_bot.py`
 Calls the running API (`GET /forecast?days=5`, `POST /advisory`) and sends the 5-day outlook + advisory with the
 Bot API `sendMessage` (`chat_id`, `text` ≤ 4096 chars; checked against Bot API 10.4, 9 Nov 2026), **only if** the
 worst day is at or above `--threshold` (default `extreme_caution`).
 ```bash
-python -m heatshield.bot.telegram_bot --dry-run            # prints, sends nothing
-python -m heatshield.bot.telegram_bot --lang hi --threshold danger
+python -m heatlens.bot.telegram_bot --dry-run            # prints, sends nothing
+python -m heatlens.bot.telegram_bot --lang hi --threshold danger
 ```
 Setup: create a bot with @BotFather and put `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in `.env`.

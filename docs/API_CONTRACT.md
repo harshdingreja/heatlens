@@ -1,4 +1,4 @@
-# HeatShield API contract
+# HeatLens API contract
 
 Base URL: `http://localhost:8000` locally, the Render URL in production (frontend reads `VITE_API_URL`).
 All temperatures are °C. Dates are ISO `YYYY-MM-DD` in IST. Numbers may be `null` when data is missing.

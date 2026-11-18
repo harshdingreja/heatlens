@@ -40,7 +40,7 @@ export default function BacktestChart({ corrector: c }) {
             <ReferenceLine y={39.4} stroke={CHART.danger} strokeDasharray="5 4" label={{ value: 'Danger 39.4 °C', position: 'insideTopLeft', fontSize: 11, fill: CHART.danger }} />
             <Line name="Observed (Santacruz)" dataKey="observed" stroke={CHART.ink} strokeWidth={1.6} dot={false} isAnimationActive={false} />
             <Line name={`Raw ${rawName} forecast`} dataKey="raw" stroke={CHART.grey} strokeWidth={1.2} dot={false} isAnimationActive={false} />
-            <Line name="HeatShield" dataKey="corrected" stroke={CHART.sea} strokeWidth={1.8} dot={false} isAnimationActive={false} />
+            <Line name="HeatLens" dataKey="corrected" stroke={CHART.sea} strokeWidth={1.8} dot={false} isAnimationActive={false} />
           </LineChart>
         </ResponsiveContainer>
       </div>

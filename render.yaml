@@ -3,7 +3,7 @@
 # Python version comes from the .python-version file in the repo root (3.13).
 services:
   - type: web
-    name: heatshield-api
+    name: heatlens-api
     runtime: python
     plan: free
     buildCommand: pip install -r requirements-api.txt && pip install -e .
@@ -14,5 +14,5 @@ services:
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-      - key: ALLOWED_ORIGINS     # your Vercel URL, e.g. https://heatshield.vercel.app
+      - key: ALLOWED_ORIGINS     # your Vercel URL, e.g. https://heatlens.vercel.app
         sync: false

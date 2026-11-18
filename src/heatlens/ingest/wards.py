@@ -17,7 +17,7 @@ Sources (all real, all downloaded by this file):
    plots every ward's mean October land-surface temperature (LST) and orders
    wards by % metal/asbestos roofing. We extract both from the PDF.
 
-Run from the project root:   python -m heatshield.ingest.wards
+Run from the project root:   python -m heatlens.ingest.wards
 """
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 import requests
 
-from heatshield.config import DATA_RAW
+from heatlens.config import DATA_RAW
 
 WARDS_DIR = DATA_RAW / "wards"
 BOUNDARY_URL = "https://raw.githubusercontent.com/datameet/Municipal_Spatial_Data/master/Mumbai/BMC_Wards.geojson"

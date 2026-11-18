@@ -43,7 +43,7 @@ export default function NavBar() {
     <nav aria-label="Sections" className="sticky top-0 z-30 border-b border-line bg-haze/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 sm:px-6">
         <a href="#top" className="hidden shrink-0 py-3 font-extrabold sm:block">
-          HeatShield
+          HeatLens
         </a>
         <ul ref={listRef} className="relative -mx-1 flex min-w-0 flex-1 gap-1 overflow-x-auto py-1.5 [scrollbar-width:none] sm:justify-end">
           {NAV.map((n) => (

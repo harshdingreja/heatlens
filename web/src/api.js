@@ -1,4 +1,4 @@
-// All calls to the HeatShield FastAPI backend live here.
+// All calls to the HeatLens FastAPI backend live here.
 // The base URL comes from the VITE_API_URL environment variable (set in .env or on Vercel).
 
 export const API_URL = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/$/, '')
@@ -46,7 +46,7 @@ async function request(path, options = {}) {
     }
     if (err instanceof TypeError) {
       // fetch throws TypeError when the server can't be reached at all (or CORS blocks it)
-      throw new Error(`Can't reach the HeatShield API at ${API_URL}. Check that it is running.`)
+      throw new Error(`Can't reach the HeatLens API at ${API_URL}. Check that it is running.`)
     }
     throw err
   } finally {

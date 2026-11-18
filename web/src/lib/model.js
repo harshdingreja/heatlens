@@ -14,7 +14,7 @@ export const METHODS = [
   { key: 'D_multimodel_mean', label: '4-model mean', kind: 'baseline', color: '#6c7f8c', dash: '8 3 2 3' },
   { key: 'linear_regression', label: 'Linear regression', kind: 'ml', color: '#5b8db0' },
   { key: 'lightgbm', label: 'LightGBM', kind: 'ml', color: '#7a5ea8' },
-  { key: FINAL_METHOD, label: 'HeatShield (linear + LightGBM)', kind: 'final', color: '#1d5e86' },
+  { key: FINAL_METHOD, label: 'HeatLens (linear + LightGBM)', kind: 'final', color: '#1d5e86' },
 ]
 export const methodLabel = (key, rawModel) => {
   const m = METHODS.find((x) => x.key === key)

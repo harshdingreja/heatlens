@@ -14,7 +14,7 @@ Pipeline
    (observed - raw forecast); final prediction = raw forecast + predicted residual.
 6. Time-based split: train 24 Jan 2024 - 31 Dec 2025, test 1 Jan 2026 - latest.
 
-Run:  python -m heatshield.models.corrector
+Run:  python -m heatlens.models.corrector
 """
 from __future__ import annotations
 
@@ -31,10 +31,10 @@ from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from heatshield.config import ARTIFACTS, DATA_PROCESSED, FIGURES, FORECAST_MODELS
-from heatshield.features.daily import calendar_day
-from heatshield.ingest.stations import load_stations
-from heatshield.models.alerts import DANGER_THRESHOLD_C, NOAA_KEYS, noaa_level
+from heatlens.config import ARTIFACTS, DATA_PROCESSED, FIGURES, FORECAST_MODELS
+from heatlens.features.daily import calendar_day
+from heatlens.ingest.stations import load_stations
+from heatlens.models.alerts import DANGER_THRESHOLD_C, NOAA_KEYS, noaa_level
 
 matplotlib.use("Agg")  # draw plots to files, no window
 import matplotlib.pyplot as plt  # noqa: E402
@@ -296,7 +296,7 @@ def plot_backtest(test: pd.DataFrame, pred: np.ndarray, lead: int, path) -> None
     fig, ax = plt.subplots(figsize=(10, 3.6))
     ax.plot(t["date"], t["target"], color="black", lw=1.4, label="Observed (Santacruz)")
     ax.plot(t["date"], t["raw_hi"], color="tab:blue", lw=1, alpha=0.8, label="Raw forecast")
-    ax.plot(t["date"], pred[sel], color="tab:red", lw=1, label="Corrected (HeatShield)")
+    ax.plot(t["date"], pred[sel], color="tab:red", lw=1, label="Corrected (HeatLens)")
     ax.axhline(DANGER_THRESHOLD_C, color="orange", ls="--", lw=1, label="NOAA Danger 39.4 °C")
     ax.set_ylabel("Daily max heat index (°C)"); ax.set_title(f"2026 test period, lead {lead} day")
     ax.legend(ncol=4, fontsize=8, loc="lower left"); fig.tight_layout(); fig.savefig(path, dpi=130); plt.close(fig)
@@ -402,7 +402,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     # Call main() through the real module name so the saved StackedCorrector is
-    # stored as heatshield.models.corrector.StackedCorrector (not __main__.…),
+    # stored as heatlens.models.corrector.StackedCorrector (not __main__.…),
     # otherwise the API can't load the pickled model.
-    from heatshield.models.corrector import main as module_main
+    from heatlens.models.corrector import main as module_main
     module_main()

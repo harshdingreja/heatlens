@@ -29,9 +29,9 @@ export default function LeadMaeChart({ corrector: c }) {
 
       <Note className="mt-2">
         {losses.length === 0
-          ? `At every lead time from 1 to 5 days, HeatShield has a lower error than all ${baselines.length} baselines.`
-          : `HeatShield does not beat every baseline at lead ${losses.join(', ')} day(s); see the table.`}
-        {linGap < 0.05 && ` Linear regression and HeatShield differ by at most ${fmt(linGap)} °C, so their lines overlap.`}
+          ? `At every lead time from 1 to 5 days, HeatLens has a lower error than all ${baselines.length} baselines.`
+          : `HeatLens does not beat every baseline at lead ${losses.join(', ')} day(s); see the table.`}
+        {linGap < 0.05 && ` Linear regression and HeatLens differ by at most ${fmt(linGap)} °C, so their lines overlap.`}
       </Note>
 
       <MaeTable corrector={c} methods={methods} />
@@ -100,12 +100,12 @@ function MaeTable({ corrector: c, methods }) {
   )
 }
 
-// Dumbbell chart: for each lead time, the raw forecast's error (grey) and HeatShield's (blue),
+// Dumbbell chart: for each lead time, the raw forecast's error (grey) and HeatLens's (blue),
 // joined by an arrow. "Show other methods" adds the baselines and single models as small marks.
 function Dumbbell({ corrector: c, methods }) {
   const ref = useRef(null)
   const seen = useInView(ref, '-60px')
-  const t = useTween(seen ? 1 : 0, 1200) // 0 -> 1: the blue dot slides from raw to HeatShield
+  const t = useTween(seen ? 1 : 0, 1200) // 0 -> 1: the blue dot slides from raw to HeatLens
   const [others, setOthers] = useState(false)
   const [hover, setHover] = useState(null)
   const rows = LEADS.map((lead) => ({
@@ -126,7 +126,7 @@ function Dumbbell({ corrector: c, methods }) {
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
           <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full bg-[#8a9ba6]" /> Raw forecast</span>
-          <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full bg-sea" /> HeatShield</span>
+          <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full bg-sea" /> HeatLens</span>
         </p>
         <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold">
           <input type="checkbox" checked={others} onChange={(e) => setOthers(e.target.checked)} className="h-4 w-4 accent-[#1d5e86]" />
@@ -134,7 +134,7 @@ function Dumbbell({ corrector: c, methods }) {
         </label>
       </div>
       <div className="relative">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Error by lead time, raw forecast versus HeatShield">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Error by lead time, raw forecast versus HeatLens">
           {/* grid */}
           {Array.from({ length: maxV + 1 }, (_, i) => (
             <g key={i}>

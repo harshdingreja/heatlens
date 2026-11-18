@@ -1,4 +1,4 @@
-// NOAA Heat Index, ported line by line from src/heatshield/features/heat_indices.py
+// NOAA Heat Index, ported line by line from src/heatlens/features/heat_indices.py
 // (Rothfusz regression + Steadman simple formula + both adjustments + the 80 °F rule).
 // Used by the "what-if" calculator so the page and the Python models give identical numbers.
 

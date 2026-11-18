@@ -6,16 +6,16 @@ Outputs (data/processed/):
 - era5_daily.parquet     : ERA5 at Santacruz, one row per day 1991 -> today
 - climatology.parquet    : the "normal" heat index for each calendar day (1991-2020)
 
-Run:  python -m heatshield.features.daily
+Run:  python -m heatlens.features.daily
 """
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
 
-from heatshield.config import CLIMATOLOGY_YEARS, DATA_PROCESSED, DATA_RAW
-from heatshield.features.heat_indices import heat_index_c, wbgt_bom_c
-from heatshield.ingest.weather import load_era5, load_previous_runs
+from heatlens.config import CLIMATOLOGY_YEARS, DATA_PROCESSED, DATA_RAW
+from heatlens.features.heat_indices import heat_index_c, wbgt_bom_c
+from heatlens.ingest.weather import load_era5, load_previous_runs
 
 # A day of observations only counts if it is complete enough to trust its maximum.
 # Santacruz reports every hour, so we ask for most of the day plus the afternoon.

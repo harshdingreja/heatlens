@@ -5,7 +5,7 @@ import { methodLabel } from '../lib/model'
 import { Skeleton, Status } from './Panel'
 
 // Hero: a "feels-like" gauge for one forecast day + 5 selectable day cards.
-// Needle = HeatShield's corrected heat index; white tick = forecast air temperature.
+// Needle = HeatLens's corrected heat index; white tick = forecast air temperature.
 
 const MIN = 20 // °C at the left end of the dial
 const MAX = 56 // °C at the right end

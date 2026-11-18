@@ -3,7 +3,7 @@ and don't need any downloaded data."""
 import pandas as pd
 import pytest
 
-from heatshield.models.mortality_risk import estimate_extra_deaths, heatwave_flags
+from heatlens.models.mortality_risk import estimate_extra_deaths, heatwave_flags
 
 BASELINE = 255.49
 

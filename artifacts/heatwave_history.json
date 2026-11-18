@@ -195,24 +195,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 5.5,
-     "mae_heatshield": 0.2,
+     "mae_heatlens": 0.2,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     },
     "3": {
      "mae_raw": 5.04,
-     "mae_heatshield": 0.39,
+     "mae_heatlens": 0.39,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     },
     "5": {
      "mae_raw": 5.53,
-     "mae_heatshield": 0.64,
+     "mae_heatlens": 0.64,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     }
    },
    "daily_lead1": [
@@ -246,24 +246,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 6.29,
-     "mae_heatshield": 0.98,
+     "mae_heatlens": 0.98,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     },
     "3": {
      "mae_raw": 6.18,
-     "mae_heatshield": 0.63,
+     "mae_heatlens": 0.63,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     },
     "5": {
      "mae_raw": 7.19,
-     "mae_heatshield": 1.42,
+     "mae_heatlens": 1.42,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     }
    },
    "daily_lead1": [
@@ -297,24 +297,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 7.01,
-     "mae_heatshield": 0.85,
+     "mae_heatlens": 0.85,
      "danger_days": 3,
      "caught_raw": 0,
-     "caught_heatshield": 3
+     "caught_heatlens": 3
     },
     "3": {
      "mae_raw": 7.78,
-     "mae_heatshield": 0.53,
+     "mae_heatlens": 0.53,
      "danger_days": 3,
      "caught_raw": 0,
-     "caught_heatshield": 3
+     "caught_heatlens": 3
     },
     "5": {
      "mae_raw": 7.3,
-     "mae_heatshield": 1.5,
+     "mae_heatlens": 1.5,
      "danger_days": 3,
      "caught_raw": 0,
-     "caught_heatshield": 3
+     "caught_heatlens": 3
     }
    },
    "daily_lead1": [
@@ -354,24 +354,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 6.39,
-     "mae_heatshield": 1.33,
+     "mae_heatlens": 1.33,
      "danger_days": 5,
      "caught_raw": 1,
-     "caught_heatshield": 5
+     "caught_heatlens": 5
     },
     "3": {
      "mae_raw": 5.51,
-     "mae_heatshield": 1.72,
+     "mae_heatlens": 1.72,
      "danger_days": 5,
      "caught_raw": 2,
-     "caught_heatshield": 5
+     "caught_heatlens": 5
     },
     "5": {
      "mae_raw": 5.95,
-     "mae_heatshield": 1.34,
+     "mae_heatlens": 1.34,
      "danger_days": 5,
      "caught_raw": 1,
-     "caught_heatshield": 5
+     "caught_heatlens": 5
     }
    },
    "daily_lead1": [
@@ -423,24 +423,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 1.47,
-     "mae_heatshield": 1.06,
+     "mae_heatlens": 1.06,
      "danger_days": 12,
      "caught_raw": 12,
-     "caught_heatshield": 12
+     "caught_heatlens": 12
     },
     "3": {
      "mae_raw": 2.05,
-     "mae_heatshield": 1.19,
+     "mae_heatlens": 1.19,
      "danger_days": 12,
      "caught_raw": 11,
-     "caught_heatshield": 12
+     "caught_heatlens": 12
     },
     "5": {
      "mae_raw": 2.65,
-     "mae_heatshield": 1.04,
+     "mae_heatlens": 1.04,
      "danger_days": 12,
      "caught_raw": 9,
-     "caught_heatshield": 12
+     "caught_heatlens": 12
     }
    },
    "daily_lead1": [
@@ -534,24 +534,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 2.15,
-     "mae_heatshield": 1.4,
+     "mae_heatlens": 1.4,
      "danger_days": 16,
      "caught_raw": 14,
-     "caught_heatshield": 16
+     "caught_heatlens": 16
     },
     "3": {
      "mae_raw": 1.95,
-     "mae_heatshield": 1.35,
+     "mae_heatlens": 1.35,
      "danger_days": 16,
      "caught_raw": 14,
-     "caught_heatshield": 16
+     "caught_heatlens": 16
     },
     "5": {
      "mae_raw": 1.77,
-     "mae_heatshield": 1.62,
+     "mae_heatlens": 1.62,
      "danger_days": 16,
      "caught_raw": 15,
-     "caught_heatshield": 16
+     "caught_heatlens": 16
     }
    },
    "daily_lead1": [
@@ -669,24 +669,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 0.47,
-     "mae_heatshield": 1.61,
+     "mae_heatlens": 1.61,
      "danger_days": 1,
      "caught_raw": 1,
-     "caught_heatshield": 1
+     "caught_heatlens": 1
     },
     "3": {
      "mae_raw": 0.91,
-     "mae_heatshield": 2.14,
+     "mae_heatlens": 2.14,
      "danger_days": 1,
      "caught_raw": 1,
-     "caught_heatshield": 1
+     "caught_heatlens": 1
     },
     "5": {
      "mae_raw": 0.58,
-     "mae_heatshield": 2.87,
+     "mae_heatlens": 2.87,
      "danger_days": 1,
      "caught_raw": 1,
-     "caught_heatshield": 1
+     "caught_heatlens": 1
     }
    },
    "daily_lead1": [
@@ -720,24 +720,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 1.67,
-     "mae_heatshield": 1.32,
+     "mae_heatlens": 1.32,
      "danger_days": 7,
      "caught_raw": 5,
-     "caught_heatshield": 7
+     "caught_heatlens": 7
     },
     "3": {
      "mae_raw": 1.05,
-     "mae_heatshield": 1.63,
+     "mae_heatlens": 1.63,
      "danger_days": 7,
      "caught_raw": 7,
-     "caught_heatshield": 7
+     "caught_heatlens": 7
     },
     "5": {
      "mae_raw": 1.08,
-     "mae_heatshield": 1.62,
+     "mae_heatlens": 1.62,
      "danger_days": 7,
      "caught_raw": 4,
-     "caught_heatshield": 7
+     "caught_heatlens": 7
     }
    },
    "daily_lead1": [
@@ -819,24 +819,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 1.25,
-     "mae_heatshield": 0.92,
+     "mae_heatlens": 0.92,
      "danger_days": 6,
      "caught_raw": 4,
-     "caught_heatshield": 6
+     "caught_heatlens": 6
     },
     "3": {
      "mae_raw": 0.98,
-     "mae_heatshield": 1.13,
+     "mae_heatlens": 1.13,
      "danger_days": 6,
      "caught_raw": 5,
-     "caught_heatshield": 6
+     "caught_heatlens": 6
     },
     "5": {
      "mae_raw": 1.05,
-     "mae_heatshield": 1.27,
+     "mae_heatlens": 1.27,
      "danger_days": 6,
      "caught_raw": 6,
-     "caught_heatshield": 6
+     "caught_heatlens": 6
     }
    },
    "daily_lead1": [
@@ -912,24 +912,24 @@
    "forecast_skill": {
     "1": {
      "mae_raw": 0.52,
-     "mae_heatshield": 1.22,
+     "mae_heatlens": 1.22,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     },
     "3": {
      "mae_raw": 0.29,
-     "mae_heatshield": 2.07,
+     "mae_heatlens": 2.07,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     },
     "5": {
      "mae_raw": 0.63,
-     "mae_heatshield": 2.87,
+     "mae_heatlens": 2.87,
      "danger_days": 0,
      "caught_raw": 0,
-     "caught_heatshield": 0
+     "caught_heatlens": 0
     }
    },
    "daily_lead1": [

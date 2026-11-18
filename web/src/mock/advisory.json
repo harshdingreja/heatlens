@@ -1,8 +1,8 @@
 {
- "_note": "Captured from the real HeatShield API on 18 Nov 2026 (template provider, no LLM keys). Used only in mock mode.",
+ "_note": "Captured from the real HeatLens API on 18 Nov 2026 (template provider, no LLM keys). Used only in mock mode.",
  "en": {
   "lang": "en",
-  "text": "HeatShield advisory for Mumbai, 2026-11-19: Extreme Caution. Feels-like temperature (heat index) up to 33.7 °C. Most vulnerable wards: C, L, G/N.\n- Do heavy outdoor work before 11:00 or after 16:00.\n- Drink water often; carry a bottle and take ORS or lemon-salt water.\n- Avoid direct afternoon sun and rest in the shade.\n- Check on elderly neighbours, outdoor workers and people living alone.\n- Heat stroke signs: confusion, hot dry skin, fainting. Call 108 immediately.",
+  "text": "HeatLens advisory for Mumbai, 2026-11-19: Extreme Caution. Feels-like temperature (heat index) up to 33.7 °C. Most vulnerable wards: C, L, G/N.\n- Do heavy outdoor work before 11:00 or after 16:00.\n- Drink water often; carry a bottle and take ORS or lemon-salt water.\n- Avoid direct afternoon sun and rest in the shade.\n- Check on elderly neighbours, outdoor workers and people living alone.\n- Heat stroke signs: confusion, hot dry skin, fainting. Call 108 immediately.",
   "provider": "template",
   "model": "built-in template",
   "inputs_used": {

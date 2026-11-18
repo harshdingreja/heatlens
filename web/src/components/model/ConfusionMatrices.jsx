@@ -1,7 +1,7 @@
 import { levelLabel, modelName, pctOf } from '../../lib/model'
 import { Note } from './shared'
 
-// Observed NOAA level (rows) vs predicted level (columns), raw forecast vs HeatShield.
+// Observed NOAA level (rows) vs predicted level (columns), raw forecast vs HeatLens.
 export default function ConfusionMatrices({ corrector: c }) {
   const { labels, raw, corrected } = c.confusion
   const max = Math.max(...raw.flat(), ...corrected.flat())
@@ -11,11 +11,11 @@ export default function ConfusionMatrices({ corrector: c }) {
     <div className="min-w-0">
       <div className="grid gap-6 lg:grid-cols-2">
         <Matrix title={`Raw ${modelName(c.primary_raw_model)} forecast`} labels={labels} m={raw} max={max} />
-        <Matrix title="HeatShield" labels={labels} m={corrected} max={max} />
+        <Matrix title="HeatLens" labels={labels} m={corrected} max={max} />
       </div>
       <Note className="mt-3">
         Rows are what was observed, columns what was forecast; outlined cells on the diagonal are a correct level. Cells left of the diagonal are
-        under-warnings: {under(raw)} for the raw forecast, {under(corrected)} for HeatShield.
+        under-warnings: {under(raw)} for the raw forecast, {under(corrected)} for HeatLens.
       </Note>
     </div>
   )

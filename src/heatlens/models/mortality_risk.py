@@ -28,7 +28,7 @@ average bias for that lead time (measured on 2024-2025 only).
 
 This is an evidence-based estimate, NOT a clinical prediction.
 
-Build the config:   python -m heatshield.models.mortality_risk
+Build the config:   python -m heatlens.models.mortality_risk
 """
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ from datetime import date
 import numpy as np
 import pandas as pd
 
-from heatshield.config import ARTIFACTS, DATA_RAW, FIGURES
+from heatlens.config import ARTIFACTS, DATA_RAW, FIGURES
 
 CONFIG_PATH = ARTIFACTS / "mortality_config.json"
 STATE_RESULTS_PATH = ARTIFACTS / "state_health_results.json"

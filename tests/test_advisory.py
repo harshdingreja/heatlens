@@ -5,13 +5,13 @@ No test touches the network: requests.post / requests.get are replaced
 """
 import pytest
 
-from heatshield.bot import telegram_bot
-from heatshield.llm import advisory as adv
+from heatlens.bot import telegram_bot
+from heatlens.llm import advisory as adv
 
 ARGS = dict(date="2026-11-18", alert_key="extreme_caution", alert_label="Extreme Caution",
             heat_index_c=39.1, top_wards=["K/E", "L", "M/E"])
 
-GOOD_EN = ("HeatShield advisory for Mumbai, 2026-11-18: Extreme Caution, heat index 39.1 °C. "
+GOOD_EN = ("HeatLens advisory for Mumbai, 2026-11-18: Extreme Caution, heat index 39.1 °C. "
            "Most vulnerable wards: K/E, L, M/E.\n- Do heavy outdoor work before 11:00 or after 16:00.\n"
            "- Drink water often.\n- Check on elderly neighbours.\n- Heat stroke signs mean call 108.")
 GOOD_MR = ("मुंबई, 2026-11-18: अति सावधगिरी, हीट इंडेक्स ३९.१ °C. सर्वाधिक असुरक्षित वॉर्ड: K/E, L, M/E.\n"

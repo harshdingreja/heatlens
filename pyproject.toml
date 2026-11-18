@@ -1,5 +1,5 @@
-# Makes `src/heatshield` an installable package, so notebooks, scripts and tests
-# can all do `import heatshield` no matter which folder they run from.
+# Makes `src/heatlens` an installable package, so notebooks, scripts and tests
+# can all do `import heatlens` no matter which folder they run from.
 # Installed once with:  pip install -e .   (-e = "editable": code changes apply immediately)
 
 [build-system]
@@ -7,7 +7,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "heatshield"
+name = "heatlens"
 version = "0.1.0"
 description = "Mumbai heat-stress early warning system (SIH 2026 PS SIH26083)"
 requires-python = ">=3.11"

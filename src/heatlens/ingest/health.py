@@ -18,7 +18,7 @@ So we use the same tables from the documents data.gov.in itself cites (PIB
 Parliament answers). We checked: the first 10 rows shown in data.gov.in's
 preview match these documents exactly.
 
-Run from the project root:   python -m heatshield.ingest.health
+Run from the project root:   python -m heatlens.ingest.health
 """
 from __future__ import annotations
 
@@ -32,9 +32,9 @@ import pandas as pd
 import requests
 from pypdf import PdfReader
 
-from heatshield.config import DATA_RAW, TIMEZONE
-from heatshield.features.heat_indices import heat_index_c
-from heatshield.ingest.weather import ARCHIVE_URL, get_json
+from heatlens.config import DATA_RAW, TIMEZONE
+from heatlens.features.heat_indices import heat_index_c
+from heatlens.ingest.weather import ARCHIVE_URL, get_json
 
 HEALTH_DIR = DATA_RAW / "health"
 
@@ -215,7 +215,7 @@ def download_state_population() -> pd.DataFrame:
     """Census 2011 population per state/UT (column '2011 Census Population' of the
     Wikipedia list, which cites the Census). Used as the Poisson offset."""
     # Wikimedia's robot policy asks scripts to say what they are in the User-Agent.
-    headers = {"User-Agent": "HeatShield-student-project/0.1 (python-requests; research use)"}
+    headers = {"User-Agent": "HeatLens-student-project/0.1 (python-requests; research use)"}
     wikitext = requests.get(POPULATION_WIKITEXT_URL, headers=headers, timeout=60).text
     (HEALTH_DIR / "wiki_states_population.wikitext").write_text(wikitext)
     rows = []

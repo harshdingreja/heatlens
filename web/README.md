@@ -1,7 +1,7 @@
-# HeatShield web dashboard
+# HeatLens web dashboard
 
 React 19 + Vite 8 + Tailwind CSS 4, with react-leaflet (ward map) and Recharts (forecast chart).
-It reads everything from the HeatShield FastAPI backend (see `../docs/API_CONTRACT.md`).
+It reads everything from the HeatLens FastAPI backend (see `../docs/API_CONTRACT.md`).
 
 ## Run locally
 ```bash

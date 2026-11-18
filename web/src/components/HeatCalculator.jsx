@@ -58,7 +58,7 @@ export default function HeatCalculator() {
           <p className="mt-2 font-bold">{level.label}</p>
           <p className="text-sm">{NOAA_EFFECTS[level.key]}</p>
         </div>
-        <p className="mt-2 text-xs text-ink-soft">NOAA heat index (Rothfusz regression with NOAA's adjustments), the same code as HeatShield's models.</p>
+        <p className="mt-2 text-xs text-ink-soft">NOAA heat index (Rothfusz regression with NOAA's adjustments), the same code as HeatLens's models.</p>
       </div>
 
       <Silhouette level={level} />

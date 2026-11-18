@@ -117,27 +117,27 @@ function EpisodeDetail({ ep }) {
             <tr className="border-b border-line text-left text-ink-soft">
               <th className="py-1.5 pr-2 font-medium">Lead</th>
               <th className="py-1.5 pl-2 text-right font-medium">MAE raw</th>
-              <th className="py-1.5 pl-2 text-right font-medium">MAE HeatShield</th>
+              <th className="py-1.5 pl-2 text-right font-medium">MAE HeatLens</th>
               <th className="py-1.5 pl-2 text-right font-medium">Danger days</th>
               <th className="py-1.5 pl-2 text-right font-medium">Caught raw</th>
-              <th className="py-1.5 pl-2 text-right font-medium">Caught HeatShield</th>
+              <th className="py-1.5 pl-2 text-right font-medium">Caught HeatLens</th>
             </tr>
           </thead>
           <tbody>
             {SKILL_LEADS.filter((l) => skill[l]).map((l) => {
               const s = skill[l]
-              const worse = s.mae_heatshield > s.mae_raw
+              const worse = s.mae_heatlens > s.mae_raw
               return (
                 <tr key={l} className="border-b border-line/70">
                   <td className="py-1.5 pr-2">{l} day{l !== '1' ? 's' : ''}</td>
                   <td className="py-1.5 pl-2 text-right">{fmt(s.mae_raw)}</td>
                   <td className={`py-1.5 pl-2 text-right font-semibold ${worse ? 'text-heat-red' : 'text-sea'}`}>
-                    {fmt(s.mae_heatshield)}
+                    {fmt(s.mae_heatlens)}
                     {worse && ' (worse)'}
                   </td>
                   <td className="py-1.5 pl-2 text-right">{s.danger_days}</td>
                   <td className="py-1.5 pl-2 text-right">{s.caught_raw}</td>
-                  <td className="py-1.5 pl-2 text-right font-semibold">{s.caught_heatshield}</td>
+                  <td className="py-1.5 pl-2 text-right font-semibold">{s.caught_heatlens}</td>
                 </tr>
               )
             })}
@@ -147,8 +147,8 @@ function EpisodeDetail({ ep }) {
       )}
       <Note className="mt-2">
         Both columns are shown as they are.
-        {SKILL_LEADS.some((l) => skill[l] && skill[l].mae_heatshield > skill[l].mae_raw) &&
-          ' In this heatwave HeatShield has a higher error than the raw model at some lead times, because it pushes forecasts up and can overshoot; check the Danger days it catches alongside.'}
+        {SKILL_LEADS.some((l) => skill[l] && skill[l].mae_heatlens > skill[l].mae_raw) &&
+          ' In this heatwave HeatLens has a higher error than the raw model at some lead times, because it pushes forecasts up and can overshoot; check the Danger days it catches alongside.'}
       </Note>
     </div>
   )
@@ -196,7 +196,7 @@ function Replay({ rows }) {
           {playing ? 'Pause' : 'Replay this heatwave'}
         </button>
         <p className="text-sm tabular" aria-live="polite">
-          Day {step + 1} of {rows.length}, {shortDate(cur.date)}: Danger days so far <strong>{danger.length}</strong>, caught by HeatShield{' '}
+          Day {step + 1} of {rows.length}, {shortDate(cur.date)}: Danger days so far <strong>{danger.length}</strong>, caught by HeatLens{' '}
           <strong className="text-sea">{caughtHS}</strong>, by raw <strong>{caughtRaw}</strong>
         </p>
       </div>
@@ -219,7 +219,7 @@ function Replay({ rows }) {
             <ReferenceLine x={cur.date} stroke={CHART.ink} strokeOpacity={0.25} strokeWidth={10} />
             <Line name="Observed" dataKey="observed" stroke={CHART.ink} strokeWidth={2} dot={{ r: 3 }} isAnimationActive={false} connectNulls={false} />
             <Line name="Raw, 1 day ahead" dataKey="raw" stroke={CHART.grey} strokeDasharray="6 4" strokeWidth={1.8} dot={{ r: 2.5 }} isAnimationActive={false} />
-            <Line name="HeatShield, 1 day ahead" dataKey="corrected" stroke={CHART.sea} strokeWidth={2.5} dot={{ r: 3 }} isAnimationActive={false} />
+            <Line name="HeatLens, 1 day ahead" dataKey="corrected" stroke={CHART.sea} strokeWidth={2.5} dot={{ r: 3 }} isAnimationActive={false} />
             {cur.observed != null && <ReferenceDot x={cur.date} y={cur.observed} r={6} fill={CHART.ink} stroke="#fff" strokeWidth={2} />}
             {cur.corrected != null && <ReferenceDot x={cur.date} y={cur.corrected} r={6} fill={CHART.sea} stroke="#fff" strokeWidth={2} />}
           </LineChart>

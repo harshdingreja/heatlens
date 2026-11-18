@@ -1,6 +1,6 @@
 # Layer 3: Ward heat vulnerability (24 BMC wards)
 
-Run: `python -m heatshield.models.vulnerability` (add `--refresh` to rebuild the Landsat composites, which takes about 5 minutes).
+Run: `python -m heatlens.models.vulnerability` (add `--refresh` to rebuild the Landsat composites, which takes about 5 minutes).
 Outputs: `artifacts/wards.geojson`, `artifacts/vulnerability_summary.json` (every number below comes from it), `docs/figures/layer3_*.png`.
 
 ## Data (all real, downloaded by code)
