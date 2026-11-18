@@ -36,7 +36,12 @@ export default function HeatCalendar({ days, episodes = [], onEpisode }) {
     return m
   }, [episodes])
   const years = useMemo(() => [...new Set(days.map((d) => d.date.slice(0, 4)))].sort(), [days])
-  const anomalies = days.filter((d) => d.is_anomaly).length
+  // One year at a time keeps the view readable; default to the latest year.
+  const [year, setYear] = useState(() => years[years.length - 1])
+  const yearDays = days.filter((d) => d.date.startsWith(year))
+  const anomalies = yearDays.filter((d) => d.is_anomaly).length
+  const yearEpisodes = episodes.filter((e) => e.start.startsWith(year) || e.end.startsWith(year))
+  const dangerDays = yearDays.filter((d) => d.hi_max >= 39.4).length
 
   const show = (evt, day, episode) => {
     const box = wrapRef.current.getBoundingClientRect()
@@ -47,16 +52,30 @@ export default function HeatCalendar({ days, episodes = [], onEpisode }) {
   return (
     <div className="min-w-0">
       <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-        <p className="text-ink-soft">
-          {days.length.toLocaleString('en-IN')} observed days, {years[0]}–{years[years.length - 1]}. {anomalies} unusually hot days, {episodes.length}{' '}
-          heatwaves. Blank = no station data.
-        </p>
+        <div role="tablist" aria-label="Year" className="flex flex-wrap gap-1.5">
+          {years.map((y) => (
+            <button
+              key={y}
+              type="button"
+              role="tab"
+              aria-selected={y === year}
+              onClick={() => { setYear(y); setTip(null) }}
+              className={`rounded-sm border px-3 py-1.5 font-semibold ${y === year ? 'border-ink bg-ink text-white' : 'border-line bg-white text-ink-soft hover:text-ink'}`}
+            >
+              {y}
+            </button>
+          ))}
+        </div>
         <Legend />
       </div>
+      <p className="mt-3 text-sm text-ink-soft">
+        {year}: {yearDays.length} observed days, {dangerDays} at NOAA Danger or above, {anomalies} unusually hot for the date, {yearEpisodes.length} heatwaves.
+        Blank = no station data.
+      </p>
 
       <div ref={wrapRef} className="relative mt-3 overflow-x-auto pb-2" onMouseLeave={() => setTip(null)}>
         <div className="min-w-max space-y-3">
-          {years.map((y) => (
+          {[year].map((y) => (
             <YearRow key={y} year={Number(y)} byDate={byDate} episodeOf={episodeOf} onHover={show} onLeave={() => setTip(null)} onEpisode={onEpisode} />
           ))}
         </div>

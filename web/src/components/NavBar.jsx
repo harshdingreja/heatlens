@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 
 const NAV = [
-  { id: 'forecast', label: 'Live forecast' },
-  { id: 'your-risk', label: 'Your risk' },
-  { id: 'ward-risk', label: 'Ward risk' },
-  { id: 'history', label: 'Heat history' },
-  { id: 'performance', label: 'Model performance' },
-  { id: 'method', label: 'Method' },
+  { id: 'forecast', label: 'Forecast' },
+  { id: 'ward-risk', label: 'Wards' },
+  { id: 'health', label: 'Health' },
+  { id: 'performance', label: 'Evaluation' },
+  { id: 'history', label: 'Record' },
+  { id: 'tools', label: 'Tools' },
   { id: 'advisory-section', label: 'Advisory' },
+  { id: 'method', label: 'Method' },
 ]
 
 // Sticky top navigation. Highlights the section currently on screen.

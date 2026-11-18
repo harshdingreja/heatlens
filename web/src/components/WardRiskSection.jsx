@@ -1,4 +1,4 @@
-import { Component, Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react'
+import { Component, Suspense, lazy, useCallback, useMemo, useState } from 'react'
 import { RISK_LEVELS, fmtDay } from '../lib/heat'
 import { hazardScore, wardsForDay } from '../lib/risk'
 import { Skeleton } from './Panel'
@@ -33,7 +33,6 @@ class MapBoundary extends Component {
 
 export default function WardRiskSection({ wards, days }) {
   const [dayIdx, setDayIdx] = useState(0)
-  const [playing, setPlaying] = useState(false)
   const [selected, setSelected] = useState(null)
   const [use3d, setUse3d] = useState(() => webglAvailable())
   const onFail = useCallback(() => setUse3d(false), [])
@@ -45,58 +44,32 @@ export default function WardRiskSection({ wards, days }) {
     [dayWards],
   )
 
-  // Play: step through the 5 days, then stop on the last one
-  useEffect(() => {
-    if (!playing || !days) return
-    const t = setTimeout(() => {
-      if (dayIdx >= days.length - 1) setPlaying(false)
-      else setDayIdx((i) => i + 1)
-    }, 1300)
-    return () => clearTimeout(t)
-  }, [playing, dayIdx, days])
 
   return (
     <div className="grid min-w-0 gap-5 lg:grid-cols-3">
       <div className="min-w-0 lg:col-span-2">
         {days && (
           <div className="mb-3 rounded-md border border-line bg-haze/50 p-3">
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  if (!playing && dayIdx >= days.length - 1) setDayIdx(0)
-                  setPlaying((p) => !p)
-                }}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-white hover:bg-sea"
-                aria-label={playing ? 'Pause' : 'Play the 5-day forecast'}
-              >
-                {playing ? (
-                  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" fill="currentColor" /><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor" /></svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1l10 6-10 6z" fill="currentColor" /></svg>
-                )}
-              </button>
-              <div className="min-w-0 flex-1">
-                <label htmlFor="ward-day" className="text-sm">
-                  <strong>{fmtDay(day?.date)}</strong> <span className="text-ink-soft">({day?.lead_days === 1 ? 'tomorrow' : `day ${day?.lead_days}`})</span>:{' '}
-                  {day?.alert?.label}, city hazard {hazardScore(day?.alert?.level).toFixed(2)}
-                </label>
-                <input
-                  id="ward-day"
-                  type="range"
-                  min={0}
-                  max={days.length - 1}
-                  step={1}
-                  value={dayIdx}
-                  onChange={(e) => {
-                    setPlaying(false)
-                    setDayIdx(Number(e.target.value))
-                  }}
-                  className="heat-range mt-1 w-full"
-                  style={{ '--pct': `${(dayIdx / (days.length - 1)) * 100}%` }}
-                />
-              </div>
+            {/* Pick which forecast day's hazard to apply to the wards */}
+            <div role="tablist" aria-label="Forecast day" className="flex flex-wrap gap-1.5">
+              {days.map((d, i) => (
+                <button
+                  key={d.date}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === dayIdx}
+                  onClick={() => setDayIdx(i)}
+                  className={`rounded-sm border px-3 py-1.5 text-sm font-semibold ${
+                    i === dayIdx ? 'border-ink bg-ink text-white' : 'border-line bg-white text-ink-soft hover:text-ink'
+                  }`}
+                >
+                  {fmtDay(d.date)}
+                </button>
+              ))}
             </div>
+            <p className="mt-2 text-sm">
+              {day?.alert?.label} forecast for {fmtDay(day?.date)}: city hazard score {hazardScore(day?.alert?.level).toFixed(2)} (NOAA level ÷ 4).
+            </p>
             <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-soft">
               {RISK_LEVELS.map((r) => (
                 <span key={r.key} className="flex items-center gap-1.5">

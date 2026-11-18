@@ -16,17 +16,17 @@ export default function ModelPerformance({ report, episodeStart }) {
   const c = report.corrector
   return (
     <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
-      <Panel id="kpis" title="Does the ML beat the weather model?" aside="2026 hold-out test, daily max heat index at Santacruz">
+      <Panel id="kpis" title="Hold-out results" aside="2026 hold-out test, daily max heat index at Santacruz">
         <KpiTiles corrector={c} />
       </Panel>
 
-      <Panel id="backtest" title="2026 backtest: forecast vs what happened">
+      <Panel id="backtest" title="2026 backtest: forecast vs observed">
         <LazyMount minHeight={380}>
           <BacktestChart corrector={c} />
         </LazyMount>
       </Panel>
 
-      <Panel id="leads" title="Error by lead time: baselines vs ML" aside="Mean absolute error, °C (lower is better)">
+      <Panel id="leads" title="Error by lead time" aside="Mean absolute error, °C (lower is better)">
         <LazyMount minHeight={520}>
           <LeadMaeChart corrector={c} />
         </LazyMount>
@@ -36,12 +36,12 @@ export default function ModelPerformance({ report, episodeStart }) {
         <ConfusionMatrices corrector={c} />
       </Panel>
 
-      <Panel id="shap" title="What drives the correction (SHAP)" aside="Top 10 features">
+      <Panel id="shap" title="Feature importance (SHAP)" aside="Top 10 features">
         <ShapBars corrector={c} />
       </Panel>
 
       {report.heatwave_history && (
-        <Panel id="heatwaves" title="Past heatwaves: real case studies" aside="Mumbai station data">
+        <Panel id="heatwaves" title="Heatwave case studies" aside="Mumbai station data">
           <LazyMount minHeight={460}>
             <HeatwaveCases history={report.heatwave_history} selectedStart={episodeStart} />
           </LazyMount>
@@ -49,7 +49,7 @@ export default function ModelPerformance({ report, episodeStart }) {
       )}
 
       {report.anomalies && (
-        <Panel id="anomalies" title="Anomaly detection: unusually hot for the date" aside="z-score vs IsolationForest">
+        <Panel id="anomalies" title="Anomaly detection" aside="z-score vs IsolationForest">
           <LazyMount minHeight={460}>
             <AnomalyTimeline anomalies={report.anomalies} />
           </LazyMount>
@@ -57,7 +57,7 @@ export default function ModelPerformance({ report, episodeStart }) {
       )}
 
       {report.wards && (
-        <Panel id="clusters" title="Ward vulnerability: clustering and validation">
+        <Panel id="clusters" title="Ward clustering and validation">
           <LazyMount minHeight={420}>
             <ClusterChart wards={report.wards} />
           </LazyMount>

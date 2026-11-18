@@ -43,7 +43,7 @@ export default function HeroGauge({ state }) {
       <div className="relative px-4 pt-5 pb-4 sm:px-8 sm:pt-7">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="hero-title" className="text-lg font-bold sm:text-xl">
-            How hot will it feel in Mumbai?
+            Daily maximum heat index
           </h2>
           {data && (
             <p className="text-sm text-white/70">
