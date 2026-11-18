@@ -12,7 +12,7 @@ import { Panel } from './Panel'
 
 // Everything the ML does, measured on data the models never trained on.
 // `report` is the /model response, fetched once by App.
-export default function ModelPerformance({ report }) {
+export default function ModelPerformance({ report, episodeStart }) {
   const c = report.corrector
   return (
     <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
@@ -43,7 +43,7 @@ export default function ModelPerformance({ report }) {
       {report.heatwave_history && (
         <Panel id="heatwaves" title="Past heatwaves: real case studies" aside="Mumbai station data">
           <LazyMount minHeight={460}>
-            <HeatwaveCases history={report.heatwave_history} />
+            <HeatwaveCases history={report.heatwave_history} selectedStart={episodeStart} />
           </LazyMount>
         </Panel>
       )}

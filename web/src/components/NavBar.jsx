@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 
 const NAV = [
   { id: 'forecast', label: 'Live forecast' },
+  { id: 'your-risk', label: 'Your risk' },
   { id: 'ward-risk', label: 'Ward risk' },
+  { id: 'history', label: 'Heat history' },
   { id: 'performance', label: 'Model performance' },
   { id: 'method', label: 'Method' },
   { id: 'advisory-section', label: 'Advisory' },

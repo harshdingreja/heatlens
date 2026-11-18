@@ -1,3 +1,4 @@
+import WardRadar from './WardRadar'
 import { fmtNum, fmtPct, fmtTemp, riskHex, riskLabel } from '../lib/heat'
 
 // Right-hand side of the map: either the selected ward's numbers,
@@ -65,7 +66,9 @@ export default function WardDetails({ wards, selectedId, onSelect }) {
         </span>
       </div>
 
-      <dl className="mt-4 divide-y divide-line border-y border-line text-sm">
+      <WardRadar wards={wards} ward={selected} />
+
+      <dl className="mt-3 divide-y divide-line border-y border-line text-sm">
         {rows.map(([label, value, hint]) => (
           <div key={label} className="flex items-baseline justify-between gap-3 py-2">
             <dt>

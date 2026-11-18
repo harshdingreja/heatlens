@@ -1,4 +1,5 @@
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { useRef, useState } from 'react'
+import { useInView, useTween } from '../../lib/anim'
 import { FINAL_METHOD, METHODS, fmt, metric, methodLabel } from '../../lib/model'
 import { CHART } from '../../lib/chart'
 import { Note } from './shared'
@@ -8,11 +9,6 @@ const LEADS = [1, 2, 3, 4, 5]
 // Error by lead time for every method: baselines vs linear vs LightGBM vs the final model.
 export default function LeadMaeChart({ corrector: c }) {
   const methods = METHODS.filter((m) => c.metrics.some((x) => x.method === m.key))
-  const rows = LEADS.map((lead) => {
-    const row = { lead: `${lead} d` }
-    for (const m of methods) row[m.key] = metric(c.metrics, m.key, lead)?.mae
-    return row
-  })
 
   // Does the final model beat every baseline at every lead? Computed, not assumed.
   const baselines = methods.filter((m) => m.kind === 'baseline')
@@ -29,29 +25,7 @@ export default function LeadMaeChart({ corrector: c }) {
 
   return (
     <div className="min-w-0">
-      <div className="h-72 w-full sm:h-80">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={rows} margin={{ top: 8, right: 12, bottom: 0, left: -12 }}>
-            <CartesianGrid stroke={CHART.line} strokeDasharray="2 4" vertical={false} />
-            <XAxis dataKey="lead" tick={CHART.tick} tickLine={false} axisLine={{ stroke: CHART.line }} />
-            <YAxis domain={[0, 'auto']} tickFormatter={(v) => `${v}°`} tick={CHART.tick} width={44} tickLine={false} axisLine={false} />
-            <Tooltip formatter={(v, n) => [`${fmt(v)} °C`, n]} contentStyle={CHART.tooltip} />
-            <Legend wrapperStyle={{ fontSize: 12 }} />
-            {methods.map((m) => (
-              <Line
-                key={m.key}
-                name={methodLabel(m.key, c.primary_raw_model)}
-                dataKey={m.key}
-                stroke={m.color}
-                strokeDasharray={m.dash}
-                strokeWidth={m.kind === 'final' ? 3.5 : m.kind === 'ml' ? 2 : 1.5}
-                dot={{ r: m.kind === 'final' ? 4 : 2.5 }}
-                isAnimationActive={false}
-              />
-            ))}
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      <Dumbbell corrector={c} methods={methods} />
 
       <Note className="mt-2">
         {losses.length === 0
@@ -122,6 +96,97 @@ function MaeTable({ corrector: c, methods }) {
         </tbody>
       </table>
       <p className="mt-1 text-xs text-ink-soft">Bold blue = lowest error in that column.</p>
+    </div>
+  )
+}
+
+// Dumbbell chart: for each lead time, the raw forecast's error (grey) and HeatShield's (blue),
+// joined by an arrow. "Show other methods" adds the baselines and single models as small marks.
+function Dumbbell({ corrector: c, methods }) {
+  const ref = useRef(null)
+  const seen = useInView(ref, '-60px')
+  const t = useTween(seen ? 1 : 0, 1200) // 0 -> 1: the blue dot slides from raw to HeatShield
+  const [others, setOthers] = useState(false)
+  const [hover, setHover] = useState(null)
+  const rows = LEADS.map((lead) => ({
+    lead,
+    vals: Object.fromEntries(methods.map((m) => [m.key, metric(c.metrics, m.key, lead)?.mae])),
+  }))
+  const maxV = Math.ceil(Math.max(...rows.flatMap((r) => Object.values(r.vals)).filter(Number.isFinite)) + 0.3)
+  const W = 640
+  const L = 70
+  const RGT = 20
+  const ROW = 46
+  const x = (v) => L + (v / maxV) * (W - L - RGT)
+  const H = 30 + rows.length * ROW
+  const extra = methods.filter((m) => m.key !== 'A_raw_forecast' && m.key !== FINAL_METHOD)
+
+  return (
+    <div ref={ref} className="min-w-0">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+          <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full bg-[#8a9ba6]" /> Raw forecast</span>
+          <span className="flex items-center gap-1.5"><span className="inline-block h-3 w-3 rounded-full bg-sea" /> HeatShield</span>
+        </p>
+        <label className="flex cursor-pointer items-center gap-2 text-sm font-semibold">
+          <input type="checkbox" checked={others} onChange={(e) => setOthers(e.target.checked)} className="h-4 w-4 accent-[#1d5e86]" />
+          Show other methods
+        </label>
+      </div>
+      <div className="relative">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Error by lead time, raw forecast versus HeatShield">
+          {/* grid */}
+          {Array.from({ length: maxV + 1 }, (_, i) => (
+            <g key={i}>
+              <line x1={x(i)} x2={x(i)} y1={14} y2={H - 6} stroke="#c9d4da" strokeDasharray="2 4" />
+              <text x={x(i)} y={10} fontSize="11" fill="#4a6070" textAnchor="middle">{i} °C</text>
+            </g>
+          ))}
+          {rows.map((r, i) => {
+            const y = 34 + i * ROW
+            const raw = r.vals.A_raw_forecast
+            const fin = r.vals[FINAL_METHOD]
+            const now = raw + (fin - raw) * t
+            return (
+              <g key={r.lead} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)} onFocus={() => setHover(i)} onBlur={() => setHover(null)} tabIndex={0} className="outline-none">
+                <rect x={0} y={y - ROW / 2 + 2} width={W} height={ROW - 4} fill={hover === i ? '#e8edef' : 'transparent'} rx="4" />
+                <text x={8} y={y} fontSize="13" fontWeight="700" fill="#0e2a3b" dominantBaseline="middle">{r.lead} day{r.lead > 1 ? 's' : ''}</text>
+                {others &&
+                  extra.map((m) =>
+                    Number.isFinite(r.vals[m.key]) ? (
+                      <g key={m.key}>
+                        <line x1={x(r.vals[m.key])} x2={x(r.vals[m.key])} y1={y - 11} y2={y + 11} stroke={m.color} strokeWidth="3" strokeLinecap="round" />
+                      </g>
+                    ) : null,
+                  )}
+                <line x1={x(raw)} x2={x(now) + 7} y1={y} y2={y} stroke="#1d5e86" strokeOpacity="0.35" strokeWidth="6" strokeLinecap="round" />
+                <circle cx={x(raw)} cy={y} r="8" fill="#8a9ba6" />
+                <circle cx={x(now)} cy={y} r="9" fill="#1d5e86" stroke="#fff" strokeWidth="2" />
+                <text x={x(raw) + 12} y={y - 13} fontSize="11" fill="#4a6070" style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(raw)}</text>
+                <text x={x(now)} y={y + 22} fontSize="12" fontWeight="700" fill="#1d5e86" textAnchor="middle" style={{ fontVariantNumeric: 'tabular-nums' }}>{fmt(fin)}</text>
+              </g>
+            )
+          })}
+        </svg>
+        {hover != null && (
+          <div className="pointer-events-none absolute right-2 z-10 w-60 rounded-md border border-line bg-surface px-3 py-2 text-xs shadow-lg" style={{ top: `${((34 + hover * ROW) / H) * 100}%` }}>
+            <p className="mb-1 font-bold">{rows[hover].lead}-day-ahead error (MAE)</p>
+            {methods.map((m) => (
+              <p key={m.key} className={`flex justify-between gap-2 tabular ${m.key === FINAL_METHOD ? 'font-bold text-sea' : ''}`}>
+                <span className="flex items-center gap-1.5"><span className="inline-block h-2 w-2 rounded-full" style={{ background: m.color }} />{methodLabel(m.key, c.primary_raw_model)}</span>
+                <span>{fmt(rows[hover].vals[m.key])}</span>
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+      {others && (
+        <p className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+          {extra.map((m) => (
+            <span key={m.key} className="flex items-center gap-1.5"><span className="inline-block h-3 w-1 rounded" style={{ background: m.color }} />{methodLabel(m.key)}</span>
+          ))}
+        </p>
+      )}
     </div>
   )
 }

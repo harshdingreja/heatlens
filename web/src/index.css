@@ -76,3 +76,61 @@ body {
   border-color: var(--color-line);
   box-shadow: none;
 }
+
+/* Range sliders: filled track up to the thumb (--pct is set inline) */
+.heat-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1d5e86 var(--pct, 50%), #c9d4da var(--pct, 50%));
+  cursor: pointer;
+}
+.heat-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #1d5e86;
+  box-shadow: 0 1px 4px rgb(14 42 59 / 0.3);
+  transition: transform 150ms;
+}
+.heat-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.heat-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #1d5e86;
+}
+
+/* Heat shimmer above the silhouette at Danger and above */
+@keyframes rise-fade {
+  from { transform: translateY(0); opacity: 0.9; }
+  to { transform: translateY(-14px); opacity: 0; }
+}
+.heat-wave {
+  animation: rise-fade 1.4s ease-out infinite;
+}
+
+/* Radar shape morphs between wards */
+.radar-shape {
+  transition: all 450ms ease-out;
+}
+
+/* MapLibre popups in our font */
+.maplibregl-popup-content {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-ink);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heat-wave { animation: none; }
+  .radar-shape { transition: none; }
+}

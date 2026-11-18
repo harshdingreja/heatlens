@@ -7,4 +7,6 @@ import { defineConfig } from 'vite'
 // - tailwindcss(): turns the Tailwind classes we use into real CSS
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  // MapLibre's worker is an ES module, so bundle workers as ES modules too
+  worker: { format: 'es' },
 })

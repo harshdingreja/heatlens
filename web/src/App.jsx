@@ -1,5 +1,4 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
-import { fmtDay } from './lib/heat'
 import { methodLabel, modelName } from './lib/model'
 import { USE_MOCK, getForecast, getModel, getRisk, getWards } from './api'
 import { useApi } from './lib/useApi'
@@ -7,13 +6,16 @@ import AdvisoryPanel from './components/AdvisoryPanel'
 import Footer from './components/Footer'
 import ForecastChart from './components/ForecastChart'
 import Header from './components/Header'
-import HeatRibbon from './components/HeatRibbon'
+import HeroGauge from './components/HeroGauge'
+import HeatCalculator from './components/HeatCalculator'
+import HeatCalendar from './components/HeatCalendar'
+import RiskChecker from './components/RiskChecker'
+import WardRiskSection from './components/WardRiskSection'
 import MethodSection from './components/MethodSection'
 import NavBar from './components/NavBar'
 import { Panel, Status } from './components/Panel'
 import RiskCard from './components/RiskCard'
-import WardDetails from './components/WardDetails'
-import WardMap from './components/WardMap'
+import SafeBoundary from './components/SafeBoundary'
 
 // The model section is big (many charts), so it is loaded as a separate file only when needed.
 const ModelPerformance = lazy(() => import('./components/ModelPerformance'))
@@ -24,7 +26,13 @@ export default function App() {
   const wards = useApi(getWards)
   const risk = useApi(getRisk)
   const model = useApi(getModel) // /model is ~185 KB: fetched once here, passed down
-  const [selectedWard, setSelectedWard] = useState(null)
+  const [episodeStart, setEpisodeStart] = useState(null) // heatwave picked in the calendar
+
+  // Calendar click -> open that heatwave's case study
+  const openEpisode = (start) => {
+    setEpisodeStart(start)
+    setTimeout(() => document.getElementById('heatwaves')?.scrollIntoView({ behavior: 'smooth' }), 50)
+  }
 
   // The model section grows after /model arrives, which pushes later sections down.
   // If the page was opened with a #link, scroll there again once the charts have mounted.
@@ -51,7 +59,7 @@ export default function App() {
 
         <main className="flex min-w-0 flex-col gap-10 sm:gap-14">
           <Section id="forecast" title="Live forecast">
-            <HeatRibbon state={forecast} />
+            <SafeBoundary name="forecast gauge"><HeroGauge state={forecast} /></SafeBoundary>
             <div className="grid min-w-0 gap-5 sm:gap-6 lg:grid-cols-5">
               <Panel id="chart" title="Raw forecast vs HeatShield correction" className="min-w-0 lg:col-span-3" aside="Daily maximum heat index, °C">
                 {forecast.data ? (
@@ -72,23 +80,35 @@ export default function App() {
             </div>
           </Section>
 
-          <Section id="ward-risk" title="Ward risk">
+          <Section id="your-risk" title="Your heat risk" intro="Check your own situation for tomorrow, or play with temperature and humidity to see how the heat index works.">
+            <Panel id="checker" title="Am I at risk tomorrow?">
+              {forecast.loading ? <Status loading what="the forecast" /> : <SafeBoundary name="risk checker"><RiskChecker days={forecast.data?.days} wards={wards.data} /></SafeBoundary>}
+            </Panel>
+            <Panel id="calculator" title="What-if heat calculator" aside="Same NOAA formula as our models">
+              <SafeBoundary name="calculator"><HeatCalculator /></SafeBoundary>
+            </Panel>
+          </Section>
+
+          <Section id="ward-risk" title="Ward risk" intro="Which of Mumbai's 24 BMC wards are most exposed. Press play to see how risk changes over the next 5 days.">
             <Panel
               id="wards"
               title="Where in Mumbai it hurts most"
-              aside={wards.data?.meta ? `City hazard used: ${wards.data.meta.hazard_alert?.replace(/_/g, ' ')}, ${fmtDay(wards.data.meta.hazard_date)}` : null}
+              aside={wards.data?.meta ? `HVI = satellite heat, greenery, density, slums, workers` : null}
             >
               {wards.data ? (
-                <div className="grid min-w-0 gap-5 lg:grid-cols-3">
-                  <div className="min-w-0 lg:col-span-2">
-                    <WardMap wards={wards.data} selectedId={selectedWard} onSelect={setSelectedWard} />
-                  </div>
-                  <div className="min-w-0">
-                    <WardDetails wards={wards.data} selectedId={selectedWard} onSelect={setSelectedWard} />
-                  </div>
-                </div>
+                <SafeBoundary name="ward map"><WardRiskSection wards={wards.data} days={forecast.data?.days} /></SafeBoundary>
               ) : (
                 <Status {...wards} onRetry={wards.reload} what="the ward map" />
+              )}
+            </Panel>
+          </Section>
+
+          <Section id="history" title="Heat history" intro="Every day observed at Santacruz since 2021. Hover a day for details; click an outlined heatwave to open its case study.">
+            <Panel id="calendar" title="Daily maximum heat index, 2021–2026">
+              {model.data?.heat_calendar ? (
+                <SafeBoundary name="heat calendar"><HeatCalendar days={model.data.heat_calendar} episodes={model.data.heatwave_history?.episodes} onEpisode={openEpisode} /></SafeBoundary>
+              ) : (
+                <Status {...model} onRetry={model.reload} what="the heat history" />
               )}
             </Panel>
           </Section>
@@ -100,7 +120,7 @@ export default function App() {
           >
             {model.data ? (
               <Suspense fallback={<p className="text-sm text-ink-soft">Loading charts…</p>}>
-                <ModelPerformance report={model.data} />
+                <SafeBoundary name="model performance"><ModelPerformance report={model.data} episodeStart={episodeStart} /></SafeBoundary>
               </Suspense>
             ) : (
               <Panel title="Model report">

@@ -19,10 +19,15 @@ export function Status({ loading, slow, error, onRetry, what, dark = false }) {
   const soft = dark ? 'text-white/75' : 'text-ink-soft'
   if (loading) {
     return (
-      <p className={`py-6 text-sm ${soft}`} role="status">
-        Loading {what}…
-        {slow && ' The free API server sleeps when idle and can take up to a minute to wake up.'}
-      </p>
+      <div className="py-2" role="status">
+        <span className="sr-only">Loading {what}…</span>
+        <div className="space-y-2.5" aria-hidden="true">
+          <Skeleton className={`h-5 w-2/3 ${dark ? 'bg-white/10' : ''}`} />
+          <Skeleton className={`h-32 w-full ${dark ? 'bg-white/10' : ''}`} />
+          <Skeleton className={`h-5 w-1/2 ${dark ? 'bg-white/10' : ''}`} />
+        </div>
+        {slow && <p className={`mt-3 text-sm ${soft}`}>The free API server sleeps when idle and can take up to a minute to wake up.</p>}
+      </div>
     )
   }
   if (error) {
@@ -44,4 +49,9 @@ export function Status({ loading, slow, error, onRetry, what, dark = false }) {
     )
   }
   return null
+}
+
+// Grey shimmering placeholder shown while data loads
+export function Skeleton({ className = '' }) {
+  return <div aria-hidden="true" className={`animate-pulse rounded-md bg-ink/10 ${className}`} />
 }

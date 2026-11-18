@@ -1,5 +1,6 @@
 import { FINAL_METHOD, alertCounts, fmt, metric, modelName, pctOf } from '../../lib/model'
 import { dateRange } from '../../lib/chart'
+import CountUp from '../CountUp'
 
 // The headline numbers: everything is computed from the /model report, nothing typed in.
 export default function KpiTiles({ corrector: c }) {
@@ -15,24 +16,24 @@ export default function KpiTiles({ corrector: c }) {
     {
       label: 'Forecast error (MAE)',
       before: `${fmt(raw.mae)} °C`,
-      after: `${fmt(fin.mae)} °C`,
-      note: `${Math.round(reduction)}% lower than the raw ${rawName} forecast`,
+      after: <CountUp value={fin.mae} digits={2} suffix=" °C" />,
+      note: <><CountUp value={Math.round(reduction)} suffix="%" className="font-bold" /> lower than the raw {rawName} forecast</>,
     },
     {
       label: 'Danger days caught (recall)',
       before: pctOf(ar.recall),
-      after: pctOf(af.recall),
+      after: <CountUp value={Math.round(af.recall * 100)} suffix="%" />,
       note: `Misses ${af.missed} of ${observed} Danger days, instead of ${ar.missed}`,
     },
     {
       label: 'Danger alert F1 score',
       before: fmt(ar.f1),
-      after: fmt(af.f1),
+      after: <CountUp value={af.f1} digits={2} />,
       note: 'Balances caught days against false alarms',
     },
     {
       label: 'Unseen test set',
-      after: c.n_test_rows.toLocaleString('en-IN'),
+      after: <CountUp value={c.n_test_rows} />,
       note: `Forecasts for ${dateRange(c.test_period[0], c.test_period[1])}, leads 1–5 days`,
     },
   ]

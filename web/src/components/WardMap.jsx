@@ -7,7 +7,7 @@ const MUMBAI_CENTER = [19.07, 72.87]
 
 // Choropleth of Mumbai's BMC wards, coloured by today's ward risk level.
 // Clicking a ward selects it; the details appear in <WardDetails>.
-export default function WardMap({ wards, selectedId, onSelect }) {
+export default function WardMap({ wards, selectedId, onSelect, bare = false }) {
   // Leaflet's style function: called once per ward polygon.
   const style = useMemo(
     () => (feature) => {
@@ -31,7 +31,7 @@ export default function WardMap({ wards, selectedId, onSelect }) {
 
   return (
     <div>
-      <div className="h-[360px] overflow-hidden rounded border border-line sm:h-[520px]">
+      <div className={bare ? 'h-[380px] sm:h-[520px]' : 'h-[360px] overflow-hidden rounded border border-line sm:h-[520px]'}>
         <MapContainer center={MUMBAI_CENTER} zoom={11} zoomSnap={0.25} scrollWheelZoom={false} className="h-full w-full">
           {/* OpenStreetMap tiles (free, no key). index.css greys them out so the ward colours stand out. */}
           <TileLayer
@@ -40,11 +40,11 @@ export default function WardMap({ wards, selectedId, onSelect }) {
             maxZoom={19}
           />
           {/* key makes React rebuild the layer if new data arrives */}
-          <GeoJSON key={wards.meta?.hazard_date ?? 'wards'} data={wards} style={style} onEachFeature={onEachFeature} />
+          <GeoJSON key={wards.features.map((f) => f.properties.risk_level[0]).join('')} data={wards} style={style} onEachFeature={onEachFeature} />
           <FitToWards wards={wards} />
         </MapContainer>
       </div>
-      <Legend />
+      {!bare && <Legend />}
     </div>
   )
 }
