@@ -59,7 +59,17 @@ export default function App() {
       </div>
 
       <main className="min-w-0">
-        <Section n="01" id="forecast" title="Heat index forecast" intro={`Next 5 days at Santacruz: the raw ${forecast.data ? modelName(forecast.data.forecast_model) : 'weather model'} forecast and the ML-corrected value, with NOAA and IMD alert levels.`}>
+        <Section n="01" id="ward-risk" title="Mumbai heat risk by ward" intro="24 BMC wards coloured by heat risk for the selected day. Click a ward for details.">
+          <Panel id="wards" title="Ward risk map">
+            {wards.data ? (
+              <SafeBoundary name="ward map"><WardRiskSection wards={wards.data} days={forecast.data?.days} /></SafeBoundary>
+            ) : (
+              <Status {...wards} onRetry={wards.reload} what="the ward map" />
+            )}
+          </Panel>
+        </Section>
+
+        <Section n="02" id="forecast" title="Heat index forecast" intro={`Next 5 days at Santacruz: the raw ${forecast.data ? modelName(forecast.data.forecast_model) : 'weather model'} forecast and the ML-corrected value, with NOAA and IMD alert levels.`}>
           <SafeBoundary name="forecast gauge"><HeroGauge state={forecast} /></SafeBoundary>
           <Panel id="chart" title="Raw vs corrected forecast" aside="Daily maximum heat index, °C">
             {forecast.data ? (
@@ -72,16 +82,6 @@ export default function App() {
               </>
             ) : (
               <Status {...forecast} onRetry={forecast.reload} what="the forecast" />
-            )}
-          </Panel>
-        </Section>
-
-        <Section n="02" id="ward-risk" title="Ward vulnerability" intro="Heat Vulnerability Index for the 24 BMC wards (satellite land-surface temperature, green cover, density, slum share, worker share), combined with the selected day's city-wide hazard.">
-          <Panel id="wards" title="Ward risk map">
-            {wards.data ? (
-              <SafeBoundary name="ward map"><WardRiskSection wards={wards.data} days={forecast.data?.days} /></SafeBoundary>
-            ) : (
-              <Status {...wards} onRetry={wards.reload} what="the ward map" />
             )}
           </Panel>
         </Section>
@@ -148,7 +148,7 @@ export default function App() {
 function Section({ n, id, title, intro, children }) {
   const odd = Number(n) % 2 === 1
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className={`min-w-0 scroll-mt-12 border-t border-line py-10 sm:py-14 ${odd ? 'bg-haze' : 'bg-white'}`}>
+    <section id={id} aria-labelledby={`${id}-heading`} className={`min-w-0 scroll-mt-12 border-t border-line ${n === '01' ? 'pt-6 pb-10 sm:pb-14' : 'py-10 sm:py-14'} ${odd ? 'bg-haze' : 'bg-white'}`}>
       <div className="mx-auto flex max-w-6xl min-w-0 flex-col gap-5 px-4 sm:gap-6 sm:px-6">
         <div className="border-l-4 border-sea pl-4">
           <p className="text-sm font-bold tracking-widest text-sea tabular">{n}</p>

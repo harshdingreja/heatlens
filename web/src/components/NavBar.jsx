@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 const NAV = [
+  { id: 'ward-risk', label: 'Map' },
   { id: 'forecast', label: 'Forecast' },
-  { id: 'ward-risk', label: 'Wards' },
   { id: 'health', label: 'Health' },
   { id: 'performance', label: 'Evaluation' },
   { id: 'history', label: 'Record' },
