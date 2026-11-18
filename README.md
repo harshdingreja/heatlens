@@ -10,6 +10,14 @@ Heat warnings usually look only at temperature. In humid Mumbai, **34 °C at 70 
 
 ![Corrected vs raw forecast, 2026](docs/figures/backtest_lead1.png)
 
+## Screenshots
+
+| Model performance (2026 hold-out test) | Past heatwaves: real case study (Oct 2026) |
+|---|---|
+| ![Model performance](docs/screenshots/model_performance.jpg) | ![Past heatwaves](docs/screenshots/past_heatwaves.jpg) |
+| **5-day feels-like forecast** | **Ward risk map** |
+| ![Forecast](docs/screenshots/forecast_strip.jpg) | ![Ward map](docs/screenshots/ward_map.jpg) |
+
 ## Features
 
 **Forecasting and ML**

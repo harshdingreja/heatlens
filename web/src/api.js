@@ -1,7 +1,7 @@
 // All calls to the HeatShield FastAPI backend live here.
 // The base URL comes from the VITE_API_URL environment variable (set in .env or on Vercel).
 
-export const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/$/, '')
+export const API_URL = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/$/, '')
 
 // Mock mode is ONLY for working on the UI without a backend (npm run dev:mock).
 // It is never switched on automatically: if the real API fails, the page shows an error.
@@ -13,6 +13,7 @@ const mocks = {
   '/wards': () => import('./mock/wards.json'),
   '/risk': () => import('./mock/risk.json'),
   '/advisory': () => import('./mock/advisory.json'),
+  '/model': () => import('./mock/model.json'),
 }
 
 const TIMEOUT_MS = 75_000 // Render's free tier can take ~1 minute to wake up
@@ -56,6 +57,7 @@ async function request(path, options = {}) {
 export const getForecast = (days = 5) => request(`/forecast?days=${days}`)
 export const getWards = () => request('/wards')
 export const getRisk = () => request('/risk')
+export const getModel = () => request('/model') // ~185 KB: fetched once by App
 
 export const postAdvisory = (lang) =>
   request('/advisory', {

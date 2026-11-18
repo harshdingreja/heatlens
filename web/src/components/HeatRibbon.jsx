@@ -1,3 +1,5 @@
+import { useLayoutEffect, useRef } from 'react'
+import { methodLabel } from '../lib/model'
 import { HEAT_HEX, HEAT_TEXT_ON, NOAA_BANDS, fmtDay, fmtTemp } from '../lib/heat'
 import { Status } from './Panel'
 
@@ -19,7 +21,7 @@ export default function HeatRibbon({ state }) {
         </h2>
         {data && (
           <p className="text-sm text-white/70">
-            Heat index at Santacruz, corrected by {data.corrector ?? 'our model'}
+            Heat index at Santacruz, corrected by {data.corrector ? methodLabel(data.corrector) : 'our model'}
           </p>
         )}
       </div>
@@ -90,8 +92,10 @@ function DayColumn({ day, index }) {
   const value = day.heat_index_corrected_c ?? day.heat_index_raw_c
   const color = day.alert?.color ?? 'green'
   const height = value == null ? 0 : pct(value)
+  const barRef = useRef(null)
+  useRiseAnimation(barRef, index)
   return (
-    <li className="relative flex h-full flex-col justify-end" aria-label={`${fmtDay(day.date)}: heat index ${fmtTemp(value)}C, ${day.alert?.label ?? 'no alert'}`}>
+    <li className="relative flex h-full min-w-0 flex-col justify-end" aria-label={`${fmtDay(day.date)}: heat index ${fmtTemp(value)}C, ${day.alert?.label ?? 'no alert'}`}>
       {/* the value sits just above the top of the fill */}
       <span
         className="absolute inset-x-0 text-center text-lg font-extrabold leading-none tabular sm:text-3xl"
@@ -100,11 +104,37 @@ function DayColumn({ day, index }) {
         {fmtTemp(value)}
       </span>
       <div
-        className="ribbon-fill mx-auto w-full rounded-t-sm sm:w-4/5"
-        style={{ height: `${height}%`, background: HEAT_HEX[color], animationDelay: `${index * 90}ms` }}
+        ref={barRef}
+        className="mx-auto w-full origin-bottom rounded-t-sm sm:w-4/5"
+        style={{ height: `${height}%`, background: HEAT_HEX[color] }}
       />
     </li>
   )
+}
+
+// The bars always render at full height. The "rise" is an optional extra: it only runs when
+// the page is visible and the user hasn't asked for reduced motion.
+// (Old bug: a CSS animation with a delay held each bar at height 0 until the animation clock
+// ticked. In hidden or throttled tabs that clock is frozen, so the delayed bars stayed empty.)
+function useRiseAnimation(ref, index) {
+  useLayoutEffect(() => {
+    const el = ref.current
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (!el || reduce || document.visibilityState !== 'visible' || !el.animate) return
+    const anim = el.animate([{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], {
+      duration: 800,
+      delay: index * 90,
+      easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)',
+      fill: 'backwards',
+    })
+    // If the tab is hidden mid-animation, jump straight to the end state.
+    const finish = () => document.visibilityState !== 'visible' && anim.finish()
+    document.addEventListener('visibilitychange', finish)
+    return () => {
+      document.removeEventListener('visibilitychange', finish)
+      anim.cancel()
+    }
+  }, [ref, index])
 }
 
 function DayDetails({ day }) {

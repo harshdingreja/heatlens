@@ -3,7 +3,7 @@ import { fmtLongDate } from '../lib/heat'
 // Top of the page: name, what it is, and how fresh the data is.
 export default function Header({ forecast }) {
   return (
-    <header className="flex flex-col gap-4 pt-6 pb-5 sm:flex-row sm:items-end sm:justify-between sm:pt-10">
+    <header className="flex flex-col gap-4 pt-6 pb-6 sm:flex-row sm:items-end sm:justify-between sm:pt-8">
       <div>
         <div className="flex items-center gap-3">
           <Thermometer />

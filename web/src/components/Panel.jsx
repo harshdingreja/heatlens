@@ -1,7 +1,7 @@
 // A white panel with a heading. Used by every dashboard section.
 export function Panel({ title, aside, children, className = '', id }) {
   return (
-    <section id={id} aria-labelledby={id ? `${id}-title` : undefined} className={`rounded-md border border-line bg-surface ${className}`}>
+    <section id={id} aria-labelledby={id ? `${id}-title` : undefined} className={`min-w-0 rounded-md border border-line bg-surface ${className}`}>
       <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line px-4 py-3 sm:px-5">
         <h2 id={id ? `${id}-title` : undefined} className="text-lg font-bold leading-tight">
           {title}
