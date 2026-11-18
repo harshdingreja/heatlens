@@ -65,7 +65,7 @@ python scripts/make_results.py
 The code is already on GitHub (public repo `heatshield`) with all config files (`render.yaml`, `web/vercel.json`).
 
 **Step 1: API on Render (~10 min)**
-1. Go to https://render.com and click **Get Started**. Sign up with **GitHub** (you, not Claude).
+1. Go to https://render.com and click **Get Started**. Sign up with **GitHub**.
 2. Click **New +** → **Blueprint** → pick the `heatshield` repo → **Connect**. Render reads `render.yaml` by itself.
 3. It asks for 3 values. Paste your `GROQ_API_KEY` and `GEMINI_API_KEY` (or leave them empty; templates will be used). Leave `ALLOWED_ORIGINS` empty: any `*.vercel.app` site is already allowed.
 4. Click **Apply** and wait for the build (5–10 min). Copy the URL, e.g. `https://heatshield-api.onrender.com`.
